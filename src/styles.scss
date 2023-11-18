@@ -1,1 +1,75 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'CircularStd-Black';
+    src: url(../public/fonts/CircularStd-Black.otf);
+}
+@font-face {
+    font-family: 'CircularStd-BlackItalic';
+    src: url(../public/fonts/CircularStd-BlackItalic.otf);
+}
+@font-face {
+    font-family: 'CircularStd-Bold';
+    src: url(../public/fonts/CircularStd-Bold.otf);
+}
+@font-face {
+    font-family: 'CircularStd-BoldItalic';
+    src: url(../public/fonts/CircularStd-BoldItalic.otf);
+}
+@font-face {
+    font-family: 'CircularStd-Book';
+    src: url(../public/fonts/CircularStd-Book.otf);
+}
+@font-face {
+    font-family: 'CircularStd-BookItalic';
+    src: url(../public/fonts/CircularStd-BookItalic.otf);
+}
+@font-face {
+    font-family: 'CircularStd-Light';
+    src: url(../public/fonts/CircularStd-Light.otf);
+}
+@font-face {
+    font-family: 'CircularStd-LightItalic';
+    src: url(../public/fonts/CircularStd-Light\ Italic.otf);
+}
+@font-face {
+    font-family: 'CircularStd-Medium';
+    src: url(../public/fonts/CircularStd-Medium.otf);
+}
+@font-face {
+    font-family: 'CircularStd-MediumItalic';
+    src: url(../public/fonts/CircularStd-MediumItalic.otf);
+}
+.CircularStd-Light{
+    font-family: CircularStd-Light;
+}
+.CircularStd-LightItalic{
+    font-family: CircularStd-LightItalic;
+}
+.CircularStd-Book{
+    font-family: CircularStd-Book;
+}
+.CircularStd-BookItalic{
+    font-family: CircularStd-BookItalic;
+}
+.CircularStd-Medium{
+    font-family: CircularStd-Medium;
+}
+.CircularStd-MediumItalic{
+    font-family: CircularStd-MediumItalic;
+}
+.CircularStd-Bold{
+    font-family: CircularStd-Bold;
+}
+.CircularStd-BoldItalic{
+    font-family: CircularStd-BoldItalic;
+}
+.CircularStd-Black{
+    font-family: CircularStd-Black;
+}
+.CircularStd-BlackItalic{
+    font-family: CircularStd-BlackItalic;
+}
