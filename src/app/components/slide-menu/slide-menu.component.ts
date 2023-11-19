@@ -59,19 +59,19 @@ export class SlideMenuComponent implements OnInit {
       {
         id: 1,
         name: 'Musicote',
-        image:
+        picture:
           'https://i.scdn.co/image/ab67706c0000da84a150ef2143685e190d354439',
-        user: {
-          nickName: 'Luiss_perezh',
-        },
+        owner:{
+          name: 'Luis Hidalgo Aguilar',
+        }
       },
       {
         id: 2,
         name: 'Favoritos',
-        image:
+        picture:
           'https://wallup.net/wp-content/uploads/2018/10/04/670065-space-outer-universe-stars-photography-detail-astronomy-nasa-hubble.jpg',
-        user: {
-          nickName: 'Luis Hidalgo Aguilar',
+        owner: {
+          name: 'Luis Hidalgo Aguilar',
         },
       }
     ];
@@ -81,9 +81,9 @@ export class SlideMenuComponent implements OnInit {
           this.playLists.push({
             id: i,
             name: 'Musicote',
-            image: data[i].images[0],
-            user: {
-              nickName: 'Luiss_perezh',
+            picture: data[i].images[0],
+            owner: {
+              name: 'Luiss_perezh',
             },
           });
         }
