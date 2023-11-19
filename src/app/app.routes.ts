@@ -6,7 +6,7 @@ import { SlideMenuComponent } from './components/slide-menu/slide-menu.component
 import { HubComponent } from './pages/hub/hub.component';
 
 export const routes: Routes = [
-  { path: 'home', component: AppComponent },
+  { title:'Home | preview' ,path: 'home', component: AppComponent },
 
   // TEST
   { path: 'test', component: TestComponent },

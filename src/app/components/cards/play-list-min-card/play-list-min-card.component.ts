@@ -29,7 +29,6 @@ export class PlayListMinCardComponent implements OnInit{
     });
   }
   ngOnInit(): void {
-    console.log(this.playList);
   }
 
 

@@ -26,13 +26,17 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
+              "src/favicon.png",
               "src/assets"
             ],
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./src/Script/Audius/AudiusConnect.js",
+              "./src/Script/Audius/sdkmin.js",
+              "./src/Script/Audius/Web3.js"
+            ]
           },
           "configurations": {
             "production": {

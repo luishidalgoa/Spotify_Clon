@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../../assets/icons/home.component';
 import { SearchComponent } from '../../../assets/icons/search.component';
@@ -10,6 +10,8 @@ import { LanguageService } from '../../services/language.service';
 import { Observable, map } from 'rxjs';
 import { PlayListMinCardComponent } from '../cards/play-list-min-card/play-list-min-card.component';
 import { PlayList } from '../../model/domain/play-list';
+import {AudiusSService} from "../../services/apis/audius/audius-s.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-slide-menu',
@@ -25,6 +27,7 @@ import { PlayList } from '../../model/domain/play-list';
     AddComponent,
     HamburguerMenuComponent,
     PlayListMinCardComponent,
+    NgOptimizedImage
   ],
   templateUrl: './slide-menu.component.html',
   styleUrl: './slide-menu.component.scss',
@@ -34,7 +37,7 @@ export class SlideMenuComponent implements OnInit {
   dictionary!: any;
   public playLists!: PlayList[];
 
-  constructor(private languageService: LanguageService) {
+  constructor(private languageService: LanguageService,private AudiusConnect: AudiusSService) {
     //Cargamos una parte del diccionario de idiomas que nos interesa
     languageService.diccionary
       .pipe(
@@ -72,5 +75,25 @@ export class SlideMenuComponent implements OnInit {
         },
       }
     ];
+    /*this.fakeImage().subscribe((data: any) => {
+      for (let i = 0; i < 30; i++) {
+        {
+          this.playLists.push({
+            id: i,
+            name: 'Musicote',
+            image: data[i].images[0],
+            user: {
+              nickName: 'Luiss_perezh',
+            },
+          });
+        }
+      }
+    });*/
+
   }
+
+  /*http: HttpClient = inject(HttpClient);
+  fakeImage(): Observable<object> {
+    return this.http.get('https://api.escuelajs.co/api/v1/products');
+  }*/
 }

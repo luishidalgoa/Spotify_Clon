@@ -1,5 +1,3 @@
-let track;
-let url;
 
 function getToken() {
   return new Promise((resolve) => {
@@ -11,7 +9,7 @@ function getToken() {
 }
 
 
-async function searchTrackById(id) {
+async function searchTrackById(id)   {
   const audiusSdk = await getToken()
   const result = await audiusSdk.tracks.getTrack({
     trackId: id
@@ -20,7 +18,7 @@ async function searchTrackById(id) {
   return result;
 }
 
-async function getStreamUrl(id) {
+async function getStreamUrl(id)  {
   const audiusSdk = await getToken()
   const url = await audiusSdk.tracks.streamTrack({
     trackId: id,
@@ -33,12 +31,4 @@ async function getTracks(filterWord) {
   return await audiusSdk.tracks.searchTracks({
     query: `${filterWord}`,
   });
-}
-
-function buildCard(track, url) {
-  return `<div>
-            <h2>${track.title}</h2>
-            <img src="${track.artwork._150x150}">
-            <audio controls><source src="${url}"></audio>
-        </div>`
 }
