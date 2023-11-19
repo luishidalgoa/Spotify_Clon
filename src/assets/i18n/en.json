@@ -1,26 +1,29 @@
 {
-    "lang": {
-        "es": "Spanish",
-        "en": "English"
-    },
-    "components": {
-        "Slide_Menu": {
-            "header": {
-                "home": "Home",
-                "search": "Search"
-            },
-            "contain": {
-                "library": "Your library",
-                "context_library": "Collapse Your library",
-                "context_add": "Create a list or folder",
-                "filter": {
-                    "list": "Lists",
-                    "artist": "Artists",
-                    "albums": "Albums"
-                },
-                "context_search": "Search in your library",
-                "lasted": "Recent"
-            }
-        }
+  "lang": {
+    "es": "Spanish",
+    "en": "English"
+  },
+  "components": {
+    "Slide_Menu": {
+      "header": {
+        "home": "Home",
+        "search": "Search"
+      },
+      "contain": {
+        "library": "Your library",
+        "context_library": "Collapse Your library",
+        "context_add": "Create a list or folder",
+        "filter": {
+          "list": "Lists",
+          "artist": "Artists",
+          "albums": "Albums"
+        },
+        "context_search": "Search in your library",
+        "lasted": "Recent"
+      }
     }
+  },
+  "words": {
+    "list": "List"
+  }
 }

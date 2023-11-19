@@ -7,25 +7,26 @@
                     class="fill-zinc-400 h-7 w-7" /><span>{{dictionary?.header?.search}}</span></a>
         </ul>
     </section>
-    <section class="bg-[#121212] rounded-xl h-[742px]" role="wrapper">
-        <ul class="py-2 px-5 flex flex-col gap-5 ">
+    <section class="bg-[#121212] rounded-xl h-[725px]" role="wrapper">
+        <ul class="py-2 flex flex-col gap-5 ">
             <header>
-                <div class="flex justify-between px-2 py-2">
-                    <div class="flex items-center">
+                <div class="flex justify-between px-4 py-2">
+                    <button [ariaLabel]="dictionary?.contain?.context_library" data-encore-id="buttonTertiary"
+                      class="flex items-center">
                         <a class="flex gap-5  "><icon-library /> <span>{{dictionary?.contain?.library}}</span></a>
-                    </div>
-                    <button
+                    </button>
+                    <button [ariaLabel]="dictionary?.contain?.context_add" data-encore-id="buttonTertiary"
                         class="bg-transparent transition-colors hover:bg-white/5 rounded-full h-8 w-8 p-2 hover:fill-white fill-zinc-400">
                         <icon-add class=" h-5 w-5" />
                     </button>
                 </div>
-                <footer>
-                    <div class="flex gap-2 my-3 order">
+                <section>
+                    <div class="flex gap-2 px-3 my-3 order">
                         <button><span>{{dictionary?.contain?.filter?.list}}</span></button>
                         <button><span>{{dictionary?.contain?.filter?.artist}}</span></button>
                         <button><span>{{dictionary?.contain?.filter?.albums}}</span></button>
                     </div>
-                    <div class="flex items-center justify-between">
+                    <div class="flex items-center justify-between pl-3 mr-6 shadow-md" >
                         <span (click)="InputSearche.focus(); tabIndex=0"
                             class="flex items-center border-0 rounded-md"
                             role="search">
@@ -34,10 +35,9 @@
                                 #InputSearche (blur)="tabIndex=-1"
                                 placeholder="{{dictionary?.contain?.context_search}}"
                                 [tabIndex]="tabIndex">
-                            <button
-                                [ngClass]="['absolute bg-transparent transition-colors rounded-full h-9 w-9 fill-zinc-400',tabIndex==-1?'hover:bg-white/5 hover:fill-white':'cursor-text fill-zinc-300']">
-                                <icon-search
-                                    class="w-5 h-5 inset-0 absolute m-auto" />
+                            <button [ariaLabel]="dictionary?.contain?.context_search" data-encore-id="buttonTertiary"
+                                [ngClass]="['bg-transparent transition-colors rounded-full h-9 w-9 fill-zinc-400',tabIndex==-1?'hover:bg-white/5 hover:fill-white':'cursor-text fill-zinc-300']">
+                                <icon-search class="absolute w-5 h-5 inset-0 m-auto" />
                             </button>
                         </span>
 
@@ -50,14 +50,16 @@
                             </button>
                         </span>
                     </div>
-                </footer>
+                    <div data-encore-id="scroll" class="overflow-auto max-h-[580px]">
+                        <ng-container class="px-2">
+                          @for (obj of playLists; track $index) {
+                            <app-play-list-min-card [playList]="obj"/>
+                          }
+                        </ng-container>
+                    </div>
+                </section>
             </header>
         </ul>
-        <ng-container>
-            <!--@for (item of ; track $index) {
-
-            }-->
-        </ng-container>
+        
     </section>
 </nav>
-

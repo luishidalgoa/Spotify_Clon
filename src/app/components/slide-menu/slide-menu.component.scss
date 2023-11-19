@@ -1,47 +1,108 @@
 $currentColor: #a1a1aa;
+
 a:hover * {
   fill: #fff !important;
   color: #fff;
-  
-}
-a{
-    cursor: pointer;
-    *{
-        transition: all 0.3s ease-in;
-    }
-}
-.active{
-    *{
-        fill: #fff !important;
-        color: #fff;
-    }
-}
-ul{
-    font-family: CircularStd-bold;
+
 }
 
-a, li,span{
-    color: $currentColor;
+a {
+  cursor: pointer;
+
+  * {
+    transition: all 0.3s ease-in;
+  }
 }
-footer .order button{
-    font-size: .9rem;
-    line-height: 1.5rem;
-    @apply bg-white/10 rounded-full px-3 py-1 hover:bg-white/[0.135] transition-colors;
-    font-family: CircularStd-light;
-    span{
-        @apply text-white
-    }
+
+.active {
+  * {
+    fill: #fff !important;
+    color: #fff;
+  }
 }
-span[role="search"]{
-    input{
-        transition: all 0.35s ease-in-out;
-        font-family: CircularStd-book;
-        @apply text-ellipsis  text-zinc-300
-    }
+
+ul {
+  font-family: CircularStd-bold;
 }
-section[role="wrapper"]{
-    @apply lg:max-w-md md:max-w-sm max-w-[18rem];
+
+a,
+li,
+span {
+  color: $currentColor;
 }
-span[role="filter"] button span{
-    color: inherit;
+
+section .order button {
+  font-size: .9rem;
+  line-height: 1.5rem;
+  @apply bg-white/10 rounded-full px-3 py-1 hover:bg-white/[0.135] transition-colors;
+  font-family: CircularStd-light;
+
+  span {
+    @apply text-white
+  }
+}
+
+span[role="search"] {
+  input {
+    transition: all 0.35s ease-in-out;
+    font-family: CircularStd-book;
+    @apply text-ellipsis text-zinc-300
+  }
+  button{
+    position: absolute!important;
+  }
+}
+
+section[role="wrapper"] {
+  @apply lg:max-w-md md:max-w-sm max-w-[18rem];
+}
+
+span[role="filter"] button span {
+  color: inherit;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  span {
+    transition: none;
+  }
+
+  a * {
+    transition: none;
+  }
+}
+
+button[data-encore-id="buttonTertiary"] {
+  @apply relative;
+}
+
+button[data-encore-id="buttonTertiary"]:hover::after {
+  animation: ariaLabel 0.1s .4s ease-in-out forwards;
+  opacity: 0;
+  content: attr(aria-label);
+  transform: translate(-50%, -30px);
+  font-family: CircularStd-book;
+  @apply absolute top-0 py-1 px-2 bg-[#282828] brightness-125 text-zinc-300 rounded-md text-sm whitespace-nowrap shadow-xl shadow-black;
+}
+
+@keyframes ariaLabel {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+div[data-encore-id="scroll"]::-webkit-scrollbar{
+    width: 0;
+}
+div[data-encore-id="scroll"]:hover::-webkit-scrollbar {
+  width: .8rem;
+}
+
+
+div[data-encore-id="scroll"]:hover::-webkit-scrollbar-thumb {
+  background: rgb(255,255,255,.3)
 }

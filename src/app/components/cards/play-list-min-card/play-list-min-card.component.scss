@@ -1,0 +1,17 @@
+article{
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto;
+}
+img{
+    height: 50px;
+
+    grid-column: 1;
+}
+p:first-child{
+    font-family: CircularStd-book;
+    grid-area: description;
+}
+p:last-child{
+    font-family: CircularStd-light;
+    grid-row: 2;
+}

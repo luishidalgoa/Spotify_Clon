@@ -13,6 +13,6 @@ export const routes: Routes = [
   { path: 'test/PlayList-minCard', component: PlayListMinCardComponent },
   { path: 'test/slide-menu', component: HubComponent },
 
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', redirectTo: 'home' },
+  { path: '', redirectTo: 'test', pathMatch: 'full' },
+  { path: '**', redirectTo: 'test' },
 ];

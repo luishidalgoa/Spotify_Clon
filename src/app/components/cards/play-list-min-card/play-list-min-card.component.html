@@ -1,32 +1,10 @@
 <article
-  class="group relative hover:bg-zinc-800 shadow-lg hover:shadow-xl bg-zinc-500/30 rounded-md ransi transition-all duration-300"
->
-  <div
-    class="absolute right-4 bottom-20 translate-y-4
-    transition-all duration-500 opacity-0
-    group-hover:translate-y-0 group-hover:opacity-100
-    z-10"
-  >
-  </div>
-
-  <a
-    class="playlist-item transition-all duration-300 flex relative p-2 overflow-hidden gap-2 pb-6 rounded-md w-44 flex-col"
-  >
-    <picture class="aspect-square w-full h-auto flex-none">
-      <img
-        
-        class="object-cover w-full h-full rounded-md"
-      />
-    </picture>
-
-    <div class="flex flex-auto flex-col px-2">
-      <h4 class="text-white text-sm" >
-      </h4>
-
-      <span
-        class="text-xs text-gray-400"
-      >
-      </span>
+  class="w-full h-16 bg-transparent hover:bg-zinc-500/[.05] transition-colors rounded-lg grid p-2 gap-2 ">
+  <img [ngSrc]="playList.image" srcset="" [alt]="'PlayList '+ playList.name" class="rounded-md" width="50" height="50">
+  <div class="flex mt-1">
+    <div class="flex flex-col max-w-[80%] overflow-hidden whitespace-nowrap">
+      <p class="text-base text-white text-ellipsis">{{playList.name}}</p>
+      <p class="text-sm text-gray-300/80 text-ellipsis">{{dictionary?.words?.list}} • {{playList.user.nickName}}</p>
     </div>
-  </a>
+  </div>
 </article>
