@@ -55,8 +55,27 @@ export class SlideMenuComponent implements OnInit {
       });
   }
   ngOnInit(): void {
-    this.fakeImage().subscribe((data: any) => {
-      this.playLists = [];
+    this.playLists = [
+      {
+        id: 1,
+        name: 'Musicote',
+        picture:
+          'https://i.scdn.co/image/ab67706c0000da84a150ef2143685e190d354439',
+        owner:{
+          name: 'Luiss_perezh',
+        }
+      },
+      {
+        id: 2,
+        name: 'Favoritos',
+        picture:
+          'https://wallup.net/wp-content/uploads/2018/10/04/670065-space-outer-universe-stars-photography-detail-astronomy-nasa-hubble.jpg',
+        owner: {
+          name: 'Luis Hidalgo Aguilar',
+        },
+      }
+    ];
+    /*this.fakeImage().subscribe((data: any) => {
       for (let i = 0; i < 30; i++) {
         {
           this.playLists.push({
@@ -64,18 +83,17 @@ export class SlideMenuComponent implements OnInit {
             name: 'Musicote',
             picture: data[i].images[0],
             owner: {
-              name: data[i].title,
+              name: 'Luiss_perezh',
             },
           });
         }
       }
-    });
-    /**/
+    });*/
 
   }
 
-  http: HttpClient = inject(HttpClient);
+  /*http: HttpClient = inject(HttpClient);
   fakeImage(): Observable<object> {
     return this.http.get('https://api.escuelajs.co/api/v1/products');
-  }
+  }*/
 }

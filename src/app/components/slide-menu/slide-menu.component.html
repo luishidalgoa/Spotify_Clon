@@ -51,13 +51,13 @@
           </div>
           <div data-encore-id="scroll" class="overflow-auto max-h-[580px]">
             <ng-container class="px-2">
-                @for (obj of playLists; track $index) {
+                @for (obj of playLists; track obj.id) {
                     @defer (on viewport) {
                         <app-play-list-min-card [playList]="obj" />
                     }@loading {
                         <skeleton-play-list-min-card />
                     }@placeholder {
-                        <p></p>
+                        <skeleton-play-list-min-card/>
                     }@error {
                         <div class="text-center text-white">Error</div>
                     }
