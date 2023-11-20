@@ -52,7 +52,7 @@ async function getTrackByTitle(filterWord) {
   });
 }
 //---------------------------------------Auth-----
-var sdk;
+/*var sdk;
 
 function init() {
   sdk = window.audiusSdk({
@@ -78,4 +78,4 @@ window.onload = async function () {
   sdk.oauth.renderButton({
     element: document.getElementById("audius-login-button")
   });
-};
+};*/

@@ -11,6 +11,7 @@ import { Observable, map } from 'rxjs';
 import { PlayListMinCardComponent } from '../cards/play-list-min-card/play-list-min-card.component';
 import { PlayList } from '../../model/domain/play-list';
 import {HttpClient} from "@angular/common/http";
+import { skeletonPlayListMinCardComponent } from '../items/skeleton/play-list-min-card/play-list-min-card.component';
 
 @Component({
   selector: 'app-slide-menu',
@@ -26,7 +27,7 @@ import {HttpClient} from "@angular/common/http";
     AddComponent,
     HamburguerMenuComponent,
     PlayListMinCardComponent,
-    NgOptimizedImage
+    NgOptimizedImage,skeletonPlayListMinCardComponent
   ],
   templateUrl: './slide-menu.component.html',
   styleUrl: './slide-menu.component.scss',
@@ -54,27 +55,8 @@ export class SlideMenuComponent implements OnInit {
       });
   }
   ngOnInit(): void {
-    this.playLists = [
-      {
-        id: 1,
-        name: 'Musicote',
-        picture:
-          'https://i.scdn.co/image/ab67706c0000da84a150ef2143685e190d354439',
-        owner:{
-          name: 'Luiss_perezh',
-        }
-      },
-      {
-        id: 2,
-        name: 'Favoritos',
-        picture:
-          'https://wallup.net/wp-content/uploads/2018/10/04/670065-space-outer-universe-stars-photography-detail-astronomy-nasa-hubble.jpg',
-        owner: {
-          name: 'Luis Hidalgo Aguilar',
-        },
-      }
-    ];
-    /*this.fakeImage().subscribe((data: any) => {
+    this.fakeImage().subscribe((data: any) => {
+      this.playLists = [];
       for (let i = 0; i < 30; i++) {
         {
           this.playLists.push({
@@ -82,17 +64,18 @@ export class SlideMenuComponent implements OnInit {
             name: 'Musicote',
             picture: data[i].images[0],
             owner: {
-              name: 'Luiss_perezh',
+              name: data[i].title,
             },
           });
         }
       }
-    });*/
+    });
+    /**/
 
   }
 
-  /*http: HttpClient = inject(HttpClient);
+  http: HttpClient = inject(HttpClient);
   fakeImage(): Observable<object> {
     return this.http.get('https://api.escuelajs.co/api/v1/products');
-  }*/
+  }
 }

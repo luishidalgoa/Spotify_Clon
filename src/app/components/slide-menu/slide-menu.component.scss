@@ -54,7 +54,7 @@ span[role="search"] {
 }
 
 section[role="wrapper"] {
-  @apply lg:max-w-md md:max-w-sm max-w-[18rem];
+  @apply 2xl:max-w-md lg:max-w-sm max-w-[20rem];
 }
 
 span[role="filter"] button span {
