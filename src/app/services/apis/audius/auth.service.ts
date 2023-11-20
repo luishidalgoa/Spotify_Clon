@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
+declare var window: any;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-  constructor() { }
+  constructor() {}
+  
+  async getToken(): Promise<Object> {
+    return await window['getToken']();
+  }
 }

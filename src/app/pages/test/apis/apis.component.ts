@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+declare var window: any;
 
 @Component({
   selector: 'app-apis',
@@ -11,10 +12,44 @@ export class ApisComponent implements OnInit {
   constructor(private httpClient: HttpClient) {}
 
   ngOnInit(): void {
-    this.makeApiRequest();
+    this.getToken().then((data) => {
+      console.log("Token",data);
+    });
+    this.getTrackById('Jg36mEp').then((data) => {
+      console.log("ById",data);
+    });
+
+    this.getTrackByTitle('buenas').then((data) => {
+      console.log("TrackByTitle",data);
+      return data;
+    }).then((track:any) => {
+      console.log("Track",track);
+      this.getStreamUrl(track.data[0].id).then((url) => {
+        console.log("URL",url);
+      });
+    });
   }
 
-  makeApiRequest(): void {
+  async getToken(): Promise<Object> {
+    return await window['getToken']();
+  }
+
+  async getTrackById(id: string): Promise<Object> {
+    return await window['searchTrackById'](id);
+  }
+  async getStreamUrl(id:string): Promise<Object> {
+    return await window['getStreamUrl'](id);
+  }
+  async getTrackByTitle(title: string): Promise<Object> {
+    return await window['getTrackByTitle'](title);
+  }
+
+  
+}
+/**
+ * Ejemplo de petición a una API con encabezado http
+ */
+/*makeApiRequest(): void {
     const apiUrl = 'https://countryapi.io/api/name/spain';
     const apiKey = '3SZpf87MgiUjeI1iSQ6XFZhxhwc8ms2Ubkczft4B'; // Reemplaza con tu clave de API real
 
@@ -32,5 +67,4 @@ export class ApisComponent implements OnInit {
         // Aquí puedes manejar errores
       }
     );
-  }
-}
+  }*/

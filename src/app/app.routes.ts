@@ -5,9 +5,11 @@ import { PlayListMinCardComponent } from './components/cards/play-list-min-card/
 import { SlideMenuComponent } from './components/slide-menu/slide-menu.component';
 import { HubComponent } from './pages/hub/hub.component';
 import { ApisComponent } from './pages/test/apis/apis.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
   { title:'Home | preview' ,path: 'home', component: AppComponent },
+  { title:'Auth',path: 'Auth', component: LoginComponent },
 
   // TEST
   { path: 'test', component: TestComponent },

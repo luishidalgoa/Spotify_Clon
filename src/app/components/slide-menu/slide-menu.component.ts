@@ -10,7 +10,6 @@ import { LanguageService } from '../../services/language.service';
 import { Observable, map } from 'rxjs';
 import { PlayListMinCardComponent } from '../cards/play-list-min-card/play-list-min-card.component';
 import { PlayList } from '../../model/domain/play-list';
-import {AudiusSService} from "../../services/apis/audius/audius-s.service";
 import {HttpClient} from "@angular/common/http";
 
 @Component({
@@ -37,7 +36,7 @@ export class SlideMenuComponent implements OnInit {
   dictionary!: any;
   public playLists!: PlayList[];
 
-  constructor(private languageService: LanguageService,private AudiusConnect: AudiusSService) {
+  constructor(private languageService: LanguageService) {
     //Cargamos una parte del diccionario de idiomas que nos interesa
     languageService.diccionary
       .pipe(
@@ -62,7 +61,7 @@ export class SlideMenuComponent implements OnInit {
         picture:
           'https://i.scdn.co/image/ab67706c0000da84a150ef2143685e190d354439',
         owner:{
-          name: 'Luis Hidalgo Aguilar',
+          name: 'Luiss_perezh',
         }
       },
       {
