@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { SlideMenuComponent } from './components/slide-menu/slide-menu.component';
-import { TestComponent } from './pages/test/test.component';
+import { TestComponent } from './test/pages/test.component';
 
 @Component({
   selector: 'app-root',

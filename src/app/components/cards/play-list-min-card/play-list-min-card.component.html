@@ -1,10 +1,12 @@
 <article
   class="w-full h-16 bg-transparent hover:bg-zinc-500/[.05] transition-colors rounded-lg grid p-2 gap-2 cursor-pointer">
-  <img loading="lazy" [ngSrc]="playList.picture" srcset="" [alt]="'PlayList '+ playList.name" class="rounded-md" width="50" height="50">
+  <div class="w-[50px] h-[50px] relative">
+    <img [ngSrc]="playList().picture" srcset="" [alt]="'PlayList '+ playList().name" class="rounded-md" priority fill width="0" height="0">
+  </div>
   <div class="flex mt-1">
     <div class="flex flex-col max-w-[80%] overflow-hidden whitespace-nowrap">
-      <p class="text-base text-white text-ellipsis">{{playList.name}}</p>
-      <p class="text-sm text-gray-300/80 text-ellipsis">{{dictionary?.words?.list}} • {{playList.owner.name}}</p>
+      <p class="text-base text-white text-ellipsis">{{playList().name}}</p>
+      <p class="text-sm text-gray-300/80 text-ellipsis">{{dictionary?.words?.list}} • {{playList().owner.name}}</p>
     </div>
   </div>
 </article>

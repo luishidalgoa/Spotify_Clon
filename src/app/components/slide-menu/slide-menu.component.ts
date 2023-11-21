@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, Signal, inject, signal } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../../assets/icons/home.component';
@@ -35,7 +35,7 @@ import { skeletonPlayListMinCardComponent } from '../items/skeleton/play-list-mi
 export class SlideMenuComponent implements OnInit {
   tabIndex: number = -1;
   dictionary!: any;
-  public playLists!: PlayList[];
+  public playLists!: Signal<PlayList[]>
 
   constructor(private languageService: LanguageService) {
     //Cargamos una parte del diccionario de idiomas que nos interesa
@@ -55,7 +55,8 @@ export class SlideMenuComponent implements OnInit {
       });
   }
   ngOnInit(): void {
-    this.playLists = [
+    //le asignamos al signal los elementos. Apartir de ahora el signal se actualizara cada vez que se actualice el array
+    this.playLists = signal([
       {
         id: 1,
         name: 'Musicote',
@@ -74,7 +75,20 @@ export class SlideMenuComponent implements OnInit {
           name: 'Luis Hidalgo Aguilar',
         },
       }
-    ];
+    ]);
+
+    setTimeout(() => {
+      this.playLists().push({
+        id: 3,
+        name: 'Musicote2',
+        picture:
+          'https://i.scdn.co/image/ab67706c0000da84a150ef2143685e190d354439',
+        owner:{
+          name: 'Luiss_perezh',
+        }
+      });
+      console.log('playLists updated', this.playLists());
+    }, 5000);
     /*this.fakeImage().subscribe((data: any) => {
       for (let i = 0; i < 30; i++) {
         {
