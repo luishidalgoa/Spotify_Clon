@@ -6,12 +6,10 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <svg viewBox="0 0 24 24" class="h-8 w-8" fill="currentColor"
-  ><path fill="currentColor" d="M8 5.14v14l11-7-11-7z"></path></svg
->
+    <svg role="icon" viewBox="0 0 24 24" class="h-8 w-8" fill="currentColor">
+      <path fill="currentColor" d="M8 5.14v14l11-7-11-7z"></path>
+    </svg>
   `,
-  styles: ``
+  styles: ``,
 })
-export class PlayComponent {
-
-}
+export class PlayComponent {}

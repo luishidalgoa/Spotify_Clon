@@ -1,6 +1,27 @@
-<div id="content">
-  <p>Click the button below to begin the authentication flow.</p>
-  <div class="centered">
-    <div id="audius-login-button"></div>
-  </div>
+<div role="wrapper" class="min-h-screen relative bg-gradient-to-b from-[#1a1a1a] to-black flex flex-col">
+  <header class="w-full h-[6.4rem] bg-black pr-0 pl-8 py-6 flex items-center flex-nowrap">
+    <a [routerLink]="'/'">
+      <icon-spotify-big class="fill-white" />
+    </a>
+  </header>
+  <article class="text-white flex-grow bg-black sm:bg-transparent w-full sm:py-8 sm:px-16 relative sm:max-w-4xl sm:top-0 sm:left-0 sm:right-0 sm:bottom-0 sm:m-auto">
+    <section
+      class="flex flex-col gap-10 bg-black px-8 absolute top-0 left-0 right-0 bottom-0 m-auto h-52 sm:pt-15 sm:flex
+      sm:justify-center
+      sm:rounded-lg sm:flex-col sm:text-center sm:relative sm:gap-14 sm:h-96" >
+      <h2 class="text-3xl sm:text-[2.8rem]">Inicia sesión en Spotify</h2>
+      <ul class="flex flex-col items-center">
+        <li><button class="flex justify-center items-center gap-6 border-white/50 border rounded-full pl-5 pr-10 py-1 font-bold hover:border-white active:border-double active:border-4" role="login" (click)="authService.Auth()">
+            <div class="h-10 w-10 relative"><img src="https://docs.audius.org/img/logo.png" width="30" height="30" class="absolute top-0 left-0 right-0 bottom-0 m-auto"></div>
+            <p>Continuar con Audius</p>
+          </button></li>
+      </ul>
+    </section>
+    <footer class="absolute bottom-0 text-center text-xs mb-6 px-10 text-white/60">
+      <p>Este sitio está protegido por reCAPTCHA. Se aplican los <a class="underline"
+          href="https://audius.co/legal/terms-of-use">Términos del servicio</a>
+        y la <a class="underline" href="https://audius.co/legal/privacy-policy">Política de privacidad</a> de
+        Audius.</p>
+    </footer>
+  </article>
 </div>

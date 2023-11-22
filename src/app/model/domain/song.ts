@@ -1,4 +1,5 @@
 import { Genre } from "../enum/genre";
+import { Picture } from "./api/audius/picture";
 import { User } from "./user";
 
 export interface Song {
@@ -7,7 +8,7 @@ export interface Song {
     description?: string;
     playCount?: number;
     url?: string;
-    artwork?: {_150x150?: string,_480x480?: string,_1000x1000?: string};
+    artwork?: Picture;
     duration: number;
     genre: Genre;
     user: User;

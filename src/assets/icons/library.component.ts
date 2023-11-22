@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <svg
-      role="img"
+      role="icon"
       height="24"
       width="24"
       aria-hidden="true"

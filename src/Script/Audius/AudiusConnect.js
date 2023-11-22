@@ -51,31 +51,3 @@ async function getTrackByTitle(filterWord) {
     query: `${filterWord}`,
   });
 }
-//---------------------------------------Auth-----
-/*var sdk;
-
-function init() {
-  sdk = window.audiusSdk({
-    appName: "My Demo App"
-  });
-}
-
-window.onload = async function () {
-  init();
-  sdk.oauth.init({
-    successCallback: function (profile) {
-      document.getElementById(
-        "content"
-      ).innerHTML = `You're logged in as ${profile.handle}!`;
-      document.getElementById("error").innerHTML = "";
-    },
-    errorCallback: function (errorMessage) {
-      document.getElementById(
-        "error"
-      ).innerHTML = `Whoops, there was an error: ${errorMessage}`;
-    }
-  });
-  sdk.oauth.renderButton({
-    element: document.getElementById("audius-login-button")
-  });
-};*/

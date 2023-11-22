@@ -1,11 +1,6 @@
-.centered {
-  display: flex;
-  justify-content: center;
+h2{
+    font-family: CircularStd-Black;
 }
-
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+button[role="login"]{
+    font-family: CircularStd-bold;
 }

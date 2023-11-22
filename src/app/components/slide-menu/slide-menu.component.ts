@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal, inject, signal } from '@angular/core';
+import { Component, OnInit, Signal, WritableSignal, inject, signal } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../../assets/icons/home.component';
@@ -35,7 +35,7 @@ import { skeletonPlayListMinCardComponent } from '../items/skeleton/play-list-mi
 export class SlideMenuComponent implements OnInit {
   tabIndex: number = -1;
   dictionary!: any;
-  public playLists!: Signal<PlayList[]>
+  public playLists!: WritableSignal<PlayList[]>;
 
   constructor(private languageService: LanguageService) {
     //Cargamos una parte del diccionario de idiomas que nos interesa
@@ -86,6 +86,19 @@ export class SlideMenuComponent implements OnInit {
         owner:{
           name: 'Luiss_perezh',
         }
+      });
+      //actualizamos algun elemento del array para comprobar la reactividad con el componente playListMinCard
+      this.playLists.update((data: PlayList[]):any => {
+        //devolvemos un array con el elemento con id 1 actualizado
+        return data.map((item: PlayList) => {
+          if (item.id === 1) {
+            return {
+              ...item,
+              name: 'Musicote3',
+            };
+          }
+          return item;
+        });
       });
       console.log('playLists updated', this.playLists());
     }, 5000);

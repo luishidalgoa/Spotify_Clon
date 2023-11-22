@@ -1,8 +1,10 @@
+import { Picture } from "./api/audius/picture";
+
 export interface User {
-    id?: number;
+    id?: string;
     name: string;
     nickName?: string;
-    picture?: {_150x150: string,_480x480: string,_1000x1000: string};
+    picture?: Picture;
     email?: string;
     playListCount?: number;
     followerCount?: number;
