@@ -1,68 +1,75 @@
-import { Injectable, Signal, WritableSignal, signal } from '@angular/core';
-import { Observable, of, pipe } from 'rxjs';
+import { Injectable, Signal, WritableSignal, effect, signal } from '@angular/core';
+import { BehaviorSubject, Observable, of, pipe } from 'rxjs';
 import { User } from '../../../model/domain/user';
 import { AudiusUser } from '../../../model/domain/api/audius/user';
-import { Router } from '@angular/router';
+import { Router, RouterStateSnapshot } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from '../../../../environments/environment.development';
 declare var window: any;
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private currentUser: WritableSignal<User>= signal({name:''});
   public backPath!: string | undefined;
 
-  constructor(private router: Router) {
-  }
+  private credentials = {
+    clientId: '72ea433aa55b4c71a3b7a8c082dbab57',
+    clientSecret: 'fcb3200f35de457dbd966940b5f86893',
+    transactionToken: '',
+  };
+  public accessToken$ = signal(sessionStorage.getItem('token') || '');
 
-  async getToken(): Promise<Object> {
-    return await window['getToken']();
-  }
+  constructor(private router: Router, private _http: HttpClient) {
+    //extraemos el ultimo elemento code de la url si code no esta, estara vacio
+    this.credentials.transactionToken =
+      window.location.href.split('code=')[1] || '';
+    if (this.credentials.transactionToken != '') {
+      this.transactionToken();
+    }
 
-  Auth(): void {
-    this.getToken().then((sdk: any) => {
-      sdk.oauth.init({
-        successCallback: async (user: any) => {
-          this.currentUser.set({
-            id: user.userId,
-            email: user.email,
-            name: user.name,
-            nickName: user.handle,
-            picture: {
-              _150x150: user.profilePicture._150x150,
-              _480x480: user.profilePicture._480x480,
-              _1000x1000: user.profilePicture._1000x1000,
-            },
-          });
-
-          if(this.backPath != undefined)
-            this.router.navigateByUrl(this.backPath?.toString());
-
-          this.backPath = undefined;
-        },
-        errorCallback: (error: any) => {
-          if(this.currentUser().name!=''){
-            console.log('Se cerro sesion correctamente')
-          }else{
-            console.log('Got error', error);
-          }
-           this.currentUser.set({name:''})
-          },
-      });
-      // Login with write scope nos permite hacer acciones en nombre del usuario por ejemplo subir canciones
-      sdk.oauth.login({
-        scope: 'write',
-      });
+    effect(() => {
+      if (this.accessToken$() != '') {
+        sessionStorage.setItem('token', this.accessToken$());
+      } else {
+        sessionStorage.removeItem('token');
+      }
     });
   }
 
-  singOut() {
+  transactionToken(): void {
+    const url = 'https://accounts.spotify.com/api/token';
+
+    const body = new HttpParams()
+      .set('code', this.credentials.transactionToken)
+      .set('redirect_uri', `${environment.url}/Auth`)
+      .set('grant_type', 'authorization_code');
+
+    // Codifica el cliente ID y secreto en base64
+    const authHeader = btoa(
+      `${this.credentials.clientId}:${this.credentials.clientSecret}`
+    );
+
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', `Basic ${authHeader}`);
+
+    this._http.post(url, body, { headers: headers }).subscribe((data: any) => {
+      console.log(data);
+      //hacemos un sprite de los datos que nos devuelve la api. El unico que nos interesa es el token
+      this.accessToken$.set(data.access_token);
+    });
+  }
+
+  tokenRefresh(){
     
   }
 
-  getcurrentUser(): User {
-    return this.currentUser();
+  Auth(): void {
+    const spotifyURL = `https://accounts.spotify.com/authorize?client_id=${this.credentials.clientId}&response_type=code&redirect_uri=${environment.url}/Auth`;
+    window.location.href = spotifyURL;
+    //extraemos el ultimo elemento de la url
   }
+
+  singOut() {}
 }
-
-

@@ -25,11 +25,7 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.png", "src/assets"],
             "styles": ["src/styles.scss"],
-            "scripts": [
-              "./src/Script/Audius/Web3.js",
-              "./src/Script/Audius/sdkmin.js",
-              "./src/Script/Audius/AudiusConnect.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -87,11 +83,7 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss"],
-            "scripts": [
-              "./src/Script/Audius/Web3.js",
-              "./src/Script/Audius/sdkmin.js",
-              "./src/Script/Audius/AudiusConnect.js"
-            ]
+            "scripts": []
           }
         }
       }
