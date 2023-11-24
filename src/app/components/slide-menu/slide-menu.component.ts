@@ -102,25 +102,6 @@ export class SlideMenuComponent implements OnInit {
       });
       console.log('playLists updated', this.playLists());
     }, 5000);
-    /*this.fakeImage().subscribe((data: any) => {
-      for (let i = 0; i < 30; i++) {
-        {
-          this.playLists.push({
-            id: i,
-            name: 'Musicote',
-            picture: data[i].images[0],
-            owner: {
-              name: 'Luiss_perezh',
-            },
-          });
-        }
-      }
-    });*/
 
   }
-
-  /*http: HttpClient = inject(HttpClient);
-  fakeImage(): Observable<object> {
-    return this.http.get('https://api.escuelajs.co/api/v1/products');
-  }*/
 }
