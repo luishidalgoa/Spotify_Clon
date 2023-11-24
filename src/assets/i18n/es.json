@@ -1,0 +1,29 @@
+{
+    "lang": {
+        "es": "Español",
+        "en": "Inglés"
+    },
+    "components": {
+        "Slide_Menu": {
+            "header": {
+                "home": "Inicio",
+                "search": "Buscar"
+            },
+            "contain": {
+                "library": "Tu biblioteca",
+                "context_library": "Contraer Tu biblioteca",
+                "context_add": "Crear una lista o carpeta",
+                "filter": {
+                    "list": "Listas",
+                    "artist": "Artistas",
+                    "albums": "Álbumes"
+                },
+                "context_search": "Buscar en tu biblioteca",
+                "lasted": "Recientes"
+            }
+        }
+    },
+    "words":{
+        "list": "Lista"
+    }
+}
