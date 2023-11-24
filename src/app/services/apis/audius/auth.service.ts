@@ -40,6 +40,7 @@ export class AuthService {
         sessionStorage.removeItem('refresh_token');
         sessionStorage.removeItem('token_type');
         sessionStorage.removeItem('expires_in');
+        this.router.navigateByUrl('Auth');
       }
     });
   }
