@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal, WritableSignal, inject, signal } from '@angular/core';
+import { Component, HostListener, OnInit, Signal, WritableSignal, inject, signal } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../../assets/icons/home.component';
@@ -12,6 +12,9 @@ import { PlayListMinCardComponent } from '../cards/play-list-min-card/play-list-
 import { PlayList } from '../../model/domain/play-list';
 import {HttpClient} from "@angular/common/http";
 import { skeletonPlayListMinCardComponent } from '../items/skeleton/play-list-min-card/play-list-min-card.component';
+import { ContextualMenuComponent } from '../contextual-menu/contextual-menu.component';
+import { ContextualMenuItem } from '../../model/domain/contextual-menu-item';
+import { ContextMenuService } from '../../services/context-menu.service';
 
 @Component({
   selector: 'app-slide-menu',
@@ -27,17 +30,27 @@ import { skeletonPlayListMinCardComponent } from '../items/skeleton/play-list-mi
     AddComponent,
     HamburguerMenuComponent,
     PlayListMinCardComponent,
-    NgOptimizedImage,skeletonPlayListMinCardComponent
+    NgOptimizedImage,
+    skeletonPlayListMinCardComponent,
+    ContextualMenuComponent,
   ],
   templateUrl: './slide-menu.component.html',
   styleUrl: './slide-menu.component.scss',
 })
 export class SlideMenuComponent implements OnInit {
+  @HostListener('document:contextmenu', ['$event'])
+  onRightClick(event: Event): void {
+    event.preventDefault(); // Evita que aparezca el menú contextual
+  }
+
   tabIndex: number = -1;
   dictionary!: any;
   public playLists!: WritableSignal<PlayList[]>;
 
-  constructor(private languageService: LanguageService) {
+  constructor(
+    private languageService: LanguageService,
+    public _contextMenu: ContextMenuService
+  ) {
     //Cargamos una parte del diccionario de idiomas que nos interesa
     languageService.diccionary
       .pipe(
@@ -62,9 +75,9 @@ export class SlideMenuComponent implements OnInit {
         name: 'Musicote',
         picture:
           'https://i.scdn.co/image/ab67706c0000da84a150ef2143685e190d354439',
-        owner:{
+        owner: {
           name: 'Luiss_perezh',
-        }
+        },
       },
       {
         id: 2,
@@ -74,7 +87,7 @@ export class SlideMenuComponent implements OnInit {
         owner: {
           name: 'Luis Hidalgo Aguilar',
         },
-      }
+      },
     ]);
 
     setTimeout(() => {
@@ -83,12 +96,12 @@ export class SlideMenuComponent implements OnInit {
         name: 'Musicote2',
         picture:
           'https://i.scdn.co/image/ab67706c0000da84a150ef2143685e190d354439',
-        owner:{
+        owner: {
           name: 'Luiss_perezh',
-        }
+        },
       });
       //actualizamos algun elemento del array para comprobar la reactividad con el componente playListMinCard
-      this.playLists.update((data: PlayList[]):any => {
+      this.playLists.update((data: PlayList[]): any => {
         //devolvemos un array con el elemento con id 1 actualizado
         return data.map((item: PlayList) => {
           if (item.id === 1) {
@@ -102,6 +115,9 @@ export class SlideMenuComponent implements OnInit {
       });
       console.log('playLists updated', this.playLists());
     }, 5000);
+  }
 
+  newContextMenu(event: MouseEvent) {
+    this._contextMenu.openDialog(event);
   }
 }

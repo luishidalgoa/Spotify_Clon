@@ -14,11 +14,7 @@ import { ContextualMenuItem } from '../../model/domain/contextual-menu-item';
 })
 export class ContextualMenuComponent {
   @Input({ required: true })
-  items: ContextualMenuItem[] = [];
+  value: {style?: string,items: ContextualMenuItem[]} = {items:[]};
 
   constructor() {}
-
-  addItem(item: ContextualMenuItem) {
-    this.items.push(item);
-  }
 }

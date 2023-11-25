@@ -1,9 +1,7 @@
-<div class="bg-black h-screen w-screen">
-    <div class=" p-1 bg-[#1b1b1b] max-w-fit absolute top-0 left-0 bottom-0 right-0 m-auto max-h-fit rounded-md">
-      <ul class="">
-        @for (item of items; track $index) {
-          <app-item [value]="item"/>
-        }
-      </ul>
-    </div>
+<div class=" p-1 bg-[#252525] max-w-fit absolute max-h-fit rounded-sm " [style]="this.value.style" id="contextMenu">
+  <ul class="">
+    @for (item of value.items; track item.svg) {
+    <app-item [value]="item" />
+    }
+  </ul>
 </div>
