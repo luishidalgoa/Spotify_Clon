@@ -8,6 +8,7 @@ import { LoginComponent } from './pages/login/login.component';
 import {SignalTestComponent} from "./test/pages/signal-test/signal-test.component";
 import { authGuard } from './guards/auth.guard';
 import { secondAuthGuard } from './guards/second-auth.guard';
+import { ContextualMenuComponent } from './components/contextual-menu/contextual-menu.component';
 
 export const routes: Routes = [
   {
@@ -19,16 +20,9 @@ export const routes: Routes = [
 
   // TEST
   { path: 'test', component: TestComponent },
-  {
-    path: 'test/PlayList-minCard',
-    loadComponent() {
-      return import(
-        './components/cards/play-list-min-card/play-list-min-card.component'
-      ).then((m) => m.PlayListMinCardComponent);
-    },
-  },
   { path: 'test/slide-menu', component: HubComponent },
   { path: 'test/signal', component: SignalTestComponent },
+  {path: 'test/contextMenu', component: ContextualMenuComponent},
 
   { path: '', redirectTo: '', pathMatch: 'full' },
   { path: '**', redirectTo: 'test' },
