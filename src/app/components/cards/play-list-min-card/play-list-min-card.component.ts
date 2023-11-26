@@ -3,6 +3,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { LanguageService } from '../../../services/language.service';
 import { PlayList } from '../../../model/domain/play-list';
 import { map } from 'rxjs';
+import { ContextMenuService } from '../../../services/context-menu.service';
 
 @Component({
   selector: 'app-play-list-min-card',
@@ -20,7 +21,7 @@ export class PlayListMinCardComponent implements OnInit {
   }
   dictionary!: any;
 
-  constructor() {
+  constructor(private _contextMenu: ContextMenuService) {
     this.dictionary = this.languageS.diccionary
       .pipe(
         map((data: any) => {
@@ -34,5 +35,9 @@ export class PlayListMinCardComponent implements OnInit {
       });
   }
   ngOnInit(): void {
+  }
+
+  newContextMenu(event: MouseEvent) {
+    this._contextMenu.openDialog(event);
   }
 }
