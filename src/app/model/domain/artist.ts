@@ -1,6 +1,16 @@
-import { User } from './user';
+import { Image } from "./image";
+import { ExternalUrls } from "./play-list";
+import { Followers } from "./user";
 
-export interface Artist extends User {
-  id?: number;
-  cover: { _2000?: string; _640?: string };
+export interface Artist {
+  external_urls: ExternalUrls;
+  followers:     Followers;
+  genres:        string[];
+  href:          string;
+  id:            string;
+  images:        Image[];
+  name:          string;
+  popularity:    number;
+  type:          string;
+  uri:           string;
 }

@@ -1,12 +1,16 @@
-import { Picture } from "./api/audius/picture";
-import { Artist } from "./artist";
-import { Song } from "./song";
+import { Image } from "./image";
+import { Owner } from "./play-list";
 
 export interface Album {
-    id: number;
-    name: string;
-    picture: Picture;
-    playCount: number;
-    songs: Song[];
-    artist: Artist;
+    album_type:             string;
+    total_tracks:           number;
+    href:                   string;
+    id:                     string;
+    images:                 Image[];
+    name:                   string;
+    release_date:           string;
+    release_date_precision: string;
+    type:                   string;
+    uri:                    string;
+    artists:                Owner[];
 }
