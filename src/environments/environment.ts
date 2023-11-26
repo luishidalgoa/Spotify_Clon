@@ -12,5 +12,5 @@ export const environment = {
         key: 'Smh5aTVid29mc0FJcDZiWU5zeGVSeHhSdXNIZFUwMDFRZ2pweTZpUQ==',
       },
     },
-    url: 'spotify-luishidalgoa.vercel.app',
+    url: 'https://spotify-luishidalgoa.vercel.app',
   };
