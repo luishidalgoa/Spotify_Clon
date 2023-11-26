@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { AuthService } from '../../services/apis/audius/auth.service';
+import { AuthService } from '../../services/apis/Spotify/auth.service';
 import { SpotifyBigComponent } from '../../../assets/icons/spotify-big.component';
 import { RouterModule } from '@angular/router';
 

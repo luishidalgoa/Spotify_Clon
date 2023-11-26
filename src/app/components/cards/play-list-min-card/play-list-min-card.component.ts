@@ -33,5 +33,6 @@ export class PlayListMinCardComponent implements OnInit {
         return data;
       });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 }

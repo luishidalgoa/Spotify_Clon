@@ -1,12 +1,18 @@
 <article
-  class="w-full h-16 bg-transparent hover:bg-zinc-500/[.05] transition-colors rounded-lg grid p-2 gap-2 cursor-pointer">
+  class="w-full h-16 bg-transparent hover:bg-zinc-500/[.05] transition-colors rounded-lg sm:grid p-2 gap-2 cursor-pointer flex justify-center">
   <div class="w-[50px] h-[50px] relative">
-    <img [ngSrc]="playList().picture" srcset="" [alt]="'PlayList '+ playList().name" class="rounded-md" priority fill width="0" height="0">
+    @defer () {
+      <img [ngSrc]="playList().images[0].url" srcset="" [alt]="'PlayList '+ playList().name" class="rounded-md" priority fill width="0" height="0">
+    }@loading {
+      <div class="w-[50px] h-[50px] rounded-md bg-zinc-600/40"></div>
+    }@placeholder {
+      <div class="w-[50px] h-[50px] rounded-md bg-zinc-600/40"></div>
+    }
   </div>
-  <div class="flex mt-1">
+  <div class="sm:flex mt-1 hidden" data-encore-id="buttonTertiary" [ariaLabel]="playList().name">
     <div class="flex flex-col max-w-[80%] overflow-hidden whitespace-nowrap">
-      <p class="text-base text-white text-ellipsis">{{playList().name}}</p>
-      <p class="text-sm text-gray-300/80 text-ellipsis">{{dictionary?.words?.list}} • {{playList().owner.name}}</p>
+      <p class="text-base text-white text-ellipsis ">{{playList().name}}</p>
+      <p class="text-sm text-gray-300/80 text-ellipsis" >{{dictionary?.words?.list}} • {{playList().owner.display_name}}</p>
     </div>
   </div>
 </article>

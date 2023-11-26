@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, Signal, WritableSignal, inject, signal } from '@angular/core';
+import { Component, HostListener, OnInit, Signal, WritableSignal, computed, effect, inject, signal } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../../assets/icons/home.component';
@@ -15,6 +15,8 @@ import { skeletonPlayListMinCardComponent } from '../items/skeleton/play-list-mi
 import { ContextualMenuComponent } from '../contextual-menu/contextual-menu.component';
 import { ContextualMenuItem } from '../../model/domain/contextual-menu-item';
 import { ContextMenuService } from '../../services/context-menu.service';
+import { PlayListService } from '../../services/apis/Spotify/play-list.service';
+import { ArtistService } from '../../services/apis/Spotify/artist.service';
 
 @Component({
   selector: 'app-slide-menu',
@@ -45,21 +47,19 @@ export class SlideMenuComponent implements OnInit {
 
   tabIndex: number = -1;
   dictionary!: any;
-  public playLists!: WritableSignal<PlayList[]>;
 
-  constructor(
-    private languageService: LanguageService,
-    public _contextMenu: ContextMenuService
-  ) {
+  playLists: PlayList[]= [];
+
+  constructor(private languageService: LanguageService,public _contextMenu: ContextMenuService, private _playLists: PlayListService,private _artist: ArtistService) {
+    
+    effect(()=>{
+      this.playLists = this._playLists.playLists$();
+    })
     //Cargamos una parte del diccionario de idiomas que nos interesa
     languageService.diccionary
       .pipe(
         map((data: any) => {
-          const {
-            lang,
-            components: { Slide_Menu },
-            ...rest
-          } = data; //devolvemos diccionary.components.Slide_Menu
+          const { lang,components: { Slide_Menu },...rest} = data; //devolvemos diccionary.components.Slide_Menu
           this.dictionary = Slide_Menu;
         })
       )
@@ -68,56 +68,10 @@ export class SlideMenuComponent implements OnInit {
       });
   }
   ngOnInit(): void {
-    //le asignamos al signal los elementos. Apartir de ahora el signal se actualizara cada vez que se actualice el array
-    this.playLists = signal([
-      {
-        id: 1,
-        name: 'Musicote',
-        picture:
-          'https://i.scdn.co/image/ab67706c0000da84a150ef2143685e190d354439',
-        owner: {
-          name: 'Luiss_perezh',
-        },
-      },
-      {
-        id: 2,
-        name: 'Favoritos',
-        picture:
-          'https://wallup.net/wp-content/uploads/2018/10/04/670065-space-outer-universe-stars-photography-detail-astronomy-nasa-hubble.jpg',
-        owner: {
-          name: 'Luis Hidalgo Aguilar',
-        },
-      },
-    ]);
-
-    setTimeout(() => {
-      this.playLists().push({
-        id: 3,
-        name: 'Musicote2',
-        picture:
-          'https://i.scdn.co/image/ab67706c0000da84a150ef2143685e190d354439',
-        owner: {
-          name: 'Luiss_perezh',
-        },
-      });
-      //actualizamos algun elemento del array para comprobar la reactividad con el componente playListMinCard
-      this.playLists.update((data: PlayList[]): any => {
-        //devolvemos un array con el elemento con id 1 actualizado
-        return data.map((item: PlayList) => {
-          if (item.id === 1) {
-            return {
-              ...item,
-              name: 'Musicote3',
-            };
-          }
-          return item;
-        });
-      });
-      console.log('playLists updated', this.playLists());
-    }, 5000);
   }
 
   newContextMenu(event: MouseEvent) {
     this._contextMenu.openDialog(event);
   }
 }
+

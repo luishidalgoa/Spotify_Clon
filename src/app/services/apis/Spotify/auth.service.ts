@@ -1,5 +1,5 @@
 import { Injectable, Signal, WritableSignal, effect, signal } from '@angular/core';
-import { BehaviorSubject, Observable, of, pipe } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of, pipe, tap, throwError } from 'rxjs';
 import { User } from '../../../model/domain/user';
 import { AudiusUser } from '../../../model/domain/api/audius/user';
 import { Router, RouterStateSnapshot } from '@angular/router';
@@ -17,16 +17,22 @@ export class AuthService {
     clientSecret: environment.apis.spotify.clientSecret,
     transactionToken: '',
   };
+  private currentUser: BehaviorSubject<User>=new BehaviorSubject<User>({display_name: '',email: '',followers: {href: '',total: 0},href: '',id: '',images: [],product: '',type: ''})
+
   public token$: WritableSignal<{access_token: string,token_type?: string, expires_in?: string,refresh_token?: string}> = signal({access_token: sessionStorage.getItem('token') || '',token_type: sessionStorage.getItem('token_type')|| '', expires_in: sessionStorage.getItem('expires_in') || '',refresh_token: sessionStorage.getItem('refresh_token') || ''});
 
   constructor(private router: Router, private _http: HttpClient) {
+    this.isAuth();
+    setInterval(() => { //cada 60 segundos comprobamos si el token sigue siendo valido
+      this.isAuth();
+    }, 60000);
+
     //extraemos el ultimo elemento code de la url si code no esta, estara vacio
     this.credentials.transactionToken =
       window.location.href.split('code=')[1] || '';
     if (this.credentials.transactionToken != '') {
       this.transactionToken();
     }
-
     effect(() => {
       if (this.token$().access_token != '') { //si el token no esta vacio lo guardamos en el session storage
         sessionStorage.setItem('token', this.token$().access_token);
@@ -72,7 +78,6 @@ export class AuthService {
 
   tokenRefresh = () => {
     setInterval(() => {
-      console.log('refresh token');
       const url = 'https://accounts.spotify.com/api/token';
       const authHeader = btoa(
         `${this.credentials.clientId}:${this.credentials.clientSecret}`
@@ -89,12 +94,6 @@ export class AuthService {
       this._http
         .post(url, body, { headers: headers })
         .subscribe((data: any) => {
-          console.log(
-            'NUEVO TOKEN \n ',
-            data.access_token,
-            ' VIEJO TOKEN\n ',
-            sessionStorage.getItem('token')
-          );
           this.token$.set({
             access_token: data.access_token,
             token_type: data.token_type,
@@ -102,7 +101,7 @@ export class AuthService {
             refresh_token: sessionStorage.getItem('refresh_token') || '',
           });
         });
-    }, 3000000); 
+    }, 2000000); 
   }
 
   Auth(): void {
@@ -114,5 +113,30 @@ export class AuthService {
   singOut() {
     this.token$.set({access_token: '',token_type: '', expires_in: '',refresh_token: ''});
     this.router.navigateByUrl('Auth');
+    this.currentUser.next({display_name: '',email: '',followers: {href: '',total: 0},href: '',id: '',images: [],product: '',type: ''});
+  }
+
+  isAuth():boolean{
+    const url = 'https://api.spotify.com/v1/me'
+    const headers = new HttpHeaders()
+        .set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
+    this._http.get(url,{headers: headers}).pipe(
+      tap((data:User | any)=>{
+        this.currentUser.next(data);
+      }),
+      catchError(error => {
+        this.singOut();
+        return throwError(error);
+      })
+
+    ).subscribe();
+      if(this.token$().access_token == ''){
+        return false;
+      }
+      return true;
+  }
+
+  getCurrentUser(): Observable<User>{
+    return this.currentUser;
   }
 }

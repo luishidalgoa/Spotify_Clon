@@ -4,7 +4,6 @@ article{
 }
 img{
     height: 50px;
-
     grid-column: 1;
 }
 p:first-child{
@@ -15,3 +14,31 @@ p:last-child{
     font-family: CircularStd-light;
     grid-row: 2;
 }
+.text-ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+*[data-encore-id="buttonTertiary"] {
+    @apply relative;
+  }
+  
+  *[data-encore-id="buttonTertiary"]:hover::after {
+    animation: ariaLabel 0.1s .4s ease-in-out forwards;
+    opacity: 0;
+    content: attr(aria-label);
+    transform: translatey(-30px);
+    font-family: CircularStd-book;
+    @apply absolute top-0 py-1 px-2 bg-[#282828] brightness-125 text-zinc-300 rounded-md text-sm whitespace-nowrap shadow-xl shadow-black;
+  }
+  
+  @keyframes ariaLabel {
+    0% {
+      opacity: 0;
+    }
+  
+    100% {
+      opacity: 1;
+    }
+  }

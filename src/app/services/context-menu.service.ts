@@ -35,7 +35,6 @@ export class ContextMenuService {
             this.contextMenu$.set(this.add(style));
             break;
           default:
-            console.log('No se ha encontrado el elemento', node);
             this.openDialog(node.parentNode);
             break;
         }
@@ -134,7 +133,6 @@ export class ContextMenuService {
   }
 
   add(style?: string): { style?: string; items: ContextualMenuItem[] } {
-    console.log(style);
     return {
       style: style,
       items: 
@@ -170,3 +168,5 @@ export class ContextMenuService {
     this.contextMenu$.set({items:[]});
   }
 }
+
+
