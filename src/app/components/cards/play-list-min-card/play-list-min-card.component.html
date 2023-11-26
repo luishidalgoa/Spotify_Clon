@@ -1,10 +1,10 @@
 <article (contextmenu)="newContextMenu($event)" data-encore-id="playList"
-  class="w-full h-16 bg-transparent hover:bg-zinc-500/[.05] transition-colors rounded-lg sm:grid p-2 gap-2 cursor-pointer flex justify-center">
+  class="w-full h-16 bg-transparent hover:bg-zinc-500/[.05] transition-colors p-2 rounded-lg sm:grid gap-2 cursor-pointer flex justify-center">
   <div class="w-[50px] h-[50px] relative">
       <img [ngSrc]="playList().images[0].url" srcset="" [alt]="'PlayList '+ playList().name" class="rounded-md" priority fill width="0" height="0">
   </div>
-  <div class="sm:flex mt-1 hidden" data-encore-id="buttonTertiary" [ariaLabel]="playList().name">
-    <div class="flex flex-col max-w-[80%] overflow-hidden whitespace-nowrap">
+  <div class="sm:flex mt-1 hidden relative" data-encore-id="buttonTertiary" [ariaLabel]="playList().name">
+    <div class="flex flex-col absolute max-w-full overflow-hidden whitespace-nowrap">
       <p class="text-base text-white text-ellipsis ">{{playList().name}}</p>
       <p class="text-sm text-gray-300/80 text-ellipsis" >{{dictionary?.words?.list}} • {{playList().owner.display_name}}</p>
     </div>
