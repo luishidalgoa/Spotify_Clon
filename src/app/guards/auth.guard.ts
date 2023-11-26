@@ -1,6 +1,6 @@
 import { Signal, WritableSignal, computed, effect, inject, signal } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from '../services/apis/audius/auth.service';
+import { AuthService } from '../services/apis/Spotify/auth.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const _authService = inject(AuthService);
