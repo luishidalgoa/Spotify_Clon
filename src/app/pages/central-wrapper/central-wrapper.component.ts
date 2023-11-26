@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
 import { map } from 'rxjs';
-import { MediumCardComponent } from '../../medium-card/medium-card.component';
+import { MediumCardComponent } from '../../components/cards/medium-card/medium-card.component';
 import { PlayList } from '../../model/domain/play-list';
 import { PlayListService } from '../../services/apis/Spotify/play-list.service';
 
@@ -30,7 +30,7 @@ export class CentralWrapperComponent implements OnInit{
       });
   }
   ngOnInit(): void {
-    this._playLists.getUserPlayLists().subscribe((data: any) => {
+    this._playLists.getUserPlayLists('6').subscribe((data: any) => {
       this.welcome = data.items;
     })
   }

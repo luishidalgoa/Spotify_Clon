@@ -21,8 +21,8 @@ export class PlayListService {
 
    }
 
-   getUserPlayLists(): Observable<PlayList | any> {
-    const url = `https://api.spotify.com/v1/me/playlists`;
+   getUserPlayLists(limit?:string): Observable<PlayList | any> {
+    const url = `https://api.spotify.com/v1/me/playlists`+ (limit ? `?limit=${limit}` : '');
     const headers = new HttpHeaders()
         .set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
     return this._http.get<PlayList | any>(url, {headers: headers});

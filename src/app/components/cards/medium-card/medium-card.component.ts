@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ContextMenuService } from '../services/context-menu.service';
-import { PlayList } from '../model/domain/play-list';
+import { ContextMenuService } from '../../../services/context-menu.service';
+import { PlayList } from '../../../model/domain/play-list';
 
 @Component({
   selector: 'app-medium-card',

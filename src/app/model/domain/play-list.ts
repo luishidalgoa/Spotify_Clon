@@ -1,7 +1,6 @@
-import { Artist } from "./artist";
 import { Image } from "./image";
 import { Tracks } from "./track";
-import { Followers, User } from "./user";
+import { Followers } from "./user";
 
 export interface PlayList {
     collaborative: boolean;
