@@ -9,12 +9,12 @@
       class="flex flex-col gap-10 bg-black px-8 absolute top-0 left-0 right-0 bottom-0 m-auto h-52 sm:pt-15 sm:flex
       sm:justify-center
       sm:rounded-lg sm:flex-col sm:text-center sm:relative sm:gap-14 sm:h-96" >
-      <h2 class="text-3xl sm:text-[2.8rem]">{{this.dictionary.login.title}}</h2>
+      <h2 class="text-3xl sm:text-[2.8rem]">{{this.dictionary?.login?.title}}</h2>
       <ul class="flex flex-col items-center">
         <li><button class="flex justify-center items-center gap-6 border-white/50 border rounded-full pl-5 pr-10 py-1 font-bold hover:border-white active:border-double active:border-4" role="login" (click)="authService.Auth()">
             <div class="h-10 w-10 relative"><img src="https://logospng.org/download/spotify/logo-spotify-icon-4096.png"
                 width="30" height="30" class="absolute top-0 left-0 right-0 bottom-0 m-auto"></div>
-            <p>Continuar con Spotify</p>
+            <p>{{dictionary.login.continueSpotify}}</p>
           </button></li>
       </ul>
     </section>
