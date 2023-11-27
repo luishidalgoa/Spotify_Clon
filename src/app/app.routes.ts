@@ -16,7 +16,10 @@ export const routes: Routes = [
     path: '',loadComponent: () => import('./pages/hub/hub.component').then((m) => m.HubComponent),
     canActivate: [authGuard]
   },
-  { title: 'Auth', path: 'Auth', component: LoginComponent, canActivate: [secondAuthGuard] },
+  { 
+    title: 'Auth', path: 'Auth', loadComponent: () => import('./pages/login/login.component').then((m)=> m.LoginComponent), 
+    canActivate: [secondAuthGuard] 
+  },
 
   // TEST
   { path: 'test', component: TestComponent },

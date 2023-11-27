@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { SlideMenuComponent } from './components/slide-menu/slide-menu.component';
 import { TestComponent } from './test/pages/test.component';
 import { AuthService } from './services/apis/Spotify/auth.service';
+import { LanguageService } from './services/language.service';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,6 @@ import { AuthService } from './services/apis/Spotify/auth.service';
 })
 export class AppComponent {
   title = 'Spotify_LuisHidalgoA';
-  constructor(private _auth: AuthService){
+  constructor(private _auth: AuthService,private _language: LanguageService){
   }
 }
