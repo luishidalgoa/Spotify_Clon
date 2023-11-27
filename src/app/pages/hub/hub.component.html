@@ -1,9 +1,9 @@
-<div class="bg-black min-h-screen relative -z-0">
+<div class="bg-black relative -z-0 h-screen min-w-full container">
     <div class="p-2 flex gap-2">
-        <app-slide-menu/>
-        <app-central-wrapper class="w-full"/>
+        <app-slide-menu class="flex"/>
+        <app-central-wrapper class="w-full h-full"/>
     </div>
-    <div class="w-full h-20 absolute bottom-0"></div>
+    <div class="w-full bg-transparent"></div><!--ARREGLAR-->
     @if (this.contextMenu.items.length > 0) {
         <app-contextual-menu [value]="contextMenu" />
     }

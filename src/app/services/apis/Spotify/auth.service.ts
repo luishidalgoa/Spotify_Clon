@@ -117,7 +117,7 @@ export class AuthService {
     this.currentUser.next({display_name: '',email: '',followers: {href: '',total: 0},href: '',id: '',images: [],product: '',type: ''});
   }
 
-  isAuth():boolean{
+  isAuth():void{
     const url = 'https://api.spotify.com/v1/me'
     const headers = new HttpHeaders()
         .set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
@@ -129,12 +129,9 @@ export class AuthService {
         this.singOut();
         return throwError(error);
       })
-
-    ).subscribe();
-      if(this.token$().access_token == ''){
-        return false;
-      }
-      return true;
+    ).subscribe(()=>{
+  
+    });
   }
 
   getCurrentUser(): Observable<User>{

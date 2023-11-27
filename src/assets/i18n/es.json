@@ -57,8 +57,9 @@
         "privacity": {
             "1": "Este sitio está protegido por reCAPTCHA. Se aplican los",
             "2": "Términos del servicio",
-            "3": "Política de privacidad",
-            "4": "de Google."
+            "3": "y la",
+            "4": "Política de privacidad",
+            "5": "de Google"
         }
     }
 }

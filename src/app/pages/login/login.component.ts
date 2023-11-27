@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Signal, WritableSignal, signal } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { AuthService } from '../../services/apis/Spotify/auth.service';
 import { SpotifyBigComponent } from '../../../assets/icons/spotify-big.component';
@@ -14,21 +14,16 @@ import { map } from 'rxjs';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  public dictionary!: any;
+  public dictionary$: WritableSignal<any>= signal({});
 
-  constructor(
-    public authService: AuthService,
-    private _languege: LanguageService
-  ) {
-    _languege.diccionary
-      .pipe(
-        map((data: any) => {
-          const { lang, components, words, contextMenu, ...rest } = data; //devolvemos diccionary.components.Slide_Menu
-          return rest;
-        })
-      ).subscribe((data: any) => {
-        this.dictionary = data;
-        return data;
-      });
+  constructor(public authService: AuthService,private _language: LanguageService) {
+    this._language.diccionary.pipe(
+      map((data: any) => {
+        const { lang, components, words, contextMenu, ...rest } = data; //devolvemos diccionary.components.Slide_Menu
+        return rest;
+      })
+    ).subscribe((data: any) => {
+      this.dictionary$.set(data);
+    });
   }
 }

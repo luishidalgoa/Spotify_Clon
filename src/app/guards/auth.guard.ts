@@ -5,9 +5,9 @@ import { AuthService } from '../services/apis/Spotify/auth.service';
 export const authGuard: CanActivateFn = (route, state) => {
   const _authService = inject(AuthService);
   const _router = inject(Router);
-  let isAuthenticated = _authService.token$().access_token != '' ? true : false;
+  let isAuthenticated:boolean= _authService.token$().access_token != '' ;
   effect(() => {
-    isAuthenticated = _authService.token$().access_token != '' ? true : false;
+    isAuthenticated = _authService.token$().access_token != '';
   });
 
   if(!isAuthenticated){

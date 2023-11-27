@@ -1,4 +1,15 @@
-import { Component, HostListener, OnInit, Signal, WritableSignal, computed, effect, inject, signal } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  HostListener,
+  OnInit,
+  Signal,
+  WritableSignal,
+  computed,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../../assets/icons/home.component';
@@ -10,7 +21,7 @@ import { LanguageService } from '../../services/language.service';
 import { Observable, map } from 'rxjs';
 import { PlayListMinCardComponent } from '../cards/play-list-min-card/play-list-min-card.component';
 import { PlayList } from '../../model/domain/play-list';
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 import { skeletonPlayListMinCardComponent } from '../items/skeleton/play-list-min-card/play-list-min-card.component';
 import { ContextualMenuComponent } from '../contextual-menu/contextual-menu.component';
 import { ContextualMenuItem } from '../../model/domain/contextual-menu-item';
@@ -48,18 +59,26 @@ export class SlideMenuComponent implements OnInit {
   tabIndex: number = -1;
   dictionary!: any;
 
-  playLists: PlayList[]= [];
+  playLists: PlayList[] = [];
 
-  constructor(private languageService: LanguageService,public _contextMenu: ContextMenuService, private _playLists: PlayListService,private _artist: ArtistService) {
-    
-    effect(()=>{
+  constructor(
+    private languageService: LanguageService,
+    public _contextMenu: ContextMenuService,
+    private _playLists: PlayListService,
+    private _artist: ArtistService
+  ) {
+    effect(() => {
       this.playLists = this._playLists.playLists$();
-    })
+    });
     //Cargamos una parte del diccionario de idiomas que nos interesa
     languageService.diccionary
       .pipe(
         map((data: any) => {
-          const { lang,components: { Slide_Menu },...rest} = data; //devolvemos diccionary.components.Slide_Menu
+          const {
+            lang,
+            components: { Slide_Menu },
+            ...rest
+          } = data; //devolvemos diccionary.components.Slide_Menu
           this.dictionary = Slide_Menu;
         })
       )
@@ -67,11 +86,9 @@ export class SlideMenuComponent implements OnInit {
         return data;
       });
   }
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   newContextMenu(event: MouseEvent) {
     this._contextMenu.openDialog(event);
   }
 }
-

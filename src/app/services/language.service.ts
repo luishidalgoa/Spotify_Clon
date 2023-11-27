@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { language } from '../model/enum/language';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class LanguageService {
   private language: string = language.Spanish;
   //extraemos el json del idioma seleccionado
-  public diccionary!: Observable<any>;
+  public diccionary: ReplaySubject<any>= new ReplaySubject<any>(1);
   
   constructor(private http: HttpClient) {
     this.setLanguage(this.language);
@@ -18,8 +18,10 @@ export class LanguageService {
   public getLanguage(): string {
     return this.language;
   }
-  public setLanguage(language: string):Observable<any> { 
+  public setLanguage(language: string):void {
     this.language = language;
-    return this.diccionary = this.http.get(`../../assets/i18n/${this.language}.json`);
+    this.http.get(`./assets/i18n/${this.language}.json`).subscribe((data: any) => {
+      this.diccionary.next(data);
+    });
   }
 }

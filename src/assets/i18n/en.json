@@ -56,8 +56,9 @@
     "privacity": {
       "1": "This site is protected by reCAPTCHA. The",
       "2": "Terms of service",
-      "3": "Privacy policy",
-      "4": "of Google apply."
+      "3": "and",
+      "4": "Privacy policy",
+      "5": "of Google apply."
     }
   }
 }
