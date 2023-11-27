@@ -24,6 +24,41 @@
     }
   },
   "words": {
-    "list": "List"
+    "list": "List",
+    "install": "Install app"
+  },
+  "contextMenu": {
+    "playList": {
+      "remove": "Remove from your library",
+      "addTail": "Add to queue",
+      "addToPerfil": "Add to your profile",
+      "edit": "Edit data",
+      "Remove": "Delete",
+      "Download": "Download",
+      "createList": "Create list",
+      "createFolder": "Create folder",
+      "makePrivate": "Make private",
+      "inviteFriends": "Invite collaborators",
+      "Move": "Move to folder",
+      "addOtherList": "Add to another list",
+      "pinUp": "Pin list",
+      "share": "Share",
+      "denuciate": "Report"
+    },
+    "add": {
+      "createList": "Create list",
+      "createFolder": "Create folder"
+    }
+  },
+  "login": {
+    "title": "Log in to Spotify",
+    "continueSpotify": "Continue with Spotify",
+    "privacity": {
+      "1": "This site is protected by reCAPTCHA. The",
+      "2": "Terms of service",
+      "3": "and",
+      "4": "Privacy policy",
+      "5": "of Google apply."
+    }
   }
 }

@@ -4,7 +4,6 @@ article{
 }
 img{
     height: 50px;
-
     grid-column: 1;
 }
 p:first-child{
@@ -15,3 +14,18 @@ p:last-child{
     font-family: CircularStd-light;
     grid-row: 2;
 }
+.text-ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+  
+  @keyframes ariaLabel {
+    0% {
+      opacity: 0;
+    }
+  
+    100% {
+      opacity: 1;
+    }
+  }

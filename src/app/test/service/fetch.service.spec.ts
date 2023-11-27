@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AudiusSService } from './audius-s.service';
+import { FetchService } from './fetch.service';
 
-describe('AudiusSService', () => {
-  let service: AudiusSService;
+describe('FetchService', () => {
+  let service: FetchService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(AudiusSService);
+    service = TestBed.inject(FetchService);
   });
 
   it('should be created', () => {

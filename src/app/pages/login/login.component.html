@@ -1,0 +1,27 @@
+<div role="wrapper" class="min-h-screen relative bg-gradient-to-b from-[#1a1a1a] to-black flex flex-col">
+  <header class="w-full h-[6.4rem] bg-black pr-0 pl-8 py-6 flex items-center flex-nowrap">
+    <a [routerLink]="'/'">
+      <icon-spotify-big class="fill-white" />
+    </a>
+  </header>
+  <article class="text-white flex-grow bg-black sm:bg-transparent w-full sm:py-8 sm:px-16 relative sm:max-w-4xl sm:top-0 sm:left-0 sm:right-0 sm:bottom-0 sm:m-auto">
+    <section
+      class="flex justify-center flex-col gap-10 bg-black px-8 absolute top-0 left-0 right-0 bottom-0 m-auto h-52 sm:pt-15 sm:flex
+      sm:rounded-lg sm:flex-col text-center sm:relative sm:gap-14 sm:h-96" >
+      <h2 class="text-3xl sm:text-[2.8rem]">{{this.dictionary$()?.login?.title}}</h2>
+      <ul class="flex flex-col items-center">
+        <li><button class="flex justify-center items-center gap-6 border-white/50 border rounded-full pl-5 pr-10 py-1 font-bold hover:border-white active:border-double active:border-4" role="login" (click)="authService.Auth()">
+            <div class="h-10 w-10 relative"><img src="https://logospng.org/download/spotify/logo-spotify-icon-4096.png"
+                width="30" height="30" class="absolute top-0 left-0 right-0 bottom-0 m-auto"></div>
+            <p>{{dictionary$()?.login?.continueSpotify}}</p>
+          </button></li>
+      </ul>
+    </section>
+    <footer class="absolute bottom-0 text-center text-xs mb-6 px-10 text-white/60">
+      <p>{{this.dictionary$().login.privacity['1']}}<a class="underline"
+        href="https://policies.google.com/terms">{{this.dictionary$().login.privacity['2']}}</a>
+      {{this.dictionary$().login.privacity['3']}} <a class="underline" href="https://policies.google.com/privacy">{{this.dictionary$().login.privacity['4']}}</a> {{this.dictionary$().login.privacity['5']}}
+      </p>
+    </footer>
+  </article>
+</div>

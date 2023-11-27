@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   template: `
     <svg
       data-encore-id="icon"
-      role="img"
+      role="icon"
       aria-hidden="true"
       viewBox="0 0 16 16"
       class="Svg-sc-ytk21e-0 kPpCsU"

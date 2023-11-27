@@ -1,0 +1,10 @@
+<li
+  [ngClass]="['flex gap-3 items-center text-white/80 cursor-default', this.value.type!== 'hr'?'p-2 hover:bg-[#3e3e3e]':'']"
+  (click)="this.callback()">
+  @if(this.value.type == 'hr'){
+    <hr class="w-full border-zinc-600/20">
+  }@else if(this.value.svg!==undefined) {
+    <svg [innerHTML]="this.sanitizedContent" [ngClass]="[this.value.svg[0].style===undefined?'fill-white/80 w-5 h-5':this.value.svg[0].style]" />
+    {{value.title}}
+  }
+</li>

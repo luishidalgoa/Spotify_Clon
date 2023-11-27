@@ -20,12 +20,14 @@
     "@angular/router": "^17.0.0",
     "rxjs": "~7.8.0",
     "scss": "^0.2.4",
+    "ts-toolbelt": "^9.6.0",
     "tslib": "^2.3.0",
+    "web3": "^4.2.2",
     "zone.js": "~0.14.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.0.1",
-    "@angular/cli": "^17.0.1",
+    "@angular/cli": "^17.0.3",
     "@angular/compiler-cli": "^17.0.0",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.1.0",

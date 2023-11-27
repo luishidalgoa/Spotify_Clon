@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { SlideMenuComponent } from './components/slide-menu/slide-menu.component';
-import { TestComponent } from './pages/test/test.component';
+import { TestComponent } from './test/pages/test.component';
+import { AuthService } from './services/apis/Spotify/auth.service';
+import { LanguageService } from './services/language.service';
 
 @Component({
   selector: 'app-root',
@@ -13,4 +15,6 @@ import { TestComponent } from './pages/test/test.component';
 })
 export class AppComponent {
   title = 'Spotify_LuisHidalgoA';
+  constructor(private _auth: AuthService,private _language: LanguageService){
+  }
 }

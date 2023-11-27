@@ -1,4 +1,15 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  HostListener,
+  OnInit,
+  Signal,
+  WritableSignal,
+  computed,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../../assets/icons/home.component';
@@ -10,8 +21,13 @@ import { LanguageService } from '../../services/language.service';
 import { Observable, map } from 'rxjs';
 import { PlayListMinCardComponent } from '../cards/play-list-min-card/play-list-min-card.component';
 import { PlayList } from '../../model/domain/play-list';
-import {AudiusSService} from "../../services/apis/audius/audius-s.service";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
+import { skeletonPlayListMinCardComponent } from '../items/skeleton/play-list-min-card/play-list-min-card.component';
+import { ContextualMenuComponent } from '../contextual-menu/contextual-menu.component';
+import { ContextualMenuItem } from '../../model/domain/contextual-menu-item';
+import { ContextMenuService } from '../../services/context-menu.service';
+import { PlayListService } from '../../services/apis/Spotify/play-list.service';
+import { ArtistService } from '../../services/apis/Spotify/artist.service';
 
 @Component({
   selector: 'app-slide-menu',
@@ -27,17 +43,33 @@ import {HttpClient} from "@angular/common/http";
     AddComponent,
     HamburguerMenuComponent,
     PlayListMinCardComponent,
-    NgOptimizedImage
+    NgOptimizedImage,
+    skeletonPlayListMinCardComponent,
+    ContextualMenuComponent,
   ],
   templateUrl: './slide-menu.component.html',
   styleUrl: './slide-menu.component.scss',
 })
 export class SlideMenuComponent implements OnInit {
+  @HostListener('document:contextmenu', ['$event'])
+  onRightClick(event: Event): void {
+    event.preventDefault(); // Evita que aparezca el menú contextual
+  }
+
   tabIndex: number = -1;
   dictionary!: any;
-  public playLists!: PlayList[];
 
-  constructor(private languageService: LanguageService,private AudiusConnect: AudiusSService) {
+  playLists: PlayList[] = [];
+
+  constructor(
+    private languageService: LanguageService,
+    public _contextMenu: ContextMenuService,
+    private _playLists: PlayListService,
+    private _artist: ArtistService
+  ) {
+    effect(() => {
+      this.playLists = this._playLists.playLists$();
+    });
     //Cargamos una parte del diccionario de idiomas que nos interesa
     languageService.diccionary
       .pipe(
@@ -54,46 +86,9 @@ export class SlideMenuComponent implements OnInit {
         return data;
       });
   }
-  ngOnInit(): void {
-    this.playLists = [
-      {
-        id: 1,
-        name: 'Musicote',
-        image:
-          'https://i.scdn.co/image/ab67706c0000da84a150ef2143685e190d354439',
-        user: {
-          nickName: 'Luiss_perezh',
-        },
-      },
-      {
-        id: 2,
-        name: 'Favoritos',
-        image:
-          'https://wallup.net/wp-content/uploads/2018/10/04/670065-space-outer-universe-stars-photography-detail-astronomy-nasa-hubble.jpg',
-        user: {
-          nickName: 'Luis Hidalgo Aguilar',
-        },
-      }
-    ];
-    /*this.fakeImage().subscribe((data: any) => {
-      for (let i = 0; i < 30; i++) {
-        {
-          this.playLists.push({
-            id: i,
-            name: 'Musicote',
-            image: data[i].images[0],
-            user: {
-              nickName: 'Luiss_perezh',
-            },
-          });
-        }
-      }
-    });*/
+  ngOnInit(): void {}
 
+  newContextMenu(event: MouseEvent) {
+    this._contextMenu.openDialog(event);
   }
-
-  /*http: HttpClient = inject(HttpClient);
-  fakeImage(): Observable<object> {
-    return this.http.get('https://api.escuelajs.co/api/v1/products');
-  }*/
 }
