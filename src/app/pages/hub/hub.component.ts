@@ -6,11 +6,12 @@ import { ContextMenuService } from '../../services/context-menu.service';
 import { ContextualMenuItem } from '../../model/domain/contextual-menu-item';
 import { CentralWrapperComponent } from '../central-wrapper/central-wrapper.component';
 import { AuthService } from '../../services/apis/Spotify/auth.service';
+import { ToastComponent } from '../../components/items/toast/toast.component';
 
 @Component({
   selector: 'app-hub',
   standalone: true,
-  imports: [CommonModule, SlideMenuComponent, ContextualMenuComponent,CentralWrapperComponent],
+  imports: [CommonModule, SlideMenuComponent, ContextualMenuComponent,CentralWrapperComponent,ToastComponent],
   templateUrl: './hub.component.html',
   styleUrl: './hub.component.scss',
 })

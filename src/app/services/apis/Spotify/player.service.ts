@@ -1,7 +1,7 @@
 import { Injectable, signal, WritableSignal} from '@angular/core';
 import { Player } from '../../../model/domain/player';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, interval, map, startWith, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, interval, map, startWith, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +13,7 @@ export class PlayerService {
   constructor(private _http: HttpClient) {
     this.getPlayingInterval().subscribe((data: Player | any) => {
       const obj = data as Player;
-        if(obj.context.href!=='' && (obj.context.href !== this.currentPlaying$().context.href || obj.is_playing !== this.currentPlaying$().is_playing)){
-          this.currentPlaying$.set(data);
-        }
+      this.currentPlaying$.set(data);
     });
   }
 
@@ -56,22 +54,24 @@ export class PlayerService {
         }));
       }
 
-      pauseTrack(): void {
+      async pauseTrack(): Promise<boolean> {
         const url = 'https://api.spotify.com/v1/me/player/pause';
         const headers = new HttpHeaders()
-        .set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
-         this._http.put(url, {} ,{headers}).subscribe((data: any) => {
-           });
-
-           this.playTrack(this.currentPlaying$().context.href ?? '');
-
+          .set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
+      
+        try {
+          await this._http.put(url, {}, {headers}).toPromise();
+          return true;
+        } catch (error) {
+          console.error('Error:', error);
+          return false;
+        }
       }
 
-      playTrack(uri:string,pos:number=0,position_ms:number=0): void{
+      async playAlbum(uri:string,pos:number=0,position_ms:number=0):Promise<boolean>{
         const url = 'https://api.spotify.com/v1/me/player/play';
         const headers = new HttpHeaders()
         .set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
-        // Configurar el cuerpo de la solicitud
         const body = {
           "context_uri": uri,
           "offset": {
@@ -80,16 +80,18 @@ export class PlayerService {
           "position_ms": position_ms
         };
 
-        this._http.put(url, {body} ,{headers}).subscribe(
-          response => {
-            this.currentPlaying$;
-          },
-          error => {
-            console.error('Error:', error);
-        });
+        try{
+          await this._http.put(url, {body} ,{headers}).toPromise();
+          return true;
+        }catch (error){
+          console.error('Error:', error);
+          return false;
+        }
       }
 
-      getPlaying(): Player { //Queremos devolver el resultado de la cancion que se esta reproduciendo
-        return this.currentPlaying$();
+
+      addQuote(uri:string){
+
       }
+
   }

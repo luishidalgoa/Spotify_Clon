@@ -15,6 +15,7 @@ import { LanguageService } from './services/language.service';
 })
 export class AppComponent {
   title = 'Spotify_LuisHidalgoA';
-  constructor(private _auth: AuthService,private _language: LanguageService){
-  }
+  constructor(private _auth: AuthService,private _language: LanguageService){}
+
+  
 }
