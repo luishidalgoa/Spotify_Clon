@@ -13,5 +13,4 @@ export const environment = {
       },
     },
     url: 'https://spotify-luishidalgoa.vercel.app',
-
-  };
+};
