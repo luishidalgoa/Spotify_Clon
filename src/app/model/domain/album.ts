@@ -9,8 +9,6 @@ export interface Album {
     images:                 Image[];
     name:                   string;
     release_date:           string;
-    release_date_precision: string;
     type:                   string;
-    uri:                    string;
     artists:                Owner[];
 }

@@ -30,11 +30,11 @@
         <button><span>{{dictionary?.contain?.filter?.albums}}</span></button>
       </div>
       <div (contextmenu)="newContextMenu($event)" data-encore-id="add" class="hidden sm:flex items-center justify-between pl-3 mr-6">
-        <span (click)="InputSearche.focus(); tabIndex=0" class="flex items-center border-0 rounded-md"
+        <span (click)="InputSearch.focus(); tabIndex=0" class="flex items-center border-0 rounded-md"
           role="search">
           <input
             [ngClass]="['block bg-white/10 text-sm outline-none rounded-md py-[0.35rem]', tabIndex>-1?'opacity-1 w-[188px] pl-9':'opacity-0 w-6']"
-            #InputSearche (blur)="tabIndex=-1" placeholder="{{dictionary?.contain?.context_search}}"
+            #InputSearch (blur)="tabIndex=-1" placeholder="{{dictionary?.contain?.context_search}}"
             [tabIndex]="tabIndex">
           <button [ariaLabel]="dictionary?.contain?.context_search" data-encore-id="buttonTertiary"
             [ngClass]="['bg-transparent transition-colors rounded-full h-9 w-9 fill-zinc-400',tabIndex==-1?'hover:bg-white/5 hover:fill-white':'cursor-text fill-zinc-300']">

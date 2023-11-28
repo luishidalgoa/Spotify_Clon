@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PlayListMinCardComponent } from '../../components/cards/play-list-min-card/play-list-min-card.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { PlayerService } from '../../services/apis/Spotify/player.service';
 
 @Component({
   selector: 'app-test',
@@ -25,5 +26,11 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   `
 })
 export class TestComponent {
+  constructor(private _player: PlayerService) {
+    console.log(this._player);
+    this._player.getPlayingInterval().subscribe((data: any) => {
+      console.log(data);
+    });
+  }
 
 }

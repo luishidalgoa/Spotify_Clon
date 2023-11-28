@@ -2,3 +2,9 @@
 p{
     font-family: CircularStd-light;
 }
+img[aria-checked="true"]{
+    display: block!important;
+}
+div[aria-checked="true"]{
+    display: block!important;
+}

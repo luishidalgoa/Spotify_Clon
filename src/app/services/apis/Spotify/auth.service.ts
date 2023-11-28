@@ -105,7 +105,7 @@ export class AuthService {
   }
 
   Auth(): void {
-    const scope= 'playlist-modify-public playlist-read-private playlist-modify-private';
+    const scope= 'playlist-modify-public playlist-read-private playlist-modify-private user-read-currently-playing user-modify-playback-state user-read-playback-state';
     const spotifyURL = `https://accounts.spotify.com/authorize?client_id=${this.credentials.clientId}&scope=${scope}&response_type=code&redirect_uri=${environment.url}/Auth`;
     window.location.href = spotifyURL;
 

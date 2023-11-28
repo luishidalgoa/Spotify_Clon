@@ -33,7 +33,7 @@ export class PlayListService {
     const headers = new HttpHeaders()
         .set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
     return this._http.get(url, {headers}).subscribe((data: PlayList | any) => {
-      console.log(data)
+      console.log("PLAYLIST Service",data)
       return data;
     })
   }
