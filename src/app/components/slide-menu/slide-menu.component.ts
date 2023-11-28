@@ -1,15 +1,4 @@
-import {
-  Component,
-  HostBinding,
-  HostListener,
-  OnInit,
-  Signal,
-  WritableSignal,
-  computed,
-  effect,
-  inject,
-  signal,
-} from '@angular/core';
+import {Component,HostListener,OnInit,effect} from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../../assets/icons/home.component';
@@ -21,10 +10,8 @@ import { LanguageService } from '../../services/language.service';
 import { Observable, map } from 'rxjs';
 import { PlayListMinCardComponent } from '../cards/play-list-min-card/play-list-min-card.component';
 import { PlayList } from '../../model/domain/play-list';
-import { HttpClient } from '@angular/common/http';
 import { skeletonPlayListMinCardComponent } from '../items/skeleton/play-list-min-card/play-list-min-card.component';
 import { ContextualMenuComponent } from '../contextual-menu/contextual-menu.component';
-import { ContextualMenuItem } from '../../model/domain/contextual-menu-item';
 import { ContextMenuService } from '../../services/context-menu.service';
 import { PlayListService } from '../../services/apis/Spotify/play-list.service';
 import { ArtistService } from '../../services/apis/Spotify/artist.service';
@@ -32,20 +19,8 @@ import { ArtistService } from '../../services/apis/Spotify/artist.service';
 @Component({
   selector: 'app-slide-menu',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterLinkActive,
-    RouterModule,
-    RouterLink,
-    HomeComponent,
-    SearchComponent,
-    LibraryComponent,
-    AddComponent,
-    HamburguerMenuComponent,
-    PlayListMinCardComponent,
-    NgOptimizedImage,
-    skeletonPlayListMinCardComponent,
-    ContextualMenuComponent,
+  imports: [CommonModule,RouterLinkActive,RouterModule,RouterLink,HomeComponent,SearchComponent,LibraryComponent,AddComponent,
+    HamburguerMenuComponent,PlayListMinCardComponent,NgOptimizedImage,skeletonPlayListMinCardComponent,ContextualMenuComponent,
   ],
   templateUrl: './slide-menu.component.html',
   styleUrl: './slide-menu.component.scss',
