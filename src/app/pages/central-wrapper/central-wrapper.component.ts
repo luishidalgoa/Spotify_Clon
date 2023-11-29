@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
 import { map } from 'rxjs';
 import { MediumCardComponent } from '../../components/cards/medium-card/medium-card.component';
 import { PlayList } from '../../model/domain/play-list';
 import { PlayListService } from '../../services/apis/Spotify/play-list.service';
+import { AuthService } from '../../services/apis/Spotify/auth.service';
 
 @Component({
   selector: 'app-central-wrapper',
@@ -16,8 +17,13 @@ import { PlayListService } from '../../services/apis/Spotify/play-list.service';
 export class CentralWrapperComponent implements OnInit{
   public dictionary!: any;
   welcome!: PlayList[];
+  image!: string;
+  constructor(private _languege: LanguageService, private _playLists: PlayListService,public _auth: AuthService) {
+    effect(()=>{
+      this.image = this._auth.getCurrentUser().images?.[0]?.url;
+    })
 
-  constructor(private _languege: LanguageService, private _playLists: PlayListService) {
+
     _languege.diccionary
       .pipe(
         map((data: any) => {
@@ -28,6 +34,7 @@ export class CentralWrapperComponent implements OnInit{
         this.dictionary = data;
         return data;
       });
+
   }
   ngOnInit(): void {
     this._playLists.getUserPlayLists('6').subscribe((data: any) => {

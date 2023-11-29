@@ -85,10 +85,12 @@ export class PlayerService {
         }
       }
 
-      async playAlbum(uri:string,pos:number=0,position_ms:number=0):Promise<boolean>{
+      async play(uri:string,pos:number=0,position_ms:number=0):Promise<boolean>{
         const url = 'https://api.spotify.com/v1/me/player/play';
         const headers = new HttpHeaders()
+        .set('Content-Type', 'application/json')
         .set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
+
         const body = {
           "context_uri": uri,
           "offset": {
@@ -96,11 +98,13 @@ export class PlayerService {
           },
           "position_ms": position_ms
         };
-
-        try{
-          await this._http.put(url, {body} ,{headers}).toPromise();
-          return true;
-        }catch (error){
+        const oldUri = this.currentPlaying$().context.href;
+        try {
+          await this._http.put(url, JSON.stringify(body), { headers }).toPromise();
+          return this.getPlaying().then((data)=>{
+            return oldUri !== data?.context.href;
+          });
+        } catch (error) {
           console.error('Error:', error);
           return false;
         }
@@ -111,4 +115,49 @@ export class PlayerService {
 
       }
 
+      async getPlaying(): Promise<Player | undefined> {
+        const url= 'https://api.spotify.com/v1/me/player/currently-playing';
+        const headers = new HttpHeaders()
+            .set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
+        try{
+          return await this._http.get(url, {headers}).pipe(
+            map((data: Player | any) => {
+              const obj = data as Player;
+              if(obj){
+                const newObj: Player = {
+                  context: {
+                    type: obj.context.type,
+                    href: obj.context.href || '',
+                  },
+                  progress_ms: obj.progress_ms,
+                  item: {
+                    duration_ms: obj.item.duration_ms,
+                    href: obj.item.href,
+                    id: obj.item.id,
+                    name: obj.item.name,
+                    artists: [
+                      {
+                        name: obj.item.artists?.[0].name!==undefined ? obj.item.artists[0].name : '',
+                        href: obj.item.artists?.[0].href!==undefined ? obj.item.artists?.[0].href : '',
+                        id: obj.item.artists?.[0].id!==undefined ? obj.item.artists[0].id : '',
+                        images: obj.item.artists?.[0].images!==undefined ? obj.item.artists[0].images : [],
+                        type: obj.item.artists?.[0].type!==undefined ? obj.item.artists[0].type : '',
+                      }
+                    ]
+                    },
+                    currently_playing_type: obj.currently_playing_type,
+                    is_playing: obj.is_playing,
+                  }
+                  this.currentPlaying$.set(newObj);
+                  return newObj;
+                }else {
+                  return this.currentPlaying$();
+                }
+              })
+          ).toPromise();
+        }catch(err){
+          console.log(err)
+          return this.currentPlaying$();
+        }
+      }
   }

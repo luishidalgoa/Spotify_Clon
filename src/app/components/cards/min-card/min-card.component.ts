@@ -6,6 +6,7 @@ import { map } from 'rxjs';
 import { ContextMenuService } from '../../../services/context-menu.service';
 import { Artist } from '../../../model/domain/artist';
 import { CapitalizeFirstPipe } from '../../../Pipes/capitalize-first.pipe';
+import { PlayerService } from '../../../services/apis/Spotify/player.service';
 
 @Component({
   selector: 'app-min-card',
@@ -24,10 +25,11 @@ export class PlayListMinCardComponent implements OnInit {
     title: string;
     description: string;
     image: string;
-    href: string;
+    uri: string;
     type: string;
+    id: string;
   }
-  constructor(private _contextMenu: ContextMenuService) {
+  constructor(private _contextMenu: ContextMenuService,private _player: PlayerService) {
     this.languageS.diccionary
       .pipe(
         map((data: any) => {;
@@ -46,18 +48,20 @@ export class PlayListMinCardComponent implements OnInit {
       this.data = {
         title: this.object.name,
         description: '',
-        image: this.object.images[0].url,
-        href: this.object.href,
+        image: this.object.images[3].url,
+        uri: this.object.uri,
         type: this.object.type,
+        id: this.object.id,
       }
     }else if(this.object.type === 'playlist'){
       const aux= this.object as PlayList;
       this.data = {
         title: aux.name,
         description: aux.description,
-        image: aux.images[0].url,
-        href: aux.href,
+        image: aux.images?.[0].url ?? '',
+        uri: aux.uri,
         type: aux.type,
+        id: aux.id,
       }
     }
 

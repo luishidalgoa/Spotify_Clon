@@ -17,7 +17,7 @@ export class AuthService {
     clientSecret: environment.apis.spotify.clientSecret,
     transactionToken: '',
   };
-  private currentUser: BehaviorSubject<User>=new BehaviorSubject<User>({display_name: '',email: '',followers: {href: '',total: 0},href: '',id: '',images: [],product: '',type: ''})
+  private currentUser$: WritableSignal<User> = signal({display_name: '',email: '',followers: {href: '',total: 0},href: '',id: '',images: [],product: '',type: ''});
 
   public token$: WritableSignal<{access_token: string,token_type?: string, expires_in?: string,refresh_token?: string}> = signal({access_token: sessionStorage.getItem('token') || '',token_type: sessionStorage.getItem('token_type')|| '', expires_in: sessionStorage.getItem('expires_in') || '',refresh_token: sessionStorage.getItem('refresh_token') || ''});
 
@@ -114,7 +114,7 @@ export class AuthService {
   singOut() {
     this.token$.set({access_token: '',token_type: '', expires_in: '',refresh_token: ''});
     this.router.navigateByUrl('Auth');
-    this.currentUser.next({display_name: '',email: '',followers: {href: '',total: 0},href: '',id: '',images: [],product: '',type: ''});
+    this.currentUser$.set({display_name: '',email: '',followers: {href: '',total: 0},href: '',id: '',images: [],product: '',type: ''});
   }
 
   isAuth():void{
@@ -123,7 +123,7 @@ export class AuthService {
         .set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
     this._http.get(url,{headers: headers}).pipe(
       tap((data:User | any)=>{
-        this.currentUser.next(data);
+        this.currentUser$.set(data);
       }),
       catchError(error => {
         this.singOut();
@@ -134,7 +134,7 @@ export class AuthService {
     });
   }
 
-  getCurrentUser(): Observable<User>{
-    return this.currentUser;
+  getCurrentUser(): User{
+    return this.currentUser$();
   }
 }

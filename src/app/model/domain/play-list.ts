@@ -9,7 +9,7 @@ export interface PlayList {
     followers:     Followers;
     href:          string;
     id:            string;
-    images:        Image[];
+    images?:        Image[] | undefined;
     name:          string;
     owner:         Owner;
     public:        boolean;

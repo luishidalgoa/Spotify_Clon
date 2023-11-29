@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PlayListMinCardComponent } from '../../components/cards/min-card/min-card.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
