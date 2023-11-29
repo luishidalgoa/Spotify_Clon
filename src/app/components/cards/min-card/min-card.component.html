@@ -1,0 +1,12 @@
+<article (contextmenu)="newContextMenu($event)" data-encore-id="playList"
+  class="w-full h-16 bg-transparent hover:bg-zinc-500/[.05] transition-colors p-2 rounded-lg sm:grid gap-2 cursor-pointer flex justify-center">
+  <div class="w-[50px] h-[50px] relative">
+      <img [ngSrc]="this.data.image" srcset="" [alt]="this.data.type + this.data.title" [ngClass]="this.data.type==='artist'?'rounded-full':'rounded-md'" priority fill width="0" height="0">
+  </div>
+  <div class="sm:flex mt-1 hidden relative">
+    <div class="flex flex-col absolute max-w-full overflow-hidden whitespace-nowrap">
+      <p class="text-base text-white text-ellipsis ">{{this.data.title}}</p>
+      <p class="text-sm text-gray-300/80 text-ellipsis" >{{this.data.type==='playlist'?this.dictionary?.words?.list+' • ':''}}{{this.data.type==='playlist'?this.object.owner.display_name:this.data.type | capitalizeFirst}}</p>
+    </div>
+  </div>
+</article>

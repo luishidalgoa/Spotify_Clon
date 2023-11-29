@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { TestComponent } from './test/pages/test.component';
-import { PlayListMinCardComponent } from './components/cards/play-list-min-card/play-list-min-card.component';
+import { PlayListMinCardComponent } from './components/cards/min-card/min-card.component';
 import { SlideMenuComponent } from './components/slide-menu/slide-menu.component';
 import { HubComponent } from './pages/hub/hub.component';
 import { LoginComponent } from './pages/login/login.component';

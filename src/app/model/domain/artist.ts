@@ -10,4 +10,5 @@ export interface Artist {
   images:        Image[];
   name:          string;
   popularity?:    number;
+  type:          string;
 }

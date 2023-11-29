@@ -8,7 +8,19 @@ import { BehaviorSubject, Observable, interval, map, startWith, switchMap } from
 })
 export class PlayerService {
 
-  public currentPlaying$: WritableSignal<Player> = signal({context: {type: '',href: ''},progress_ms: 0,item: {duration_ms: 0,href: '',id: '',name: '',artists: [{name: '',href: '',id: '',images: []}]},currently_playing_type: '',is_playing: false});
+  public currentPlaying$: WritableSignal<Player> = signal({
+    context: {type: '',href: ''},
+    progress_ms: 0,
+    item: {
+      duration_ms: 0,
+      href: '',
+      id: '',
+      name: '',
+      artists: [{name: '', href: '', id: '', type: '', images: []}] // add type property here
+    },
+    currently_playing_type: '',
+    is_playing: false
+  });
 
   constructor(private _http: HttpClient) {
     this.getPlayingInterval().subscribe((data: Player | any) => {
@@ -27,32 +39,37 @@ export class PlayerService {
       switchMap(() => this._http.get(url, {headers})),
       map((data: Player | any) => {
         const obj = data as Player;
-        const newObj: Player = {
-          context: {
-            type: obj.context.type,
-            href: obj.context.href || '',
-          },
-          progress_ms: obj.progress_ms,
-          item: {
-            duration_ms: obj.item.duration_ms,
-            href: obj.item.href,
-            id: obj.item.id,
-            name: obj.item.name,
-            artists: [
-              {
-                name: obj.item.artists?.[0].name!==undefined ? obj.item.artists[0].name : '',
-                href: obj.item.artists?.[0].href!==undefined ? obj.item.artists?.[0].href : '',
-                id: obj.item.artists?.[0].id!==undefined ? obj.item.artists[0].id : '',
-                images: obj.item.artists?.[0].images!==undefined ? obj.item.artists[0].images : [],
-              }
-            ]
+        if(obj){
+          const newObj: Player = {
+            context: {
+              type: obj.context.type,
+              href: obj.context.href || '',
             },
-            currently_playing_type: obj.currently_playing_type,
-            is_playing: obj.is_playing,
-          }
-          return newObj;
-        }));
-      }
+            progress_ms: obj.progress_ms,
+            item: {
+              duration_ms: obj.item.duration_ms,
+              href: obj.item.href,
+              id: obj.item.id,
+              name: obj.item.name,
+              artists: [
+                {
+                  name: obj.item.artists?.[0].name!==undefined ? obj.item.artists[0].name : '',
+                  href: obj.item.artists?.[0].href!==undefined ? obj.item.artists?.[0].href : '',
+                  id: obj.item.artists?.[0].id!==undefined ? obj.item.artists[0].id : '',
+                  images: obj.item.artists?.[0].images!==undefined ? obj.item.artists[0].images : [],
+                  type: obj.item.artists?.[0].type!==undefined ? obj.item.artists[0].type : '',
+                }
+              ]
+              },
+              currently_playing_type: obj.currently_playing_type,
+              is_playing: obj.is_playing,
+            }
+            return newObj;
+        }else {
+            return this.currentPlaying$();
+        }
+      }));
+    }
 
       async pauseTrack(): Promise<boolean> {
         const url = 'https://api.spotify.com/v1/me/player/pause';
