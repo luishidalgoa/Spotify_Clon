@@ -22,7 +22,7 @@ export class MediumCardComponent {
   constructor(private _contextMenu: ContextMenuService,public _player: PlayerService) {
     this.playerMedia = computed(() => _player.currentPlaying$());
     effect(() => {
-      this.playing =  this.playerMedia().context.href === this.value.href && this.playerMedia().is_playing;
+      this.playing =  this._player.currentPlaying$().context.href === this.value.href && this._player.currentPlaying$().is_playing;
     });
   }
 
@@ -41,7 +41,6 @@ export class MediumCardComponent {
    * @param event 
    */
   handleClick(event:MouseEvent):void{
-    if(this.value.href !== this.playerMedia().context.href)return;
     if(this.playing){
       try{
         this._player.pauseTrack().then((result:boolean) => {
@@ -53,11 +52,17 @@ export class MediumCardComponent {
         console.log("No se pudo parar",err)
       }
     }else{
-      this._player.playAlbum(this.playerMedia().context.href ?? '',this.playerMedia().item.track_number,this.playerMedia().progress_ms).then((result:boolean) => {
-        this.playing = result;
-      }).catch((err) => {
-        console.log(err)
-      });;
+      this.play()
     }
+  }
+
+  play():void{ //NOTAAAAAAAAAAA Esto debemos pasarle a play un objeto con su uri, offeset y ms y que el metodo play se encargue de todo
+    const offset = this.playerMedia().context.href === this.value.href?this.playerMedia().item.track_number:0
+    const ms = this.playerMedia().context.href === this.value.href?this.playerMedia().progress_ms:0
+
+    this._player.play(this.value.uri,offset,ms).then((result:boolean) => {
+      console.log(result)
+      this.playing = result;
+    })
   }
 }
