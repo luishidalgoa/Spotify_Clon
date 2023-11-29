@@ -8,7 +8,7 @@ import { AddComponent } from '../../../assets/icons/add.component';
 import { HamburguerMenuComponent } from '../../../assets/icons/hamburguer-menu.component';
 import { LanguageService } from '../../services/language.service';
 import { Observable, map } from 'rxjs';
-import { PlayListMinCardComponent } from '../cards/play-list-min-card/play-list-min-card.component';
+import { PlayListMinCardComponent } from '../cards/min-card/min-card.component';
 import { PlayList } from '../../model/domain/play-list';
 import { skeletonPlayListMinCardComponent } from '../items/skeleton/play-list-min-card/play-list-min-card.component';
 import { ContextualMenuComponent } from '../contextual-menu/contextual-menu.component';

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PlayListMinCardComponent } from './play-list-min-card.component';
+import { PlayListMinCardComponent } from './min-card.component';
+import { CapitalizeFirstPipe } from '../../../Pipes/capitalize-first.pipe';
 
 describe('PlayListMinCardComponent', () => {
   let component: PlayListMinCardComponent;
@@ -8,7 +9,7 @@ describe('PlayListMinCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PlayListMinCardComponent]
+      imports: [PlayListMinCardComponent,CapitalizeFirstPipe]
     })
     .compileComponents();
     

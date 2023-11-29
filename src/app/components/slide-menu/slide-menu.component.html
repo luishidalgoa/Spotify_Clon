@@ -55,7 +55,7 @@
     <section data-encore-id="scroll" class="overflow-auto"><!--ARREGLAR-->
       @for (obj of playLists; track obj.id) {
           @defer (on viewport) {
-              <app-play-list-min-card [play]="obj" />
+              <app-min-card [object]="obj" />
           }@loading {
               <skeleton-play-list-min-card />
           }@placeholder {

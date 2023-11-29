@@ -53,9 +53,12 @@ span[role="search"] {
   }
 }
 
-section[role="wrapper"] {
+article[role="wrapper"] {
+  grid-template-rows: 1fr 1fr 10fr;
   @apply 2xl:max-w-md lg:max-w-sm max-w-[20rem];
 }
+
+
 
 span[role="filter"] button span {
   color: inherit;
@@ -108,4 +111,7 @@ section[data-encore-id="scroll"]:hover::-webkit-scrollbar {
 
 section[data-encore-id="scroll"]:hover::-webkit-scrollbar-thumb {
   background: rgb(255,255,255,.3)
+}
+nav{
+  grid-template-rows: max-content;
 }
