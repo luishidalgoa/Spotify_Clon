@@ -53,17 +53,17 @@
       
     </section>
     <section data-encore-id="scroll" class="overflow-auto"><!--ARREGLAR-->
-      @for (obj of playLists; track obj.id) {
-          @defer (on viewport) {
-              <app-min-card [object]="obj" />
-          }@loading {
-              <skeleton-play-list-min-card />
-          }@placeholder {
-              <skeleton-play-list-min-card/>
-          }@error {
-              <div class="text-center text-white">Error</div>
-          }
-      }
+      @for (obj of this.dataWrapper$(); track obj.id) {
+        @defer (on viewport) {
+            <app-min-card [object]="obj" />
+        }@loading {
+            <skeleton-play-list-min-card />
+        }@placeholder {
+            <skeleton-play-list-min-card/>
+        }@error {
+            <div class="text-center text-white">Error</div>
+        }
+    }
     </section>
   </article>
 </nav>

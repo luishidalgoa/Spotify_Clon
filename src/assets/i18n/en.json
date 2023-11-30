@@ -25,7 +25,71 @@
   },
   "words": {
     "list": "List",
-    "install": "Install app"
+    "install": "Install app",
+    "messages": {
+      "greetings": {
+        "morning": "Good morning",
+        "afternoon": "Good afternoon",
+        "evening": "Good evening",
+        "night": "Good night"
+      },
+      "sections": {
+        "artists": "Artists",
+        "result": "Main Result",
+        "songs": "Songs",
+        "albums": "Albums",
+        "lists": "Lists",
+        "episodes": "Episodes",
+        "podcasts": "Podcasts",
+        "profiles": "Profiles",
+        "recent searches": "Recent Searches",
+        "explore": "Explore All",
+        "make for": "Made for",
+        "immersing": "Immerse yourself back into your music",
+        "recently played": "Recently Played",
+        "new releases": "New Releases",
+        "popular artists": "Popular Artists"
+      },
+      "genres": {
+        "Pódcasts": "Podcasts",
+        "Latina": "Latina",
+        "Pop": "Pop",
+        "Rock": "Rock",
+        "HipHop": "Hip Hop",
+        "Flamenco": "Flamenco",
+        "DanceAndElectronic": "Dance & Electronic",
+        "indie": "Indie",
+        "Relax": "Relax",
+        "Party": "Party",
+        "Decades": "Decades",
+        "Gaming": "Gaming",
+        "love": "Love",
+        "Metal": "Metal",
+        "Anime": "Anime",
+        "Jazz": "Jazz",
+        "Classical": "Classical",
+        "FolkAndAcoustic": "Folk & Acoustic",
+        "Concentration": "Concentration",
+        "Soul": "Soul",
+        "ChildrenAndFamily": "Children & Family",
+        "Reggae": "Reggae",
+        "TVAndMovies": "TV & Movies",
+        "Instrumental": "Instrumental",
+        "Punk": "Punk",
+        "Ambient": "Ambient",
+        "Blues": "Blues",
+        "Cooking": "Cooking",
+        "Welfare": "Welfare",
+        "Alternative": "Alternative",
+        "Travel": "Travel",
+        "Caribbean": "Caribbean",
+        "Afro": "Afro",
+        "SoundsAndNature": "Sounds & Nature",
+        "Funk": "Funk",
+        "Summer": "Summer",
+        "Country": "Country"
+      }
+    }    
   },
   "contextMenu": {
     "playList": {

@@ -7,6 +7,8 @@ import { ContextMenuService } from '../../../services/context-menu.service';
 import { Artist } from '../../../model/domain/artist';
 import { CapitalizeFirstPipe } from '../../../Pipes/capitalize-first.pipe';
 import { PlayerService } from '../../../services/apis/Spotify/player.service';
+import { User } from '../../../model/domain/user';
+import { ReduceData } from '../../../model/domain/api/spotify/reduce-data';
 
 @Component({
   selector: 'app-min-card',
@@ -18,17 +20,9 @@ import { PlayerService } from '../../../services/apis/Spotify/player.service';
 export class PlayListMinCardComponent implements OnInit {
   languageS: LanguageService = inject(LanguageService);
   @Input({ required: true })
-  object!: PlayList | Artist | any;
+  object!: ReduceData;
   dictionary: any;
 
-  data!: {
-    title: string;
-    description: string;
-    image: string | undefined;
-    uri: string;
-    type: string;
-    id: string;
-  }
   constructor(private _contextMenu: ContextMenuService,private _player: PlayerService) {
     this.languageS.diccionary
       .pipe(
@@ -44,26 +38,6 @@ export class PlayListMinCardComponent implements OnInit {
       });
   }
   ngOnInit(): void {
-    if(this.object.type === 'artist'){
-      this.data = {
-        title: this.object.name,
-        description: '',
-        image: this.object.images[3].url,
-        uri: this.object.uri,
-        type: this.object.type,
-        id: this.object.id,
-      }
-    }else if(this.object.type === 'playlist'){
-      const aux= this.object as PlayList;
-      this.data = {
-        title: aux.name,
-        description: aux.description,
-        image: aux.images!==undefined && aux.images.length>0? aux.images[0].url : '',
-        uri: aux.uri,
-        type: aux.type,
-        id: aux.id,
-      }
-    }
 
   }
 
