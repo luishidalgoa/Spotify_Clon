@@ -54,7 +54,7 @@ span[role="search"] {
 }
 
 article[role="wrapper"] {
-  grid-template-rows: 1fr 1fr 10fr;
+  grid-template-rows: 1fr auto 10fr;
   @apply 2xl:max-w-md lg:max-w-sm max-w-[20rem];
 }
 

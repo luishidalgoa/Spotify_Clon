@@ -24,7 +24,7 @@ export class PlayListMinCardComponent implements OnInit {
   data!: {
     title: string;
     description: string;
-    image: string;
+    image: string | undefined;
     uri: string;
     type: string;
     id: string;
@@ -58,7 +58,7 @@ export class PlayListMinCardComponent implements OnInit {
       this.data = {
         title: aux.name,
         description: aux.description,
-        image: aux.images?.[0].url ?? '',
+        image: aux.images!==undefined && aux.images.length>0? aux.images[0].url : '',
         uri: aux.uri,
         type: aux.type,
         id: aux.id,

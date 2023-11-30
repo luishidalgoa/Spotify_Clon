@@ -22,7 +22,11 @@ export class MediumCardComponent {
   constructor(private _contextMenu: ContextMenuService,public _player: PlayerService) {
     this.playerMedia = computed(() => _player.currentPlaying$());
     effect(() => {
-      this.playing =  this._player.currentPlaying$().context.href === this.value.href && this._player.currentPlaying$().is_playing;
+      if(this._player.currentPlaying$().context){
+        this.playing =  this._player.currentPlaying$().context.href === this.value.href && this._player.currentPlaying$().is_playing;
+      }else{
+        this.playing = false;
+      }
     });
   }
 
@@ -60,8 +64,7 @@ export class MediumCardComponent {
     const offset = this.playerMedia().context.href === this.value.href?this.playerMedia().item.track_number:0
     const ms = this.playerMedia().context.href === this.value.href?this.playerMedia().progress_ms:0
 
-    this._player.play(this.value.uri,offset,ms).then((result:boolean) => {
-      console.log(result)
+    this._player.play(this.value.uri,offset,ms).then((result:boolean) => { //MODIFICAR cuando getPlaying se refactorize
       this.playing = result;
     })
   }

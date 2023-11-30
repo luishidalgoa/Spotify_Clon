@@ -17,10 +17,10 @@ import { AuthService } from '../../services/apis/Spotify/auth.service';
 export class CentralWrapperComponent implements OnInit{
   public dictionary!: any;
   welcome!: PlayList[];
-  image!: string;
+  profilePicture!: string;
   constructor(private _languege: LanguageService, private _playLists: PlayListService,public _auth: AuthService) {
     effect(()=>{
-      this.image = this._auth.getCurrentUser().images?.[0]?.url;
+      this.profilePicture = this._auth.getCurrentUser().images?.[0]?.url ?? '';
     })
 
 
