@@ -4,7 +4,16 @@ header{
         
     }
 }
-h2{
-    font-family: CircularStd-Bold;
-    font-size: 2rem;
+section[data-encore-id="scroll"]::-webkit-scrollbar{
+  
+    width: 0;
+}
+
+section[data-encore-id="scroll"]:hover::-webkit-scrollbar {
+  width: .8rem;
+}
+
+
+section[data-encore-id="scroll"]:hover::-webkit-scrollbar-thumb {
+  background: rgb(255,255,255,.3)
 }

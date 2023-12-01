@@ -1,0 +1,23 @@
+<!--ESTO SE PUEDE SIMPLIFICAR-->
+
+<article class="pt-3 grid gap-3">
+    <section class="text-white">
+        <h2>{{this.getGreeting()}}</h2>
+        <div class="grid grid-cols-1 pt-3 sm:grid-cols-2 xl:grid-cols-3 grid-rows-3 sm:grid-rows-2 gap-2">
+            @for (item of welcome; track $index) {
+                <app-medium-card [value]="item"></app-medium-card>
+            }
+        </div>
+    </section>
+    <section class="whitespace-nowrap overflow-hidden">
+        <h2 class="text-white overflow-hidden overflow-ellipsis">{{this.dictionary.words.messages.sections.made_for}} Luis Hidalgo Aguilar</h2>
+        <div class="pt-3 gap-[2%] grid justify-between grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+            <app-big-card></app-big-card>
+            <app-big-card></app-big-card>
+            <app-big-card></app-big-card>
+            <app-big-card></app-big-card>
+            <app-big-card></app-big-card>
+            <app-big-card></app-big-card>
+        </div>
+    </section>
+</article>
