@@ -1,4 +1,4 @@
-import {Component,HostListener,OnInit,effect} from '@angular/core';
+import {Component,HostListener,OnInit,Signal,computed} from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../../assets/icons/home.component';
@@ -7,14 +7,14 @@ import { LibraryComponent } from '../../../assets/icons/library.component';
 import { AddComponent } from '../../../assets/icons/add.component';
 import { HamburguerMenuComponent } from '../../../assets/icons/hamburguer-menu.component';
 import { LanguageService } from '../../services/language.service';
-import { Observable, map } from 'rxjs';
+import { map } from 'rxjs';
 import { PlayListMinCardComponent } from '../cards/min-card/min-card.component';
-import { PlayList } from '../../model/domain/play-list';
 import { skeletonPlayListMinCardComponent } from '../items/skeleton/play-list-min-card/play-list-min-card.component';
 import { ContextualMenuComponent } from '../contextual-menu/contextual-menu.component';
 import { ContextMenuService } from '../../services/context-menu.service';
-import { PlayListService } from '../../services/apis/Spotify/play-list.service';
-import { ArtistService } from '../../services/apis/Spotify/artist.service';
+import { DataWrapperService } from '../../services/apis/Spotify/data-wrapper.service';
+import { User } from '../../model/domain/user';
+import { ReduceData } from '../../model/domain/api/spotify/reduce-data';
 
 @Component({
   selector: 'app-slide-menu',
@@ -33,27 +33,16 @@ export class SlideMenuComponent implements OnInit {
 
   tabIndex: number = -1;
   dictionary!: any;
+  
+  dataWrapper$!: Signal<ReduceData[]>;
 
-  playLists: PlayList[] = [];
-
-  constructor(
-    private languageService: LanguageService,
-    public _contextMenu: ContextMenuService,
-    private _playLists: PlayListService,
-    private _artist: ArtistService
-  ) {
-    effect(() => {
-      this.playLists = this._playLists.playLists$();
-    });
+  constructor(private languageService: LanguageService,public _contextMenu: ContextMenuService,_dataWrapper: DataWrapperService) {
+    this.dataWrapper$ = computed(() => _dataWrapper._dataWrapper$());
     //Cargamos una parte del diccionario de idiomas que nos interesa
     languageService.diccionary
       .pipe(
         map((data: any) => {
-          const {
-            lang,
-            components: { Slide_Menu },
-            ...rest
-          } = data; //devolvemos diccionary.components.Slide_Menu
+          const { lang, components: { Slide_Menu },...rest} = data; //devolvemos diccionary.components.Slide_Menu
           this.dictionary = Slide_Menu;
         })
       )

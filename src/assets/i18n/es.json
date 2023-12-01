@@ -1,65 +1,128 @@
 {
-    "lang": {
-        "es": "Español",
-        "en": "Inglés"
-    },
-    "components": {
-        "Slide_Menu": {
-            "header": {
-                "home": "Inicio",
-                "search": "Buscar"
-            },
-            "contain": {
-                "library": "Tu biblioteca",
-                "context_library": "Contraer Tu biblioteca",
-                "context_add": "Crear una lista o carpeta",
-                "filter": {
-                    "list": "Listas",
-                    "artist": "Artistas",
-                    "albums": "Álbumes"
-                },
-                "context_search": "Buscar en tu biblioteca",
-                "lasted": "Recientes"
-            }
-        }
-    },
-    "words":{
-        "list": "Lista",
-        "install": "Instalar app"
-    },
-    "contextMenu": {
-        "playList": {
-            "remove": "Quitar de tu biblioteca",
-            "addTail": "Añadir a la cola",
-            "addToPerfil": "Añadir a tu perfil",
-            "edit": "Editar datos",
-            "Remove": "Eliminar",
-            "Download": "Descargar",
-            "createList":"Crear lista",
-            "createFolder":"Crear carpeta",
-            "makePrivate": "Hacer privada",
-            "inviteFriends": "Invitar a colaboradores",
-            "Move": "Mover a carpeta",
-            "addOtherList": "Añadir a otra lista",
-            "pinUp": "Fijar lista",
-            "share": "Compartir",
-            "denuciate": "Denunciar"
-
+  "lang": {
+    "es": "Español",
+    "en": "Inglés"
+  },
+  "components": {
+    "Slide_Menu": {
+      "header": {
+        "home": "Inicio",
+        "search": "Buscar"
+      },
+      "contain": {
+        "library": "Tu biblioteca",
+        "context_library": "Contraer Tu biblioteca",
+        "context_add": "Crear una lista o carpeta",
+        "filter": {
+          "list": "Listas",
+          "artist": "Artistas",
+          "albums": "Álbumes"
         },
-        "add":{
-            "createList": "Crear lista",
-            "createFolder": "Crear carpeta"
-        }
-    },
-    "login":{
-        "title": "Iniciar sesión en Spotify",
-        "continueSpotify": "Continuar con Spotify",
-        "privacity": {
-            "1": "Este sitio está protegido por reCAPTCHA. Se aplican los",
-            "2": "Términos del servicio",
-            "3": "y la",
-            "4": "Política de privacidad",
-            "5": "de Google"
-        }
+        "context_search": "Buscar en tu biblioteca",
+        "lasted": "Recientes"
+      }
     }
+  },
+  "words": {
+    "list": "Lista",
+    "install": "Instalar app",
+    "messages": {
+      "greetings": {
+        "morning": "Buenos días",
+        "afternoon": "Buenas tardes",
+        "evening": "Buenas noches",
+        "night": "Buenas noches"
+      },
+      "sections": {
+        "artists": "Artists",
+        "result": "Main Result",
+        "songs": "Songs",
+        "albums": "Albums",
+        "lists": "Lists",
+        "episodes": "Episodes",
+        "podcasts": "Podcasts",
+        "profiles": "Profiles",
+        "recent searches": "Recent Searches",
+        "explore": "Explorar todo",
+        "made_for": "Hecha para",
+        "immersing": "Immerse yourself back into your music",
+        "recently played": "Recently Played",
+        "new releases": "New Releases",
+        "popular artists": "Popular Artists"
+      },
+      "genres": {
+        "Pódcasts": "Podcasts",
+        "Latina": "Latina",
+        "Pop": "Pop",
+        "Rock": "Rock",
+        "HipHop": "Hip Hop",
+        "Flamenco": "Flamenco",
+        "DanceAndElectronic": "Dance & Electronic",
+        "indie": "Indie",
+        "Relax": "Relax",
+        "Party": "Party",
+        "Decades": "Decades",
+        "Gaming": "Gaming",
+        "love": "Love",
+        "Metal": "Metal",
+        "Anime": "Anime",
+        "Jazz": "Jazz",
+        "Classical": "Classical",
+        "FolkAndAcoustic": "Folk & Acoustic",
+        "Concentration": "Concentration",
+        "Soul": "Soul",
+        "ChildrenAndFamily": "Children & Family",
+        "Reggae": "Reggae",
+        "TVAndMovies": "TV & Movies",
+        "Instrumental": "Instrumental",
+        "Punk": "Punk",
+        "Ambient": "Ambient",
+        "Blues": "Blues",
+        "Cooking": "Cooking",
+        "Welfare": "Welfare",
+        "Alternative": "Alternative",
+        "Travel": "Travel",
+        "Caribbean": "Caribbean",
+        "Afro": "Afro",
+        "SoundsAndNature": "Sounds & Nature",
+        "Funk": "Funk",
+        "Summer": "Summer",
+        "Country": "Country"
+      }
+    }
+  },
+  "contextMenu": {
+    "playList": {
+      "remove": "Quitar de tu biblioteca",
+      "addTail": "Añadir a la cola",
+      "addToPerfil": "Añadir a tu perfil",
+      "edit": "Editar datos",
+      "Remove": "Eliminar",
+      "Download": "Descargar",
+      "createList": "Crear lista",
+      "createFolder": "Crear carpeta",
+      "makePrivate": "Hacer privada",
+      "inviteFriends": "Invitar a colaboradores",
+      "Move": "Mover a carpeta",
+      "addOtherList": "Añadir a otra lista",
+      "pinUp": "Fijar lista",
+      "share": "Compartir",
+      "denuciate": "Denunciar"
+    },
+    "add": {
+      "createList": "Crear lista",
+      "createFolder": "Crear carpeta"
+    }
+  },
+  "login": {
+    "title": "Iniciar sesión en Spotify",
+    "continueSpotify": "Continuar con Spotify",
+    "privacity": {
+      "1": "Este sitio está protegido por reCAPTCHA. Se aplican los",
+      "2": "Términos del servicio",
+      "3": "y la",
+      "4": "Política de privacidad",
+      "5": "de Google"
+    }
+  }
 }

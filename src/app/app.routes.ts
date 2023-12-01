@@ -9,11 +9,15 @@ import {SignalTestComponent} from "./test/pages/signal-test/signal-test.componen
 import { authGuard } from './guards/auth.guard';
 import { secondAuthGuard } from './guards/second-auth.guard';
 import { ContextualMenuComponent } from './components/contextual-menu/contextual-menu.component';
+import { PreviewComponent } from './pages/preview/preview.component';
 
 export const routes: Routes = [
   {
-    title: 'Home | preview',
+    title: 'Spotify_Clon Project',
     path: '',loadComponent: () => import('./pages/hub/hub.component').then((m) => m.HubComponent),
+    children: [
+      {title: 'Home | preview',path:'',loadComponent: () => import('./pages/preview/preview.component').then((m) => m.PreviewComponent)},
+    ],
     canActivate: [authGuard]
   },
   { 

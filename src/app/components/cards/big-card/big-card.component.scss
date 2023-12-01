@@ -1,0 +1,14 @@
+h4{
+    line-height: 1rem;
+    font-size: 1.1rem;
+    font-family: CircularStd-Bold;
+}
+article{
+    transition: all 0.3s ease-in-out;
+}
+
+span{
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Puedes ajustar este valor según el número de líneas que desees mostrar */
+    -webkit-box-orient: vertical;
+}
