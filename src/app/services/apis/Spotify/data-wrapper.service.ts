@@ -14,30 +14,32 @@ export class DataWrapperService {
   private _playList: PlayListService = inject(PlayListService);
   private _artist: ArtistService = inject(ArtistService);
 
-  public _dataWrapper$: WritableSignal<[ReduceData]> = signal([{title: '',description: '',image: '',uri: '',type: '',id: '',}]);
+  public _dataWrapper$: WritableSignal<ReduceData[]> = signal([] as ReduceData[]);
   //Almacenará las playLists que siga el usuario temporalmente
   playLists: PlayList[] = [];
   //Almacenará los artistas que siga el usuario temporalmente
   artists: Artist[] = [];
 
   constructor() {
-    let wrapper: any[] = [];
+    let wrapper: ReduceData[] = [];
     this._playList.getUserPlayLists().subscribe((data: any) => {
       this.playLists.push(...data.items);
       this.playLists.forEach((playList: PlayList) => { //Extraemos los datos del array de playLists y los metemos en el array wrapper
         wrapper.push(this.convertPlayListToDataWrapper(playList));
       });
-      const aux = wrapper as [ReduceData];
-      this._dataWrapper$.update(() => aux); //Actualizamos el wrapper
-    })
-    this._artist.getFollowedArtist().subscribe((data: any) => {
-      this.artists.push(...data.artists.items);
-      this.artists.forEach((artist: Artist) => { //Extraemos los datos del array de artistas y los metemos en el array wrapper
-        wrapper.push(this.convertArtistToDataWrapper(artist));
+
+      this._artist.getFollowedArtist().subscribe((data: any) => {
+        this.artists.push(...data.artists.items);
+        this.artists.forEach((artist: Artist) => { //Extraemos los datos del array de artistas y los metemos en el array wrapper
+          wrapper.push(this.convertArtistToDataWrapper(artist));
+        });
+      }).add(() => {
+        this._dataWrapper$.update(() => this.shuffleArray(wrapper)); //Actualizamos el wrapper
       });
-      const aux = wrapper as [ReduceData];
-      this._dataWrapper$.update(() => aux); //Actualizamos el wrapper
     })
+
+
+    
   }
 
   convertPlayListToDataWrapper(playList: PlayList): ReduceData{
@@ -61,5 +63,17 @@ export class DataWrapperService {
       type: artist.type,
       id: artist.id,
     }
+  }
+
+  getRandomNumber(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  shuffleArray(array:ReduceData[]): ReduceData[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = this.getRandomNumber(0, i);
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array as ReduceData[];
   }
 }

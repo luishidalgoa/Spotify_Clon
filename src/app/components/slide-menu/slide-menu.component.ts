@@ -34,7 +34,7 @@ export class SlideMenuComponent implements OnInit {
   tabIndex: number = -1;
   dictionary!: any;
   
-  dataWrapper$!: Signal<[ReduceData]>;
+  dataWrapper$!: Signal<ReduceData[]>;
 
   constructor(private languageService: LanguageService,public _contextMenu: ContextMenuService,_dataWrapper: DataWrapperService) {
     this.dataWrapper$ = computed(() => _dataWrapper._dataWrapper$());
