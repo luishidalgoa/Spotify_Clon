@@ -64,13 +64,13 @@ export class PreviewComponent {
 
   generateSections():void{
     const popularLists: ReduceData[] = []
-    this._playLists.getPopularPlayLists(5).subscribe((data: any) => {
+    this._playLists.getPopularPlayLists(7).subscribe((data: any) => {
       data.playlists.items.forEach((data:PlayList)=>{
         popularLists.push(this._dataWrapper.convertPlayListToDataWrapper(data));
       })
     })
     const artists: ReduceData[] = []
-    this._artist.bestArtistsByUser(5).subscribe((data: any) => {
+    this._artist.bestArtistsByUser(7).subscribe((data: any) => {
       data.items.forEach((data:Artist)=>{
         artists.push(this._dataWrapper.convertArtistToDataWrapper(data));
       })
