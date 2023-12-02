@@ -24,7 +24,10 @@
     }
   },
   "words": {
-    "list": "List",
+    "type": {
+      "playlist": "List",
+      "artist": "Artist"
+    },
     "install": "Install app",
     "messages": {
       "greetings": {
@@ -42,13 +45,15 @@
         "episodes": "Episodes",
         "podcasts": "Podcasts",
         "profiles": "Profiles",
-        "recent searches": "Recent Searches",
+        "recentSearches": "Recent Searches",
         "explore": "Explore All",
         "made_for": "Made for",
         "immersing": "Immerse yourself back into your music",
-        "recently played": "Recently Played",
+        "recentlyPlayed": "Recently Played",
         "new releases": "New Releases",
-        "popular artists": "Popular Artists"
+        "popularArtists": "Popular Artists",
+        "popularLists": "Popular Lists",
+        "recommendArtists": "Recommend artists"
       },
       "genres": {
         "Pódcasts": "Podcasts",
@@ -107,11 +112,19 @@
       "addOtherList": "Add to another list",
       "pinUp": "Pin list",
       "share": "Share",
-      "denuciate": "Report"
+      "report": "Report"
     },
     "add": {
       "createList": "Create list",
       "createFolder": "Create folder"
+    },
+    "artist": {
+      "unfollow": "Unfollow",
+      "follow": "Follow",
+      "goToRadio": "Go to artist's radio",
+      "report": "Report",
+      "share": "Share",
+      "pinUp":"Pin up artist"
     }
   },
   "login": {

@@ -59,7 +59,7 @@ export class DataWrapperService {
       title: artist.name,
       description: '',
       image: artist.images !== undefined && artist.images.length > 0 ? artist.images[0].url : '',
-      uri: artist.href,
+      uri: artist.uri,
       type: artist.type,
       id: artist.id,
     }

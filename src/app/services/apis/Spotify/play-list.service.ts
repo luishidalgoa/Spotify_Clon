@@ -16,7 +16,6 @@ export class PlayListService {
     this.getUserPlayLists().subscribe((data: any) => 
       this.playLists$.set(data.items)
     );
-
     this.getUserPlayLists();
 
    }
@@ -36,6 +35,12 @@ export class PlayListService {
       console.log("PLAYLIST Service",data)
       return data;
     })
+  }
+  getPopularPlayLists(limit:number=15): Observable<PlayList[]> {
+    const url = `https://api.spotify.com/v1/browse/featured-playlists`+(limit ? `?limit=${limit}` : '');
+    const headers = new HttpHeaders()
+        .set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
+    return this._http.get<PlayList[]>(url, {headers});
   }
 
 }
