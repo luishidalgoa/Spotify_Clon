@@ -5,7 +5,7 @@
             <button class="text-white/70 hover:underline select-none">Mostrar más</button>
         </span>
     </header>
-    <div role="wrapper" class="pt-3 gap-[2%] justify-between grid grid-rows-1">
+    <div role="wrapper" class="pt-3 gap-3 justify-between grid grid-rows-1">
         @for (item of this.value?.data; track $index) {
             <app-big-card [object]="item"></app-big-card>
         }
