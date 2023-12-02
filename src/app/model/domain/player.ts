@@ -29,4 +29,5 @@ export interface Item {
 export interface Context {
     href:          string | undefined;
     type:          string;
+    uri:           string;
 }

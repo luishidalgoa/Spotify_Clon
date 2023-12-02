@@ -1,8 +1,7 @@
-import { Injectable, Signal, WritableSignal, effect, signal } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, map, of, pipe, tap, throwError } from 'rxjs';
+import { Injectable, WritableSignal, effect, signal } from '@angular/core';
+import { catchError, tap, throwError } from 'rxjs';
 import { User } from '../../../model/domain/user';
-import { AudiusUser } from '../../../model/domain/api/audius/user';
-import { Router, RouterStateSnapshot } from '@angular/router';
+import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment.development';
 declare var window: any;
@@ -17,7 +16,7 @@ export class AuthService {
     clientSecret: environment.apis.spotify.clientSecret,
     transactionToken: '',
   };
-  private currentUser$: WritableSignal<User> = signal({display_name: '',email: '',followers: {href: '',total: 0},href: '',id: '',images: [],product: '',type: ''});
+  public currentUser$: WritableSignal<User> = signal({display_name: '',email: '',followers: {href: '',total: 0},href: '',id: '',images: [],product: '',type: ''});
 
   public token$: WritableSignal<{access_token: string,token_type?: string, expires_in?: string,refresh_token?: string}> = signal({access_token: sessionStorage.getItem('token') || '',token_type: sessionStorage.getItem('token_type')|| '', expires_in: sessionStorage.getItem('expires_in') || '',refresh_token: sessionStorage.getItem('refresh_token') || ''});
 
@@ -105,7 +104,7 @@ export class AuthService {
   }
 
   Auth(): void {
-    const scope= 'playlist-modify-public playlist-read-private playlist-modify-private user-read-currently-playing user-modify-playback-state user-read-playback-state user-follow-read';
+    const scope= 'playlist-modify-public playlist-read-private playlist-modify-private user-read-currently-playing user-modify-playback-state user-read-playback-state user-follow-read user-top-read';
     const spotifyURL = `https://accounts.spotify.com/authorize?client_id=${this.credentials.clientId}&scope=${scope}&response_type=code&redirect_uri=${environment.url}/Auth`;
     window.location.href = spotifyURL;
 
@@ -132,9 +131,5 @@ export class AuthService {
     ).subscribe(()=>{
   
     });
-  }
-
-  getCurrentUser(): User{
-    return this.currentUser$();
   }
 }

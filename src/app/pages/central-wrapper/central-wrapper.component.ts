@@ -20,7 +20,7 @@ export class CentralWrapperComponent implements OnInit{
   profilePicture!: string;
   constructor(private _languege: LanguageService, private _playLists: PlayListService,public _auth: AuthService) {
     effect(()=>{
-      this.profilePicture = this._auth.getCurrentUser().images?.[0]?.url ?? '';
+      this.profilePicture = this._auth.currentUser$().images?.[0]?.url ?? '';
     })
 
 

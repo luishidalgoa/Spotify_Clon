@@ -1,11 +1,46 @@
-<article class=" px-4 pt-4 pb-3 w-auto h-full bg-neutral-800/30 relative overflow-hidden grid rounded-md gap-4 hover:bg-neutral-800" style="grid-template-rows: auto 2fr;">
-    <div class="w-full overflow-hidden rounded-md">
-        <img class="" style="height: auto;position:initial;" [ngSrc]="'https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebb4c842af8007dc290796f811d'" fill width="0" height="0" priority alt="" srcset="">
-    </div>
-    <div class="overflow-hidden flex flex-col gap-2 whitespace-normal">
-        <span class="whitespace-nowrap">
-            <h4 class="text-white overflow-hidden overflow-ellipsis">Radar de Novedades</h4>
-        </span>
-        <span class="overflow-hidden overflow-ellipsis"><p class="text-white/80 text-sm">Las novedades de los artistas que sigues y nuevos temas seleccionados para ti. Se actualiza cada viernes</p></span>
-    </div>
+<article class="cursor-pointer select-none px-4 pt-4 pb-3 w-auto h-full bg-neutral-800/30 relative overflow-hidden grid rounded-md gap-4 hover:bg-neutral-800" style="grid-template-rows: auto 2fr;" (mouseenter)="ariaChecked=true" (mouseleave)="ariaChecked=false">
+    @switch (this.object.type) {
+        @case ('artist') {
+            <div class="relative" style="padding-bottom: 100%;">
+                <div class="absolute overflow-hidden rounded-full drop-shadow-md h-full w-full">
+                    <img [src]="this.object.image" class="h-full w-full" style="object-fit: cover;" alt="">
+                </div>
+                @if (ariaChecked) {
+                    <div (click)="this.handleClick($event)" class="bg-green-500 rounded-full p-3 hover:scale-110 hover:bg-green-400 transition-transform  absolute bottom-2 right-3">
+                        @if (!playing) {
+                            <svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="h-4 w-4" ><path d="M3 1.713a.7.7 0 0 1 1.05-.607l10.89 6.288a.7.7 0 0 1 0 1.212L4.05 14.894A.7.7 0 0 1 3 14.288V1.713z"></path></svg>
+                        }@else{
+                            <svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="h-4 w-4"><path d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"></path></svg>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="text-white flex flex-col">
+                <h5 class="">{{this.object.title}}</h5>
+                <p>{{this.dictionary.words.type.artist}}</p>
+            </div>
+        }
+        @default {
+            <div class="relative">
+                <div class="w-full relative overflow-hidden rounded-md shadow-lg">
+                    <img class="" style="height: auto;position:initial;" [ngSrc]="this.object.image ?? ''" fill width="0" height="0" priority alt="" srcset="">
+                </div>
+                @if (ariaChecked) {
+                    <div (click)="this.handleClick($event)" role="toggle" class="bg-green-500 rounded-full p-3 hover:scale-110 hover:bg-green-400 transition-transform  absolute bottom-2 right-3">
+                        @if (!playing) {
+                            <svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="h-4 w-4" ><path d="M3 1.713a.7.7 0 0 1 1.05-.607l10.89 6.288a.7.7 0 0 1 0 1.212L4.05 14.894A.7.7 0 0 1 3 14.288V1.713z"></path></svg>
+                        }@else{
+                            <svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="h-4 w-4"><path d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"></path></svg>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="overflow-hidden flex flex-col gap-2 whitespace-normal">
+                <span class="whitespace-nowrap">
+                    <h4 class="text-white overflow-hidden overflow-ellipsis">{{object.title}}</h4>
+                </span>
+                <span class="overflow-hidden overflow-ellipsis"><p class="text-white/80 text-sm">{{object.description}}</p></span>
+            </div>
+        }
+    }
 </article>
