@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class LanguageService {
-  private language: string = language.English;
+  private language: string = language.Spanish;
   //extraemos el json del idioma seleccionado
   public diccionary: ReplaySubject<any>= new ReplaySubject<any>(1);
   
