@@ -9,14 +9,14 @@ import { BehaviorSubject, Observable, interval, map, startWith, switchMap } from
 export class PlayerService {
 
   public currentPlaying$: WritableSignal<Player> = signal({
-    context: {type: '',href: ''},
+    context: {type: '',href: '',uri: ''},
     progress_ms: 0,
     item: {
       duration_ms: 0,
       href: '',
       id: '',
       name: '',
-      artists: [{name: '', href: '', id: '', type: '', images: []}] // add type property here
+      artists: [{name: '', href: '', id: '', type: '', images: [],uri: ''}] // add type property here
     },
     currently_playing_type: '',
     is_playing: false
@@ -44,6 +44,7 @@ export class PlayerService {
             context: {
               type: obj.context.type,
               href: obj.context.href || '',
+              uri: obj.context.uri,
             },
             progress_ms: obj.progress_ms,
             item: {
@@ -58,6 +59,7 @@ export class PlayerService {
                   id: obj.item.artists?.[0].id!==undefined ? obj.item.artists[0].id : '',
                   images: obj.item.artists?.[0].images!==undefined ? obj.item.artists[0].images : [],
                   type: obj.item.artists?.[0].type!==undefined ? obj.item.artists[0].type : '',
+                  uri: obj.item.artists?.[0].uri!==undefined ? obj.item.artists[0].uri : '',
                 }
               ]
               },
@@ -128,6 +130,7 @@ export class PlayerService {
                   context: {
                     type: obj.context.type,
                     href: obj.context.href || '',
+                    uri: obj.context.uri,
                   },
                   progress_ms: obj.progress_ms,
                   item: {
@@ -142,6 +145,7 @@ export class PlayerService {
                         id: obj.item.artists?.[0].id!==undefined ? obj.item.artists[0].id : '',
                         images: obj.item.artists?.[0].images!==undefined ? obj.item.artists[0].images : [],
                         type: obj.item.artists?.[0].type!==undefined ? obj.item.artists[0].type : '',
+                        uri: obj.item.artists?.[0].uri!==undefined ? obj.item.artists[0].uri : '',
                       }
                     ]
                     },

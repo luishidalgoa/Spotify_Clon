@@ -9,15 +9,7 @@
             }
         </div>
     </section>
-    <section class="whitespace-nowrap overflow-hidden">
-        <h2 class="text-white overflow-hidden overflow-ellipsis">{{this.dictionary.words.messages.sections.made_for}} Luis Hidalgo Aguilar</h2>
-        <div class="pt-3 gap-[2%] grid justify-between grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-            <app-big-card></app-big-card>
-            <app-big-card></app-big-card>
-            <app-big-card></app-big-card>
-            <app-big-card></app-big-card>
-            <app-big-card></app-big-card>
-            <app-big-card></app-big-card>
-        </div>
-    </section>
+    @for (item of sections; track item.data) {
+        <app-section class="whitespace-nowrap overflow-hidden" [value]="item"></app-section>
+    }
 </article>

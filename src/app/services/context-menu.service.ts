@@ -9,7 +9,10 @@ import { map } from 'rxjs';
   providedIn: 'root',
 })
 export class ContextMenuService {
-  contextMenu$: WritableSignal<{style?: string; items: ContextualMenuItem[];}> = signal({items:[]});
+  contextMenu$: WritableSignal<{
+    style?: string;
+    items: ContextualMenuItem[];
+  }> = signal({ items: [] });
   event!: MouseEvent;
 
   dictionary!: any;
@@ -17,17 +20,18 @@ export class ContextMenuService {
     _language.diccionary
       .pipe(
         map((data: any) => {
-          const { lang, components, words, privacity,login, ...rest } = data; //devolvemos diccionary.components.Slide_Menu
+          const { lang, components, words, privacity, login, ...rest } = data; //devolvemos diccionary.components.Slide_Menu
           return rest;
         })
-      ).subscribe((data: any) => {
+      )
+      .subscribe((data: any) => {
         this.dictionary = data.contextMenu;
         return data;
       });
   }
 
   async openDialog(event?: MouseEvent | any) {
-    if(event.target != undefined){
+    if (event.target != undefined) {
       this.event = event;
     }
     let node: any = event.target != undefined ? event.target : event;
@@ -40,14 +44,17 @@ export class ContextMenuService {
       if (max == 4) {
         return;
       } else {
-        const style=this.calculatePosition(this.event);
+        const style = this.calculatePosition(this.event);
 
         switch (node.dataset.encoreId) {
-          case 'playList':
+          case 'playlist':
             this.contextMenu$.set(this.playList(style));
             break;
           case 'add':
             this.contextMenu$.set(this.add(style));
+            break;
+          case 'artist':
+            this.contextMenu$.set(this.artist(style));
             break;
           default:
             this.openDialog(node.parentNode);
@@ -77,8 +84,7 @@ export class ContextMenuService {
   playList(style?: string): { style?: string; items: ContextualMenuItem[] } {
     return {
       style: style,
-      items: 
-      [
+      items: [
         {
           svg: [
             {
@@ -135,8 +141,7 @@ export class ContextMenuService {
   add(style?: string): { style?: string; items: ContextualMenuItem[] } {
     return {
       style: style,
-      items: 
-      [
+      items: [
         {
           svg: [
             {
@@ -160,13 +165,82 @@ export class ContextMenuService {
           },
         },
       ],
-    }
+    };
   }
 
+  artist(style?: string): { style?: string; items: ContextualMenuItem[] } {
+    return {
+      style: style,
+      items: [
+        {
+          svg: [
+            {
+              icon: `<svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="Svg-sc-ytk21e-0 kAkpoF"><path d="M2.47 2.47a.75.75 0 0 1 1.06 0L8 6.94l4.47-4.47a.75.75 0 1 1 1.06 1.06L9.06 8l4.47 4.47a.75.75 0 1 1-1.06 1.06L8 9.06l-4.47 4.47a.75.75 0 0 1-1.06-1.06L6.94 8 2.47 3.53a.75.75 0 0 1 0-1.06Z"></path></svg>`,
+              style: 'fill-green-500 w-5 h-5',
+            },
+          ],
+          title: this.dictionary.artist.unfollow,
+          callback: () => {
+            console.log('Dejando de seguir');
+          },
+        },
+        {
+          type: ContextualItemType.hr,
+        },
 
-  close():void{
-    this.contextMenu$.set({items:[]});
+        {
+          svg: [
+            {
+              icon: '<svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="Svg-sc-ytk21e-0 dCszzJ"><path d="M11.609 1.858a1.22 1.22 0 0 0-1.727 0L5.92 5.82l-2.867.768 6.359 6.359.768-2.867 3.962-3.963a1.22 1.22 0 0 0 0-1.726L11.61 1.858zM8.822.797a2.72 2.72 0 0 1 3.847 0l2.534 2.533a2.72 2.72 0 0 1 0 3.848l-3.678 3.678-1.337 4.988-4.486-4.486L1.28 15.78a.75.75 0 0 1-1.06-1.06l4.422-4.422L.156 5.812l4.987-1.337L8.822.797z"></path></svg>',
+              style: 'fill-white/80 w-4 h-4',
+            },
+          ],
+          title: this.dictionary.artist.pinUp,
+          callback: () => {
+            console.log('Artista fijado');
+          },
+        },
+        {
+          svg: [
+            {
+              icon: '<svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="Svg-sc-ytk21e-0 dCszzJ"><path d="M5.624 3.886A4.748 4.748 0 0 0 3.25 8c0 1.758.955 3.293 2.375 4.114l.75-1.3a3.249 3.249 0 0 1 0-5.63l-.75-1.298zm4.001 1.299.75-1.3A4.748 4.748 0 0 1 12.75 8a4.748 4.748 0 0 1-2.375 4.114l-.75-1.3a3.249 3.249 0 0 0 0-5.63zM8 6.545a1.455 1.455 0 1 0 0 2.91 1.455 1.455 0 0 0 0-2.91z"></path><path d="M4 1.07A7.997 7.997 0 0 0 0 8a7.997 7.997 0 0 0 4 6.93l.75-1.3A6.497 6.497 0 0 1 1.5 8a6.497 6.497 0 0 1 3.25-5.63L4 1.07zm7.25 1.3.75-1.3A7.997 7.997 0 0 1 16 8a7.997 7.997 0 0 1-3.999 6.93l-.75-1.3A6.497 6.497 0 0 0 14.5 8a6.497 6.497 0 0 0-3.25-5.63z"></path></svg>',
+              style: 'h-4 w-4 fill-white/80',
+            },
+          ],
+          title: this.dictionary.artist.goToRadio,
+          callback: () => {
+            console.log('Redirigiendo a la radio');
+          },
+        },
+        {
+          svg: [
+            {
+              icon: '<svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="Svg-sc-ytk21e-0 dCszzJ"><path d="M4.069.967h7.855L15.98 8l-4.057 7.034H4.069L.01 8 4.069.967zm.866 1.5L1.743 8l3.192 5.534h6.122L14.25 8l-3.192-5.533H4.935z"></path><path d="M7.246 9V4h1.5v5h-1.5zm0 3.025v-1.5h1.5v1.5h-1.5z"></path></svg>',
+              style: 'h-4 w-4 fill-white/80',
+            },
+          ],
+          title: this.dictionary.artist.report,
+          callback: () => {
+            console.log('Denunciando artista');
+          },
+        },
+        {
+          svg: [
+            {
+              icon: '<svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="Svg-sc-ytk21e-0 dCszzJ"><path d="M1 5.75A.75.75 0 0 1 1.75 5H4v1.5H2.5v8h11v-8H12V5h2.25a.75.75 0 0 1 .75.75v9.5a.75.75 0 0 1-.75.75H1.75a.75.75 0 0 1-.75-.75v-9.5z"></path><path d="M8 9.576a.75.75 0 0 0 .75-.75V2.903l1.454 1.454a.75.75 0 0 0 1.06-1.06L8 .03 4.735 3.296a.75.75 0 0 0 1.06 1.061L7.25 2.903v5.923c0 .414.336.75.75.75z"></path></svg>',
+              style: 'h-4 w-4 fill-white/80',
+            },
+          ],
+          title: this.dictionary.artist.share,
+          callback: () => {
+            console.log('Compartiendo');
+          },
+        },
+      ],
+    };
+  }
+
+  close(): void {
+    this.contextMenu$.set({ items: [] });
   }
 }
-
-

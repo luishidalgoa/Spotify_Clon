@@ -24,7 +24,10 @@
     }
   },
   "words": {
-    "list": "Lista",
+    "type": {
+      "playlist": "Listas",
+      "artist": "Artista"
+    },
     "install": "Instalar app",
     "messages": {
       "greetings": {
@@ -34,21 +37,23 @@
         "night": "Buenas noches"
       },
       "sections": {
-        "artists": "Artists",
-        "result": "Main Result",
-        "songs": "Songs",
-        "albums": "Albums",
-        "lists": "Lists",
-        "episodes": "Episodes",
+        "artists": "Artista",
+        "result": "Principales resultados",
+        "songs": "Canciones",
+        "albums": "Albumes",
+        "lists": "Listas",
+        "episodes": "Episodios",
         "podcasts": "Podcasts",
-        "profiles": "Profiles",
-        "recent searches": "Recent Searches",
+        "profiles": "Perfiles",
+        "recentSearches": "Búsquedas recientes",
         "explore": "Explorar todo",
         "made_for": "Hecha para",
-        "immersing": "Immerse yourself back into your music",
-        "recently played": "Recently Played",
-        "new releases": "New Releases",
-        "popular artists": "Popular Artists"
+        "immersing": "Sumérgete en la música que te gusta",
+        "recentlyPlayed": "Reproducido recientemente",
+        "newReleases": "Nuevos lanzamientos",
+        "popularArtists": "Artistas populares",
+        "popularLists": "Listas populares",
+        "recommendArtists":"Artistas recomendados"
       },
       "genres": {
         "Pódcasts": "Podcasts",
@@ -107,11 +112,19 @@
       "addOtherList": "Añadir a otra lista",
       "pinUp": "Fijar lista",
       "share": "Compartir",
-      "denuciate": "Denunciar"
+      "report": "Denunciar"
     },
     "add": {
       "createList": "Crear lista",
       "createFolder": "Crear carpeta"
+    },
+    "artist": {
+      "unfollow": "Dejar de seguir",
+      "follow": "Seguir",
+      "goToRadio": "Ir a la radio del artista",
+      "report": "Denunciar",
+      "share": "Compartir",
+      "pinUp":"Fijar artista"
     }
   },
   "login": {

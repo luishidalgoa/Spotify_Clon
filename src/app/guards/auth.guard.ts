@@ -14,6 +14,8 @@ export const authGuard: CanActivateFn = (route, state) => {
     //Si no esta autenticado y no esta en la pagina de login, guardamos la ruta para redirigirle a ella
     localStorage.setItem('backPath', state.url);
     _router.navigate(['Auth']);
+  }else{
+    _authService.isAuth()
   }
   
   return isAuthenticated;
