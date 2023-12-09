@@ -1,9 +1,10 @@
-import { Injectable, WritableSignal, effect, signal } from '@angular/core';
+import { Injectable, WritableSignal, effect, inject, signal } from '@angular/core';
 import { catchError, tap, throwError } from 'rxjs';
 import { User } from '../../../model/domain/user';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment.development';
+import { ToastsService } from '../../toasts.service';
 declare var window: any;
 
 @Injectable({
@@ -125,11 +126,25 @@ export class AuthService {
         this.currentUser$.set(data);
       }),
       catchError(error => {
+        switch (error.status) {
+          case 401:
+            break;
+          default:
+            this.errorToast(typeof error.error === 'object'?error.error.error.reason:error.error,false);
+            break;
+        }
         this.singOut();
         return throwError(error);
       })
     ).subscribe(()=>{
   
     });
+  }
+  
+
+  //pruebas
+  _toast: ToastsService = inject(ToastsService);
+  errorToast(message: string, type: boolean) {
+    this._toast.add(message, type);
   }
 }

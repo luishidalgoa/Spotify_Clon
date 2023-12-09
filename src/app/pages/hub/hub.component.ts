@@ -1,22 +1,21 @@
-import { Component, HostListener, effect } from '@angular/core';
+import { Component, HostListener, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SlideMenuComponent } from '../../components/slide-menu/slide-menu.component';
 import { ContextualMenuComponent } from '../../components/contextual-menu/contextual-menu.component';
 import { ContextMenuService } from '../../services/context-menu.service';
 import { ContextualMenuItem } from '../../model/domain/contextual-menu-item';
 import { CentralWrapperComponent } from '../central-wrapper/central-wrapper.component';
-import { AuthService } from '../../services/apis/Spotify/auth.service';
-import { ToastComponent } from '../../components/items/toast/toast.component';
 
 @Component({
   selector: 'app-hub',
   standalone: true,
-  imports: [CommonModule, SlideMenuComponent, ContextualMenuComponent,CentralWrapperComponent,ToastComponent],
+  imports: [CommonModule, SlideMenuComponent, ContextualMenuComponent,CentralWrapperComponent],
   templateUrl: './hub.component.html',
   styleUrl: './hub.component.scss',
 })
 export class HubComponent {
   contextMenu: { style?: string; items: ContextualMenuItem[] } = { items: [] };
+
   constructor(private _contextMenu: ContextMenuService) {
     effect(() => {
       this.contextMenu = this._contextMenu.contextMenu$();
@@ -32,4 +31,12 @@ export class HubComponent {
       this._contextMenu.close();
     }
   }
+
+
+
+
+  ngOnInit(): void {
+  }
+
+
 }
