@@ -9,7 +9,7 @@
             }
         </div>
     </section>
-    @for (item of sections; track item.data) {
-        <app-section class="whitespace-nowrap overflow-hidden" [value]="item"></app-section>
+    @for (item of this.sections; track item.data) {
+        <app-section class="whitespace-nowrap overflow-hidden" [items]="item"></app-section>
     }
 </article>
