@@ -68,4 +68,5 @@ export class MediumCardComponent {
       this.playing = result;
     })
   }
+
 }
