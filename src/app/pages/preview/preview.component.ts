@@ -23,7 +23,7 @@ export class PreviewComponent {
   welcome!: PlayList[];
   dictionary!: any;
 
-  sections: {title: string, data?: ReduceData[]}[] = []
+  sections!: {title: string, data?: [ReduceData] | ReduceData[]}[]
 
   _dataWrapper: DataWrapperService = inject(DataWrapperService);
 
@@ -43,9 +43,13 @@ export class PreviewComponent {
   ngOnInit(): void {
     this._playLists.getUserPlayLists('6').subscribe((data: any) => {
       this.welcome = data.items;
-    })
 
-    this.generateSections();
+      
+      this.generateSections();
+    })
+  }
+
+  ngAfterViewInit(): void {
   }
 
   getGreeting():string{
@@ -63,23 +67,22 @@ export class PreviewComponent {
   }
 
   generateSections():void{
-    const popularLists: ReduceData[] = []
-    this._playLists.getPopularPlayLists(7).subscribe((data: any) => {
-      data.playlists.items.forEach((data:PlayList)=>{
-        popularLists.push(this._dataWrapper.convertPlayListToDataWrapper(data));
+    this.sections = [
+      {title: this.dictionary.words.messages.sections.popularLists, data: []},
+      {title: this.dictionary.words.messages.sections.recommendArtists, data: []},
+    ];
+
+    this._playLists.getPopularPlayLists().forEach((value: any) => {
+      value.playlists.items.forEach((playList: PlayList) => {
+        this.sections[0].data?.push(this._dataWrapper.convertPlayListToDataWrapper(playList));
       })
     })
-    const artists: ReduceData[] = []
-    this._artist.bestArtistsByUser(7).subscribe((data: any) => {
-      data.items.forEach((data:Artist)=>{
-        artists.push(this._dataWrapper.convertArtistToDataWrapper(data));
+
+    this._artist.bestArtistsByUser().forEach((value: any) => {
+      value.items.forEach((artist: Artist) => {
+        this.sections[1].data?.push(this._dataWrapper.convertArtistToDataWrapper(artist));
       })
     })
-    setTimeout(() => {
-      this.sections = [
-        {title: this.dictionary.words.messages.sections.popularLists, data: popularLists},
-        {title: this.dictionary.words.messages.sections.recommendArtists, data: artists},
-      ]
-    },100)
+
   };
 }

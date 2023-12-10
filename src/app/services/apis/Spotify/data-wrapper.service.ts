@@ -13,7 +13,7 @@ import { ReduceData } from '../../../model/domain/api/spotify/reduce-data';
 export class DataWrapperService {
   private _playList: PlayListService = inject(PlayListService);
   private _artist: ArtistService = inject(ArtistService);
-
+  
   public _dataWrapper$: WritableSignal<ReduceData[]> = signal([] as ReduceData[]);
   //Almacenará las playLists que siga el usuario temporalmente
   playLists: PlayList[] = [];
