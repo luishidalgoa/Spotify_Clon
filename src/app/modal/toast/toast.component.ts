@@ -10,14 +10,15 @@ import { ToastsService } from '../../services/toasts.service';
   styleUrl: './toast.component.scss',
 })
 export class ToastComponent implements AfterViewInit {
-  public toasts$!: Signal<{ message: string; type?: boolean, style: string }[] | null>;
+  public toasts$!: Signal<[{ message: string; type?: boolean, style:string }]| []>;
+item$: any;
 
   constructor(private _toasts: ToastsService) {
     this.toasts$ = computed(() => this._toasts.items$());
-  }
-
-  ngAfterViewInit(): void {
-
+    effect(() => {
+      console.log(this.toasts$());
+      this.item$ = this.toasts$();
+    })
   }
 
   @ViewChild('item') toastContainer!: ElementRef<HTMLDivElement>;
@@ -25,7 +26,20 @@ export class ToastComponent implements AfterViewInit {
     
   }
 
-  ngAfterViewChecked(): void {
+
+  @ViewChild('container') container!: ElementRef;
+  ngAfterViewInit(): void {
+    const observer = new MutationObserver(() => {
+        this.destroyItem();
+    });
+    // Comienza a observar el nodo de destino para cuando mute su contenido (agregue o elimine nodos)
+    observer.observe(this.container.nativeElement, { childList: true });
   }
   
+  destroyItem() {
+    const index= this.container.nativeElement.children.length-1;
+    setTimeout(() => {
+      this.container.nativeElement.children[index].classList.add('end');
+    },2500)
+  }
 }
