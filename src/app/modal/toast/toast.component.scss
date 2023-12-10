@@ -2,29 +2,34 @@
   from {
     transform: translateX(100vw)
   }
+
   to {
     transform: translateX(0);
   }
 }
-.start{
-    animation: slideIn forwards 0.5s ease-in-out;
+
+.start {
+  animation: slideIn forwards 0.5s ease-in-out;
 }
-.end{
-    animation: slideOut 0.5s forwards ease-in-out ;
+
+.end {
+  animation: slideOut 0.5s forwards ease-in-out;
 }
 
 @keyframes slideOut {
   from {
     transform: translateY(0);
   }
+
   to {
     transform: translateY(-20rem);
   }
 }
-div{
-    left: 0;
-    right: 0;
-    top: 20px;
-    margin: auto;
+
+div {
+  left: 0;
+  right: 0;
+  top: 20px;
+  margin: auto;
 
 }

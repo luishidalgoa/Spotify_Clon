@@ -1,0 +1,8 @@
+<div #container class="absolute top-2 left-0 right-0 max-w-full  m-auto grid gap-2 overflow-hidden">
+  @for(value of this.toasts$(); track $index){
+    <div #item [id]="$index"
+      [ngClass]="['py-2 px-4 max-w-fit text-white rounded-lg flex items-cente shadow-xl',value.type?'bg-green-600':'bg-red-600',value.style]">
+      <p>{{value.message}}</p>
+    </div>
+  }
+</div>
