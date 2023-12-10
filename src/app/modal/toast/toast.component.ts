@@ -15,10 +15,6 @@ item$: any;
 
   constructor(private _toasts: ToastsService) {
     this.toasts$ = computed(() => this._toasts.items$());
-    effect(() => {
-      console.log(this.toasts$());
-      this.item$ = this.toasts$();
-    })
   }
 
   @ViewChild('item') toastContainer!: ElementRef<HTMLDivElement>;

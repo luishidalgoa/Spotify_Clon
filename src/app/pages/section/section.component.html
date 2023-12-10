@@ -1,12 +1,12 @@
 <section class="">
     <header class="flex relative justify-between items-center">
-        <h2 class="text-white overflow-hidden overflow-ellipsis select-none">{{this.value?.title}}</h2>
+        <h2 class="text-white overflow-hidden overflow-ellipsis select-none">{{this.items.title}}</h2>
         <span>
             <button class="text-white/70 hover:underline select-none">Mostrar más</button>
         </span>
     </header>
-    <div role="wrapper" class="pt-3 gap-3 justify-between grid grid-rows-1">
-        @for (item of this.value?.data; track $index) {
+    <div role="wrapper" #container class="pt-3 gap-3 justify-between grid grid-rows-1">
+        @for (item of this.wrapper; track $index) {
             <app-big-card [object]="item"></app-big-card>
         }
     </div>
