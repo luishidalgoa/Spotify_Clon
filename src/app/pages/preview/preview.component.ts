@@ -11,6 +11,7 @@ import { ReduceData } from '../../model/domain/api/spotify/reduce-data';
 import { DataWrapperService } from '../../services/apis/Spotify/data-wrapper.service';
 import { ArtistService } from '../../services/apis/Spotify/artist.service';
 import { Artist } from '../../model/domain/artist';
+import { SyncViewService } from '../../services/common/sync-view.service';
 
 @Component({
   selector: 'app-preview',
@@ -22,7 +23,7 @@ import { Artist } from '../../model/domain/artist';
 export class PreviewComponent {
   welcome!: PlayList[];
   dictionary!: any;
-
+  private syncS = inject(SyncViewService);
   sections!: {title: string, data?: [ReduceData] | ReduceData[]}[]
 
   _dataWrapper: DataWrapperService = inject(DataWrapperService);
@@ -38,14 +39,12 @@ export class PreviewComponent {
       this.dictionary = data;
       return data;
     });
+    this.generateSections();
   }
 
   ngOnInit(): void {
     this._playLists.getUserPlayLists('6').subscribe((data: any) => {
       this.welcome = data.items;
-
-      
-      this.generateSections();
     })
   }
 
@@ -72,17 +71,25 @@ export class PreviewComponent {
       {title: this.dictionary.words.messages.sections.recommendArtists, data: []},
     ];
 
-    this._playLists.getPopularPlayLists().forEach((value: any) => {
-      value.playlists.items.forEach((playList: PlayList) => {
+    this._playLists.getPopularPlayLists().subscribe((data: any) => {
+      console.log(data);
+      for(let playList of data.playlists.items){
         this.sections[0].data?.push(this._dataWrapper.convertPlayListToDataWrapper(playList));
-      })
-    })
+      }
+      this.syncS.sendSync();
+    });
+    this._artist.bestArtistsByUser().subscribe((data: any) => {
+      console.log(data);
+      for(let a of data.items){
+        this.sections[1].data?.push(this._dataWrapper.convertArtistToDataWrapper(a));
+      }
+      this.syncS.sendSync();
+    });
+    
 
-    this._artist.bestArtistsByUser().forEach((value: any) => {
-      value.items.forEach((artist: Artist) => {
-        this.sections[1].data?.push(this._dataWrapper.convertArtistToDataWrapper(artist));
-      })
-    })
+
+
+
 
   };
 }

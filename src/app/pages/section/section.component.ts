@@ -1,7 +1,8 @@
-import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, ViewChild,inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BigCardComponent } from '../../components/cards/big-card/big-card.component';
 import { ReduceData } from '../../model/domain/api/spotify/reduce-data';
+import { SyncViewService } from '../../services/common/sync-view.service';
 
 @Component({
   selector: 'app-section',
@@ -15,19 +16,24 @@ export class SectionComponent {
   items!: {title: string, data?: ReduceData[]};
 
   wrapper!: ReduceData[];
+  private syncS = inject(SyncViewService);
   
 
   constructor() { 
   }
   
   ngOnInit(): void {
+    ;
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
+
+    this.syncS.sync.subscribe(() => {    
       this.onResize(null);
-    }, 100);
+    })
   }
+
+
 
   @ViewChild('container') 
   container!: ElementRef;
