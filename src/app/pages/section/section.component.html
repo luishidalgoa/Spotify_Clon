@@ -7,7 +7,16 @@
     </header>
     <div role="wrapper" #container class="pt-3 gap-3 justify-between grid grid-rows-1">
         @for (item of this.wrapper; track $index) {
-            <app-big-card [object]="item"></app-big-card>
+            @defer (on idle) {
+                <app-big-card [object]="item"></app-big-card>
+            }@placeholder {
+                <skeleton-play-list-big-card/>
+            }@loading {
+                <skeleton-play-list-big-card/>
+            }
+            @error {
+
+            }
         }
     </div>
 </section>

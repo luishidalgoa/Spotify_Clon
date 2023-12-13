@@ -3,7 +3,7 @@
         @case ('artist') {
             <div class="relative" style="padding-bottom: 100%;">
                 <div class="absolute overflow-hidden rounded-full drop-shadow-md h-full w-full">
-                    <img [src]="this.object.image" class="h-full w-full" style="object-fit: cover;" alt="">
+                    <img [ngSrc]="this.object.image ?? ''" class="h-full w-full" style="object-fit: cover;" alt="" fill pr>
                 </div>
                 @if (ariaChecked) {
                     <div (click)="this.handleClick($event)" class="bg-green-500 rounded-full p-3 hover:scale-110 hover:bg-green-400 transition-transform  absolute bottom-2 right-3">

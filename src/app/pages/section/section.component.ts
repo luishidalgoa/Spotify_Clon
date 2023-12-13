@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { BigCardComponent } from '../../components/cards/big-card/big-card.component';
 import { ReduceData } from '../../model/domain/api/spotify/reduce-data';
 import { SyncViewService } from '../../services/common/sync-view.service';
+import { skeletonPlatListBigCardComponent } from '../../components/items/skeleton/plat-list-big-card/plat-list-big-card.component';
 
 @Component({
   selector: 'app-section',
   standalone: true,
-  imports: [CommonModule,BigCardComponent],
+  imports: [CommonModule,BigCardComponent,skeletonPlatListBigCardComponent],
   templateUrl: './section.component.html',
   styleUrl: './section.component.scss'
 })

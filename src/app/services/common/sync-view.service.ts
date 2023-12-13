@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,14 +7,17 @@ import { BehaviorSubject } from 'rxjs';
 export class SyncViewService {
   private _sync: BehaviorSubject<void> = new BehaviorSubject<any>(null);
 
-  constructor() {
-    this._sync = new BehaviorSubject<any>(null);
-   }
+  constructor() {}
 
-  public get sync() {
+
+  /**
+   * Getter sync este metodo es un observable que se puede suscribir para recibir notificaciones
+   * @return {Observable<void>} 
+   */
+  public get sync():Observable<void> {
     return this._sync.asObservable();
   }
   public sendSync(){
-      this._sync?.next();
+      this._sync.next();
   }
 }

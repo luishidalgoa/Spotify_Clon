@@ -72,24 +72,17 @@ export class PreviewComponent {
     ];
 
     this._playLists.getPopularPlayLists().subscribe((data: any) => {
-      console.log(data);
       for(let playList of data.playlists.items){
         this.sections[0].data?.push(this._dataWrapper.convertPlayListToDataWrapper(playList));
       }
       this.syncS.sendSync();
     });
     this._artist.bestArtistsByUser().subscribe((data: any) => {
-      console.log(data);
       for(let a of data.items){
         this.sections[1].data?.push(this._dataWrapper.convertArtistToDataWrapper(a));
       }
       this.syncS.sendSync();
     });
-    
-
-
-
-
 
   };
 }

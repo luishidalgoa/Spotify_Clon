@@ -1,5 +1,3 @@
-<!--ESTO SE PUEDE SIMPLIFICAR-->
-
 <article class="pt-3 grid gap-3">
     <section class="text-white">
         <h2>{{this.getGreeting()}}</h2>
@@ -12,6 +10,4 @@
     @for (item of this.sections; track item.data) {
         <app-section class="whitespace-nowrap overflow-hidden" [items]="item"></app-section>
     }
-
-    
 </article>
