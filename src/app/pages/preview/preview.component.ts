@@ -77,7 +77,7 @@ export class PreviewComponent {
       }
       this.syncS.sendSync();
     });
-    this._artist.bestArtistsByUser().subscribe((data: any) => {
+    this._artist.bestArtistsByUser(15).subscribe((data: any) => {
       for(let a of data.items){
         this.sections[1].data?.push(this._dataWrapper.convertArtistToDataWrapper(a));
       }

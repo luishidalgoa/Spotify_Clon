@@ -1,0 +1,21 @@
+button{
+    font-family: CircularStd-Book;
+    font-size: .9rem;
+}
+
+div[role="wrapper"]{
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+h2{
+    font-family: CircularStd-Bold;
+    font-size: 1.2rem;
+}
+@media (min-width: 640px){
+    h2{
+        font-family: CircularStd-Bold;
+        font-size: 1.5rem;
+    }
+    div[role="wrapper"]{
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+}

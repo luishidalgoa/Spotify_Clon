@@ -4,6 +4,9 @@ import { BigCardComponent } from '../../components/cards/big-card/big-card.compo
 import { ReduceData } from '../../model/domain/api/spotify/reduce-data';
 import { SyncViewService } from '../../services/common/sync-view.service';
 import { skeletonPlatListBigCardComponent } from '../../components/items/skeleton/plat-list-big-card/plat-list-big-card.component';
+import { Router } from '@angular/router';
+import { state } from '@angular/animations';
+import { SectionService } from '../../services/common/section.service';
 
 @Component({
   selector: 'app-section',
@@ -20,7 +23,7 @@ export class SectionComponent {
   private syncS = inject(SyncViewService);
   
 
-  constructor() { 
+  constructor(private router:Router) { 
   }
   
   ngOnInit(): void {
@@ -48,5 +51,11 @@ export class SectionComponent {
         this.wrapper.push(item);
       }
     });
+  }
+
+  private _section:SectionService = inject(SectionService);
+  navigate(){
+    this._section.setSectionItems = this.items
+    this.router.navigate([`section`,this.items.title.replace(' ','%').trim()]);
   }
 }

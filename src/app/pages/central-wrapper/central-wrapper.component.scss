@@ -17,3 +17,28 @@ section[data-encore-id="scroll"]:hover::-webkit-scrollbar {
 section[data-encore-id="scroll"]:hover::-webkit-scrollbar-thumb {
   background: rgb(255,255,255,.3)
 }
+
+
+button[data-encore-id="buttonTertiary"] {
+  @apply relative;
+}
+
+button[data-encore-id="buttonTertiary"]:hover::after {
+  z-index: 1;
+  animation: ariaLabel 0.1s .4s ease-in-out forwards;
+  opacity: 0;
+  content: attr(aria-label);
+  transform: translate(-75%, 40px);
+  font-family: CircularStd-book;
+  @apply absolute top-0 py-1 px-2 bg-[#282828] brightness-125 text-zinc-300 rounded-md text-sm whitespace-nowrap shadow-xl shadow-black;
+}
+
+@keyframes ariaLabel {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
