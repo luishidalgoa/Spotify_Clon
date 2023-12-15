@@ -5,7 +5,6 @@ import { PlayList } from '../../../model/domain/play-list';
 import { map } from 'rxjs';
 import { ContextMenuService } from '../../../services/context-menu.service';
 import { Artist } from '../../../model/domain/artist';
-import { CapitalizeFirstPipe } from '../../../Pipes/capitalize-first.pipe';
 import { PlayerService } from '../../../services/apis/Spotify/player.service';
 import { User } from '../../../model/domain/user';
 import { ReduceData } from '../../../model/domain/api/spotify/reduce-data';
@@ -13,7 +12,7 @@ import { ReduceData } from '../../../model/domain/api/spotify/reduce-data';
 @Component({
   selector: 'app-min-card',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage,CapitalizeFirstPipe],
+  imports: [CommonModule, NgOptimizedImage],
   templateUrl: './min-card.component.html',
   styleUrl: './min-card.component.scss',
 })

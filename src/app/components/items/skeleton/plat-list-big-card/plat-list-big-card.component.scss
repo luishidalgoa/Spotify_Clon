@@ -1,0 +1,30 @@
+.loading{
+    animation: loading 1.5s infinite linear;
+    background: linear-gradient(90deg, #333333 0px, #3a3a3a 40px, #333333 80px);
+}
+@keyframes loading{ //Animación de carga . sera un degradado que se movera de izquierda a derecha de color gris claro a gris oscuro
+    0%{
+        background-position: -170px 0;
+    }
+    100%{
+        background-position: calc(200px +  100%) 0;
+    }
+}
+
+h4{
+    line-height: 1rem;
+    font-size: 1.1rem;
+    font-family: CircularStd-Bold;
+}
+article{
+    transition: all 0.3s ease-in-out;
+}
+
+span{
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Puedes ajustar este valor según el número de líneas que desees mostrar */
+    -webkit-box-orient: vertical;
+}
+h5{
+    font-family: CircularStd-Bold;
+}
