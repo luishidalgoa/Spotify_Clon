@@ -17,6 +17,7 @@ export const routes: Routes = [
     path: '',loadComponent: () => import('./pages/hub/hub.component').then((m) => m.HubComponent),
     children: [
       {title: 'Home | preview',path:'',loadComponent: () => import('./pages/preview/preview.component').then((m) => m.PreviewComponent)},
+      {path:'section/:title',loadComponent: () => import('./pages/section/show-more/show-more.component').then((m) => m.ShowMoreComponent)},
     ],
     canActivate: [authGuard]
   },
