@@ -1,3 +1,4 @@
+import { Artist } from "../../artist";
 import { User } from "../../user";
 
 export interface ReduceData {
@@ -7,5 +8,5 @@ export interface ReduceData {
     uri: string;
     type: string;
     id: string;
-    owner?: User;
+    owner?: User | Artist;
   }

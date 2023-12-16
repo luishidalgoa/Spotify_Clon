@@ -6,6 +6,8 @@ import { Artist } from '../../../model/domain/artist';
 import { map, take, toArray } from 'rxjs';
 import { User } from '../../../model/domain/user';
 import { ReduceData } from '../../../model/domain/api/spotify/reduce-data';
+import { Album } from '../../../model/domain/album';
+import { AlbumService } from './album.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,12 +15,15 @@ import { ReduceData } from '../../../model/domain/api/spotify/reduce-data';
 export class DataWrapperService {
   private _playList: PlayListService = inject(PlayListService);
   private _artist: ArtistService = inject(ArtistService);
+  private _album: AlbumService = inject(AlbumService);
   
   public _dataWrapper$: WritableSignal<ReduceData[]> = signal([] as ReduceData[]);
   //Almacenará las playLists que siga el usuario temporalmente
   playLists: PlayList[] = [];
   //Almacenará los artistas que siga el usuario temporalmente
   artists: Artist[] = [];
+
+  albums: Album[] = [];
 
   constructor() {
     let wrapper: ReduceData[] = [];
@@ -27,18 +32,24 @@ export class DataWrapperService {
       this.playLists.forEach((playList: PlayList) => { //Extraemos los datos del array de playLists y los metemos en el array wrapper
         wrapper.push(this.convertPlayListToDataWrapper(playList));
       });
+    })
+    this._artist.getFollowedArtist().subscribe((data: any) => {
+      this.artists.push(...data.artists.items);
+      this.artists.forEach((artist: Artist) => { //Extraemos los datos del array de artistas y los metemos en el array wrapper
+        wrapper.push(this.convertArtistToDataWrapper(artist));
+      });
+    }).add(() => {
+      this._dataWrapper$.update(() => this.shuffleArray(wrapper)); //Actualizamos el wrapper
+    });
 
-      this._artist.getFollowedArtist().subscribe((data: any) => {
-        this.artists.push(...data.artists.items);
-        this.artists.forEach((artist: Artist) => { //Extraemos los datos del array de artistas y los metemos en el array wrapper
-          wrapper.push(this.convertArtistToDataWrapper(artist));
-        });
-      }).add(() => {
-        this._dataWrapper$.update(() => this.shuffleArray(wrapper)); //Actualizamos el wrapper
+    this._album.getFollowedAlbums().subscribe((data: any) => {
+      this.albums.push(...data.items);
+      this.albums.forEach((album: Album) => { //Extraemos los datos del array de artistas y los metemos en el array wrapper
+        wrapper.push(this.convertAlbumToDataWrapper(album));
       });
     })
 
-
+        
     
   }
 
@@ -62,6 +73,18 @@ export class DataWrapperService {
       uri: artist.uri,
       type: artist.type,
       id: artist.id,
+    }
+  }
+
+  convertAlbumToDataWrapper(album: any): ReduceData{
+    return {
+      owner: album.album.artists[0] as Artist,
+      description: '',
+      title: album.album.name,
+      image: album.album.images !== undefined && album.album.images.length > 0 ? album.album.images[0].url : '',
+      uri: album.album.uri,
+      type: album.album.type,
+      id: album.album.id,
     }
   }
 

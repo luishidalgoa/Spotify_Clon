@@ -50,7 +50,6 @@ export class CentralWrapperComponent implements OnInit{
     this._router.events.subscribe((event) => {
       if(event.type == EventType.NavigationEnd){
         this.routerHistory.push(event);
-        console.log(this.routerHistory,'NAVIGATION');
       }
     });
   }
