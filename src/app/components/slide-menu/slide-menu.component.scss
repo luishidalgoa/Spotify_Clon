@@ -40,7 +40,12 @@ span {
     span {
       @apply text-white
     }
-  }
+}
+.closeOrder{
+  padding-left: .30rem;
+  padding-right: .30rem;
+}
+
 section div .active{
   background-color: white!important;
   span{
