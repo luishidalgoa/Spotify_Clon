@@ -26,7 +26,8 @@
   "words": {
     "type": {
       "playlist": "Listas",
-      "artist": "Artista"
+      "artist": "Artista",
+      "album": "Álbum"
     },
     "install": "Instalar app",
     "messages": {

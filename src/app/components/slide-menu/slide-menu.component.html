@@ -24,15 +24,15 @@
       </header>
     </ul>
     <section class="shadow-lg">
-      <div (contextmenu)="newContextMenu($event)" data-encore-id="add" class="gap-2 px-3 my-3 order hidden sm:flex">
-        <button><span>{{dictionary?.contain?.filter?.list}}</span></button>
-        <button><span>{{dictionary?.contain?.filter?.artist}}</span></button>
-        <button><span>{{dictionary?.contain?.filter?.albums}}</span></button>
+      <div (contextmenu)="newContextMenu($event)" data-encore-id="add" class="gap-2 px-3 my-3 hidden sm:flex">
+        <button class="order" [id]="'playlist'" #playlist (click)="this.organize('playlist')"><span>{{dictionary?.contain?.filter?.list}}</span></button>
+        <button class="order" [id]="'artist'" #artist (click)="this.organize('artist')"><span>{{dictionary?.contain?.filter?.artist}}</span></button>
+        <button class="order" [id]="'album'" #album (click)="this.organize('album')"><span>{{dictionary?.contain?.filter?.albums}}</span></button>
       </div>
       <div (contextmenu)="newContextMenu($event)" data-encore-id="add" class="hidden sm:flex items-center justify-between pl-3 mr-6">
         <span (click)="InputSearch.focus(); tabIndex=0" class="flex items-center border-0 rounded-md"
           role="search">
-          <input
+          <input #inputElement (input)="this.search(inputElement)" (keydown.enter)="this.search(inputElement)"
             [ngClass]="['block bg-white/10 text-sm outline-none rounded-md py-[0.35rem]', tabIndex>-1?'opacity-1 w-[188px] pl-9':'opacity-0 w-6']"
             #InputSearch (blur)="tabIndex=-1" placeholder="{{dictionary?.contain?.context_search}}"
             [tabIndex]="tabIndex">
