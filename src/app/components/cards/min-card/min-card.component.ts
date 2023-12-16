@@ -8,11 +8,12 @@ import { Artist } from '../../../model/domain/artist';
 import { PlayerService } from '../../../services/apis/Spotify/player.service';
 import { User } from '../../../model/domain/user';
 import { ReduceData } from '../../../model/domain/api/spotify/reduce-data';
+import { GetDisplayNamePipe } from '../../../pipes/get-display-name.pipe';
 
 @Component({
   selector: 'app-min-card',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage],
+  imports: [CommonModule, NgOptimizedImage, GetDisplayNamePipe],
   templateUrl: './min-card.component.html',
   styleUrl: './min-card.component.scss',
 })
@@ -43,4 +44,5 @@ export class PlayListMinCardComponent implements OnInit {
   newContextMenu(event: MouseEvent) {
     this._contextMenu.openDialog(event);
   }
+
 }

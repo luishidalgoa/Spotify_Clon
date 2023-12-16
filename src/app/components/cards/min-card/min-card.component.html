@@ -10,7 +10,7 @@
   <div class="sm:flex mt-1 hidden relative select-none">
     <div class="flex flex-col absolute max-w-full overflow-hidden whitespace-nowrap">
       <p class="text-base text-white text-ellipsis ">{{this.object.title}}</p>
-      <p class="text-sm text-gray-300/80 text-ellipsis" >{{this.object.type==='playlist'?this.dictionary?.words.type.playlist+' • ':''}} {{this.object.type==='playlist'?this.object.owner?.display_name:this.dictionary?.words?.type?.artist}}</p>
+      <p class="text-sm text-gray-300/80 text-ellipsis">{{this.object | getDisplayName: dictionary}}</p>
     </div>
   </div>
 </article>
