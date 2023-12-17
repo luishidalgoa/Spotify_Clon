@@ -53,7 +53,7 @@
       
     </section>
     <section data-encore-id="scroll" class="overflow-auto"><!--ARREGLAR-->
-      @for (obj of this.dataWrapper$(); track obj.id) {
+      @for (obj of this.dataWrapper$(); track obj.item.id) {
         @defer (on viewport) {
             <app-min-card [object]="obj" />
         }@loading {

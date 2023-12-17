@@ -117,13 +117,13 @@ export class SlideMenuComponent implements OnInit {
     this.dataWrapper$ = computed(()=> {
       let elements = 0
       for(let element of this._dataWrapper._dataWrapper$()){
-        if(element.type === type){
+        if(element.item.type === type){
           elements++;
         }
       }
 
       return this._dataWrapper._dataWrapper$().sort((a,b) => {//a es el elemento de despues y b el de antes
-        if(a.type === type) return -1;
+        if(a.item.type === type) return -1;
         return 0
       }).slice(0,elements);
     });
@@ -155,7 +155,7 @@ export class SlideMenuComponent implements OnInit {
 
   search(event: HTMLInputElement) {
     this.dataWrapper$ = computed(() => this._dataWrapper._dataWrapper$().filter((element: ReduceData) => {
-      return element.title.toLowerCase().includes(event.value.toLowerCase());
+      return element.item.title.toLowerCase().includes(event.value.toLowerCase());
     }));
   }
 }

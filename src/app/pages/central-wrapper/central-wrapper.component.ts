@@ -60,4 +60,12 @@ export class CentralWrapperComponent implements OnInit{
       this.routerHistory.pop();
     }
   }
+
+  socialLink: number = 0;
+  socialLinkActive(int:number=0){
+    this.socialLink = int;
+    setTimeout(() => {
+      this.socialLink = 0;
+    },10000 );
+  }
 }

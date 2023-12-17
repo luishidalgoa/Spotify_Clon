@@ -41,7 +41,7 @@ export class BigCardComponent {
     this.playerMedia = computed(() => _player.currentPlaying$());
     effect(() => {
       if(this._player.currentPlaying$().context){
-        this.playing =  this._player.currentPlaying$().context.uri === this.object.uri && this._player.currentPlaying$().is_playing;
+        this.playing =  this._player.currentPlaying$().context.uri === this.object.item.uri && this._player.currentPlaying$().is_playing;
       }else{
         this.playing = false;
       }
@@ -49,10 +49,10 @@ export class BigCardComponent {
   }
 
   play():void{//MODIFICAR cuando getPlayingInterval() se actualize
-    const offset = this.playerMedia().context.uri === this.object.uri?this.playerMedia().item.track_number:0
-    const ms = this.playerMedia().context.uri === this.object.uri?this.playerMedia().progress_ms:0
+    const offset = this.playerMedia().context.uri === this.object.item.uri?this.playerMedia().item.track_number:0
+    const ms = this.playerMedia().context.uri === this.object.item.uri?this.playerMedia().progress_ms:0
 
-    this._player.play(this.object.uri,offset,ms).then((result:boolean) => {
+    this._player.play(this.object.item.uri,offset,ms).then((result:boolean) => {
       this.playing = result;
     })
   }
