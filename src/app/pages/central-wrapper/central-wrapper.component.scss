@@ -53,7 +53,7 @@ footer{
   }
   a{
     position: relative;
-    @apply text-white/80;
+    @apply text-gray-300/80;
   }
   .socialLinkActive::after{
     margin-top: 3px;
