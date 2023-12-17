@@ -42,3 +42,29 @@ button[data-encore-id="buttonTertiary"]:hover::after {
     opacity: 1;
   }
 }
+
+footer{
+  h5{
+    font-family: CircularStd-book;
+    color: #fff;
+  }
+  a:hover{
+    @apply text-white underline cursor-pointer;
+  }
+  a{
+    position: relative;
+    @apply text-gray-300/80;
+  }
+  .socialLinkActive::after{
+    margin-top: 3px;
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    padding-top: 3px;
+    background-color: #fff;
+  }
+  button{
+    @apply cursor-default;
+  }
+}

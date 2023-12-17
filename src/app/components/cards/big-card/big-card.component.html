@@ -1,9 +1,9 @@
 <article class="cursor-pointer select-none px-4 pt-4 pb-3 w-auto h-full bg-neutral-800/30 relative overflow-hidden grid rounded-md gap-4 hover:bg-neutral-800" style="grid-template-rows: auto 2fr;" (mouseenter)="ariaChecked=true" (mouseleave)="ariaChecked=false">
-    @switch (this.object.type) {
+    @switch (this.object.item.type) {
         @case ('artist') {
             <div class="relative" style="padding-bottom: 100%;">
                 <div class="absolute overflow-hidden rounded-full drop-shadow-md h-full w-full">
-                    <img [ngSrc]="this.object.image ?? ''" class="h-full w-full" style="object-fit: cover;" alt="" fill priority>
+                    <img [ngSrc]="this.object.item.image ?? ''" class="h-full w-full" style="object-fit: cover;" alt="" fill priority>
                 </div>
                 @if (ariaChecked) {
                     <div (click)="this.handleClick($event)" class="bg-green-500 rounded-full p-3 hover:scale-110 hover:bg-green-400 transition-transform  absolute bottom-2 right-3">
@@ -16,14 +16,14 @@
                 }
             </div>
             <div class="text-white flex flex-col overflow-hidden">
-                <h5 class="overflow-ellipsis overflow-hidden">{{this.object.title}}</h5>
+                <h5 class="overflow-ellipsis overflow-hidden">{{this.object.item.title}}</h5>
                 <p>{{this.dictionary.words.type.artist}}</p>
             </div>
         }
         @default {
             <div class="relative">
                 <div class="w-full relative overflow-hidden rounded-md shadow-lg">
-                    <img class="" style="height: auto;position:initial;" [ngSrc]="this.object.image ?? ''" fill priority alt="" srcset="">
+                    <img class="" style="height: auto;position:initial;" [ngSrc]="this.object.item.image ?? ''" fill priority alt="" srcset="">
                 </div>
                 @if (ariaChecked) {
                     <div (click)="this.handleClick($event)" role="toggle" class="bg-green-500 rounded-full p-3 hover:scale-110 hover:bg-green-400 transition-transform  absolute bottom-2 right-3">
@@ -37,9 +37,9 @@
             </div>
             <div class="overflow-hidden flex flex-col gap-2 whitespace-normal">
                 <span class="whitespace-nowrap">
-                    <h4 class="text-white overflow-hidden overflow-ellipsis">{{object.title}}</h4>
+                    <h4 class="text-white overflow-hidden overflow-ellipsis">{{object.item.title}}</h4>
                 </span>
-                <span class="overflow-hidden overflow-ellipsis"><p class="text-white/80 text-sm">{{object.description}}</p></span>
+                <span class="overflow-hidden overflow-ellipsis"><p class="text-white/80 text-sm">{{object.item.description}}</p></span>
             </div>
         }
     }

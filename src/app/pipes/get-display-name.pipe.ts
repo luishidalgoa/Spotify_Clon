@@ -10,13 +10,13 @@ import { Artist } from '../model/domain/artist';
 export class GetDisplayNamePipe implements PipeTransform {
 
   transform(value: ReduceData, dictionary: any): string {
-    if (value.type === 'artist') {
+    if (value.item.type === 'artist') {
       return dictionary.words.type.artist;
-    } else if (value.type === 'playlist') {
-      const aux = value.owner as User;
+    } else if (value.item.type === 'playlist') {
+      const aux = value.item.owner as User;
       return dictionary.words.type.playlist + ' • ' +aux.display_name;
     } else {
-      const aux = value.owner as Artist;
+      const aux = value.item.owner as Artist;
       return dictionary.words.type.album + ' • ' + aux.name;
     }
   }
