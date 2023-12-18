@@ -1,4 +1,4 @@
-<article class="" (contextmenu)="newContextMenu($event)" [attr.data-encore-id]="this.object.item.type"
+<article appContextualmenu [contextMenuParams]="{items:[]}"
   class="w-full h-16 bg-transparent hover:bg-zinc-500/[.05] transition-colors p-2 rounded-lg sm:grid gap-2 cursor-pointer flex justify-center">
   <div class="w-[50px] h-[50px] relative overflow-hidden" [ngClass]="this.object.item.type==='artist'?'rounded-full':'rounded-md'">
       @if(this.object.item.image!==''){

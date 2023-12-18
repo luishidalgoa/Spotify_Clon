@@ -15,13 +15,14 @@ import { ContextMenuService } from '../../services/context-menu.service';
 import { DataWrapperService } from '../../services/apis/Spotify/data-wrapper.service';
 import { User } from '../../model/domain/user';
 import { ReduceData } from '../../model/domain/api/spotify/reduce-data';
+import { ContextualmenuDirective } from '../../directives/contextualmenu.directive';
 
 @Component({
   selector: 'app-slide-menu',
   standalone: true,
   imports: [CommonModule,RouterLinkActive,RouterModule,RouterLink,HomeComponent,SearchComponent,LibraryComponent,AddComponent,
     HamburguerMenuComponent,PlayListMinCardComponent,NgOptimizedImage,skeletonPlayListMinCardComponent,ContextualMenuComponent,
-  ],
+    ContextualmenuDirective],
   templateUrl: './slide-menu.component.html',
   styleUrl: './slide-menu.component.scss',
 })
@@ -51,10 +52,6 @@ export class SlideMenuComponent implements OnInit {
       });
   }
   ngOnInit(): void {}
-
-  newContextMenu(event: MouseEvent) {
-    this._contextMenu.openDialog(event);
-  }
 
   @ViewChild('playlist')playlist!: ElementRef;
   @ViewChild('artist')artist!: ElementRef;

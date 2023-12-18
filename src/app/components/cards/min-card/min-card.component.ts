@@ -9,11 +9,12 @@ import { PlayerService } from '../../../services/apis/Spotify/player.service';
 import { User } from '../../../model/domain/user';
 import { ReduceData } from '../../../model/domain/api/spotify/reduce-data';
 import { GetDisplayNamePipe } from '../../../pipes/get-display-name.pipe';
+import { ContextualmenuDirective } from '../../../directives/contextualmenu.directive';
 
 @Component({
   selector: 'app-min-card',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage, GetDisplayNamePipe],
+  imports: [CommonModule, NgOptimizedImage, GetDisplayNamePipe,ContextualmenuDirective],
   templateUrl: './min-card.component.html',
   styleUrl: './min-card.component.scss',
 })
@@ -39,10 +40,6 @@ export class PlayListMinCardComponent implements OnInit {
   }
   ngOnInit(): void {
 
-  }
-
-  newContextMenu(event: MouseEvent) {
-    this._contextMenu.openDialog(event);
   }
 
 }

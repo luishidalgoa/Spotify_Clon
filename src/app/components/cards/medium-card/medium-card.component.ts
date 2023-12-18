@@ -4,11 +4,12 @@ import { ContextMenuService } from '../../../services/context-menu.service';
 import { PlayList } from '../../../model/domain/play-list';
 import { Player } from '../../../model/domain/player';
 import { PlayerService } from '../../../services/apis/Spotify/player.service';
+import { ContextualmenuDirective } from '../../../directives/contextualmenu.directive';
 
 @Component({
   selector: 'app-medium-card',
   standalone: true,
-  imports: [CommonModule,NgOptimizedImage,],
+  imports: [CommonModule,NgOptimizedImage,ContextualmenuDirective],
   templateUrl: './medium-card.component.html',
   styleUrl: './medium-card.component.scss'
 })
@@ -33,10 +34,6 @@ export class MediumCardComponent {
 
 
   ariaChecked:boolean = false;
-  newContextMenu(event: MouseEvent) {
-    this._contextMenu.openDialog(event);
-  }
-
   /**
    * Cuando se clicke sobre el elemento se va a ejecutar esta función
    * se comprobara si la playlist actual esta sonando o no
