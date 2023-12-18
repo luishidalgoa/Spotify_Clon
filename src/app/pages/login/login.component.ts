@@ -17,7 +17,7 @@ export class LoginComponent {
   public dictionary$: WritableSignal<any>= signal({});
 
   constructor(public authService: AuthService,private _language: LanguageService) {
-    this._language.diccionary.pipe(
+    this._language.getDiccionary.pipe(
       map((data: any) => {
         const { lang, components, words, contextMenu, ...rest } = data; //devolvemos diccionary.components.Slide_Menu
         return rest;

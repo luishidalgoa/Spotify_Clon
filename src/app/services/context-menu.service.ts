@@ -17,7 +17,7 @@ export class ContextMenuService {
 
   dictionary!: any;
   constructor(private _language: LanguageService) {
-    _language.diccionary
+    _language.getDiccionary
       .pipe(
         map((data: any) => {
           const { lang, components, words, privacity, login, ...rest } = data; //devolvemos diccionary.components.Slide_Menu

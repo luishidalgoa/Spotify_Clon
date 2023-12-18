@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class LanguageService {
   private language: string = language.Spanish;
   //extraemos el json del idioma seleccionado
-  public diccionary: ReplaySubject<any>= new ReplaySubject<any>(1);
+  public diccionary: BehaviorSubject<any>= new BehaviorSubject<any>({});
   
   constructor(private http: HttpClient) {
     this.setLanguage(this.language);
@@ -23,5 +23,9 @@ export class LanguageService {
     this.http.get(`./assets/i18n/${this.language}.json`).subscribe((data: any) => {
       this.diccionary.next(data);
     });
+  }
+
+  public get getDiccionary(): Observable<any> {
+    return this.diccionary.asObservable();
   }
 }

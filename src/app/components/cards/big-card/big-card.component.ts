@@ -25,7 +25,7 @@ export class BigCardComponent {
   playing: boolean = false;
 
   constructor(private _player:PlayerService,private languageS: LanguageService){
-    this.languageS.diccionary
+    this.languageS.getDiccionary
       .pipe(
         map((data: any) => {;
           const { lang, components, ...rest } = data; //devolvemos diccionary.words

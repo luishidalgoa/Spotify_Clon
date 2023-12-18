@@ -30,7 +30,7 @@ export class CentralWrapperComponent implements OnInit{
 
     this.routesHistory();
 
-    _languege.diccionary
+    _languege.getDiccionary
       .pipe(
         map((data: any) => {
           const { lang, components, login, ...rest } = data; //devolvemos diccionary.components.Slide_Menu

@@ -39,7 +39,7 @@ export class SlideMenuComponent implements OnInit {
   constructor(private languageService: LanguageService,public _contextMenu: ContextMenuService, private _dataWrapper: DataWrapperService, private renderer: Renderer2) {
     this.dataWrapper$ = computed(() => _dataWrapper._dataWrapper$());
     //Cargamos una parte del diccionario de idiomas que nos interesa
-    languageService.diccionary
+    languageService.getDiccionary
       .pipe(
         map((data: any) => {
           const { lang, components: { Slide_Menu },...rest} = data; //devolvemos diccionary.components.Slide_Menu

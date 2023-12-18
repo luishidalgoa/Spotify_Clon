@@ -24,7 +24,7 @@ export class PlayListMinCardComponent implements OnInit {
   dictionary: any;
 
   constructor(private _contextMenu: ContextMenuService,private _player: PlayerService) {
-    this.languageS.diccionary
+    this.languageS.getDiccionary
       .pipe(
         map((data: any) => {;
           const { lang, components, ...rest } = data; //devolvemos diccionary.words

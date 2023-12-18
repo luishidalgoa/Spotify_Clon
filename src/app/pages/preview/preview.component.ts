@@ -29,7 +29,7 @@ export class PreviewComponent {
   _dataWrapper: DataWrapperService = inject(DataWrapperService);
 
   constructor(private _playLists:PlayListService,private _language: LanguageService,public _auth: AuthService,private _artist: ArtistService) { 
-    this._language.diccionary
+    this._language.getDiccionary
     .pipe(
       map((data: any) => {
         const { lang, components, login, ...rest } = data; //devolvemos diccionary.components.Slide_Menu
