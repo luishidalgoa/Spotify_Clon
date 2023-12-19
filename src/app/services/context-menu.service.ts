@@ -1,9 +1,13 @@
-import { Injectable, WritableSignal, signal } from '@angular/core';
+import { Injectable, WritableSignal, inject, signal } from '@angular/core';
 import { ContextualMenuItem } from '../model/domain/contextual-menu-item';
 import { ContextualItemType } from '../model/enum/contextual-item-type';
 import { sign } from 'web3/lib/commonjs/eth.exports';
 import { LanguageService } from './language.service';
 import { map } from 'rxjs';
+import { PlayListService } from './apis/Spotify/play-list.service';
+import { PlayList } from '../model/domain/play-list';
+import { DataWrapperService } from './apis/Spotify/data-wrapper.service';
+import { ReduceData } from '../model/domain/api/spotify/reduce-data';
 
 @Injectable({
   providedIn: 'root',
@@ -60,23 +64,13 @@ export class ContextMenuService {
     this.contextMenu$.set({ items: [] });
   }
 
-  createPlayListComponent(): ContextualMenuItem {
-    return {
-      svg: [
-        {
-          icon: 'playlist_add',
-          style: 'material-icons',
-        },
-      ],
-      title: 'Add to playlist',
-      callback: () => {
-        console.log('add to playlist');
-      },
-    };
+  createPlayListComponent(item: ReduceData): { style?: string; items: ContextualMenuItem[] } {
+    return {items:[]}
   }
 
 
-
+  _playlistService: PlayListService = inject(PlayListService);
+  _dataWrapper: DataWrapperService = inject(DataWrapperService);
   generateAddPlayListItems(): ContextualMenuItem[] {
     return [
       {
@@ -86,8 +80,13 @@ export class ContextMenuService {
           },
         ],
         title: this.dictionary.add.createList,
-        callback: () => {
-          console.log('Creando lista');
+        callback:async  () => {
+          const number = (await this._playlistService.getOnlyUserPlayLists()).length
+          this._playlistService.createPlayList(`My list n.º${number}`, '', false).subscribe((data: PlayList) => {
+            this._dataWrapper._dataWrapper$.update(value => [this._dataWrapper.convertPlayListToDataWrapper(data),...value]);
+          });
+
+          this.close()
         },
       },
       {

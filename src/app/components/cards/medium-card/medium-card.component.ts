@@ -5,6 +5,8 @@ import { PlayList } from '../../../model/domain/play-list';
 import { Player } from '../../../model/domain/player';
 import { PlayerService } from '../../../services/apis/Spotify/player.service';
 import { ContextualmenuDirective } from '../../../directives/contextualmenu.directive';
+import { ContextualMenuItem } from '../../../model/domain/contextual-menu-item';
+import { ReduceData } from '../../../model/domain/api/spotify/reduce-data';
 
 @Component({
   selector: 'app-medium-card',
@@ -15,7 +17,7 @@ import { ContextualmenuDirective } from '../../../directives/contextualmenu.dire
 })
 export class MediumCardComponent {
   @Input({ required: true })
-  value!: PlayList;
+  value!: ReduceData;
   playerMedia!: Signal<Player>;
   
 
@@ -24,7 +26,7 @@ export class MediumCardComponent {
     this.playerMedia = computed(() => _player.currentPlaying$());
     effect(() => {
       if(this._player.currentPlaying$().context){
-        this.playing =  this._player.currentPlaying$().context.href === this.value.href && this._player.currentPlaying$().is_playing;
+        this.playing =  this._player.currentPlaying$().context.uri === this.value.item.uri && this._player.currentPlaying$().is_playing;
       }else{
         this.playing = false;
       }
@@ -58,12 +60,35 @@ export class MediumCardComponent {
   }
 
   play():void{ //NOTAAAAAAAAAAA Esto debemos pasarle a play un objeto con su uri, offeset y ms y que el metodo play se encargue de todo
-    const offset = this.playerMedia().context.href === this.value.href?this.playerMedia().item.track_number:0
-    const ms = this.playerMedia().context.href === this.value.href?this.playerMedia().progress_ms:0
+    const offset = this.playerMedia().context.uri === this.value.item.uri?this.playerMedia().item.track_number:0
+    const ms = this.playerMedia().context.uri === this.value.item.uri?this.playerMedia().progress_ms:0
 
-    this._player.play(this.value.uri,offset,ms).then((result:boolean) => { //MODIFICAR cuando getPlaying se refactorize
+    this._player.play(this.value.item.uri,offset,ms).then((result:boolean) => { //MODIFICAR cuando getPlaying se refactorize
       this.playing = result;
     })
   }
 
+  contextMenuItem!: { style?: string; items: ContextualMenuItem[] };
+  /**
+   * Cuando el usuario haga click derecho sobre el elemento se va a ejecutar esta función. Le enviaremos a la directiva
+   * un array de elementos que se mostraran en el menú contextual
+   * @param event 
+   */
+  @HostListener('contextmenu', ['$event'])
+  showContextMenu(event: MouseEvent): void {
+    switch (this.value.item.type) {
+      case 'playlist':
+        this.contextMenuItem = this._contextMenu.createPlayListComponent(this.value);
+        break;
+      case 'artist':
+        //this.contextMenuItem = this._contextMenu.createArtistComponent();
+        break;
+      case 'album':
+        //this.contextMenuItem = this._contextMenu.createAlbumComponent();
+        break;
+      default:
+        throw new Error('No se ha encontrado el tipo de elemento');
+        break;
+    }
+  }
 }

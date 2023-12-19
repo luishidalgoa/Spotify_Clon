@@ -23,7 +23,7 @@ export class ContextualmenuDirective{
   @HostListener('contextmenu', ['$event'])
   create(event: MouseEvent) {
     this.contextMenu.openDialog(this.contextMenuParams.items,event).then(()=>{
-      document.addEventListener('click', this.handleDocumentClick.bind(this), true);
+      document.addEventListener('click', this.handleContextMenu.bind(this), true);
       document.addEventListener('contextmenu', this.handleContextMenu.bind(this), true);
     });
     event.preventDefault();
@@ -37,15 +37,6 @@ export class ContextualmenuDirective{
     }
   }
   
-  handleDocumentClick(event: Event): void {
-    // Verifica si el clic provino del menú contextual
-    const menuElement = document.getElementById('contextMenu');
-    if(this.el.nativeElement.contains(event.target) || (menuElement && menuElement.contains(event.target as Node))){
-      return;
-    }else{
-      this.contextMenu.close();
-    }
-  }
   handleContextMenu(event: Event): void {
     // Verifica si el clic derecho provino del menú contextual
     const menuElement = document.getElementById('contextMenu');
