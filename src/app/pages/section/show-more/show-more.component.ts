@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SectionService } from '../../../services/common/section.service';
 import { BigCardComponent } from '../../../components/cards/big-card/big-card.component';
 import { skeletonPlatListBigCardComponent } from '../../../components/items/skeleton/plat-list-big-card/plat-list-big-card.component';
+import { Section } from '../../../model/domain/api/spotify/section';
 
 @Component({
   selector: 'app-show-more',
@@ -14,7 +15,7 @@ import { skeletonPlatListBigCardComponent } from '../../../components/items/skel
 })
 export class ShowMoreComponent {
   @Input({required: true}) 
-  items!: {title: string, data?: ReduceData[]} | null; 
+  items!: Section | null; 
   
 
   constructor(private section: SectionService) { 
@@ -22,9 +23,9 @@ export class ShowMoreComponent {
   }
 
   ngOnInit(): void {
-    this.section.getSectionItems.subscribe((items) => {
+    this.section.getSectionItems().then((items) => {
       this.items = items
-    }).unsubscribe();
+    })
   }
 
 }

@@ -5,6 +5,7 @@ import { Artist } from '../../../model/domain/artist';
 import { User } from '../../../model/domain/user';
 import { ReduceData } from '../../../model/domain/api/spotify/reduce-data';
 import { AlbumService } from './album.service';
+import { PlayList } from '../../../model/domain/play-list';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,7 @@ export class DataWrapperService {
       })
       resolve(this._dataWrapper$());
     }).then((data: ReduceData[]) => {
-      this._dataWrapper$.set(this.suffle(data));
+      this._dataWrapper$.set(data);
     });
   }
 
@@ -71,7 +72,7 @@ export class DataWrapperService {
   };
 
 
-  convertPlayListToDataWrapper(playList: any): ReduceData{
+  convertPlayListToDataWrapper(playList: PlayList): ReduceData{
     return {
       item: {
         title: playList.name,
@@ -85,7 +86,7 @@ export class DataWrapperService {
       },
     }
   }
-  convertArtistToDataWrapper(artist: any): ReduceData{
+  convertArtistToDataWrapper(artist: Artist): ReduceData{
     return {
       item: {
         title: artist.name,
@@ -99,15 +100,17 @@ export class DataWrapperService {
   }
 
   convertAlbumToDataWrapper(album: any): ReduceData{
+    if(album.album !== undefined) album = album.album;
+    
     return {
       item: {
-        owner: album.album.artists[0] as Artist,
-        description: '',
-        title: album.album.name,
-        image: album.album.images !== undefined && album.album.images.length > 0 ? album.album.images[0].url : '',
-        uri: album.album.uri,
-        type: album.album.type,
-        id: album.album.id,
+        owner: album.artists[0] as Artist,
+        description: album.artists[0].name,
+        title: album.name,
+        image: album.images !== undefined && album.images.length > 0 ? album.images[0].url : '',
+        uri: album.uri,
+        type: album.type,
+        id: album.id,
       },
       added_at: new Date(album.added_at)
     }
@@ -123,8 +126,9 @@ export class DataWrapperService {
       return 1;
     });
   }
-
+  /*
   suffle(array:ReduceData[]): ReduceData[] {
     return array.sort(() => Math.random() - 0.5);
   }
+  */
 }

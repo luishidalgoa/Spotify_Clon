@@ -10,8 +10,11 @@ import { AuthService } from '../../services/apis/Spotify/auth.service';
 import { ReduceData } from '../../model/domain/api/spotify/reduce-data';
 import { DataWrapperService } from '../../services/apis/Spotify/data-wrapper.service';
 import { ArtistService } from '../../services/apis/Spotify/artist.service';
-import { Artist } from '../../model/domain/artist';
 import { SyncViewService } from '../../services/common/sync-view.service';
+import { Section, Sections } from '../../model/domain/api/spotify/section';
+import { SectionService } from '../../services/common/section.service';
+import { AlbumService } from '../../services/apis/Spotify/album.service';
+import { Album } from '../../model/domain/album';
 
 @Component({
   selector: 'app-preview',
@@ -23,7 +26,7 @@ import { SyncViewService } from '../../services/common/sync-view.service';
 export class PreviewComponent {
   dictionary!: any;
   private syncS = inject(SyncViewService);
-  sections!: {title: string, data?: [ReduceData] | ReduceData[]}[]
+  sections: Sections = {href:'',items:[],limit:0,next:'',offset:0,previous:'',total:0};
 
   _dataWrapper: DataWrapperService = inject(DataWrapperService);
 
@@ -41,6 +44,7 @@ export class PreviewComponent {
       return data;
     });
     this.welcome$ = computed(()=> this._dataWrapper._dataWrapper$().slice(0,6));
+
     this.generateSections();
   }
 
@@ -64,24 +68,41 @@ export class PreviewComponent {
     }
   }
 
+  private _section: SectionService = inject(SectionService);
+  private _album: AlbumService = inject(AlbumService);
   generateSections():void{
-    this.sections = [
-      {title: this.dictionary.words.messages.sections.popularLists, data: []},
-      {title: this.dictionary.words.messages.sections.recommendArtists, data: []},
-    ];
 
-    this._playLists.getPopularPlayLists().subscribe((data: any) => {
-      for(let playList of data.playlists.items){
-        this.sections[0].data?.push(this._dataWrapper.convertPlayListToDataWrapper(playList));
-      }
-      this.syncS.sendSync();
-    });
+      this._section.getListSections().subscribe((data: Sections) => {
+        new Promise<void>(() => {
+          for(let s of data.items){// me devuelve el item de cada seccion. Ej: Top Lists, Pop, Rock, etc
+            s.items = [];
+            this._section.getSectionItems(s).then((items: Section) => {
+              this.sections.items.push(items);
+            })
+          }
+        }).then(() => {
+          this.syncS.sendSync();
+        });
+      })
+    
     this._artist.bestArtistsByUser(15).subscribe((data: any) => {
+      let wrapper: Section = { href:'', icons:{url:'',height:0,width:0},id:this.dictionary.words.messages.sections.recommendArtists.replace(' ','%').trim(), name: this.dictionary.words.messages.sections.recommendArtists, items: [] };
       for(let a of data.items){
-        this.sections[1].data?.push(this._dataWrapper.convertArtistToDataWrapper(a));
+        let aux = this._dataWrapper.convertArtistToDataWrapper(a) as ReduceData;
+        wrapper.items.push(aux);
       }
+      this.sections.items.push(wrapper);
       this.syncS.sendSync();
     });
 
+    this._album.getNewReleases(15).subscribe((data: Album[]) => {
+      let wrapper: Section = { href:'', icons:{url:'',height:0,width:0},id:this.dictionary.words.messages.sections.newAlbums.replace(' ','%').trim(), name: this.dictionary.words.messages.sections.newAlbums, items: [] };
+      for(let a of data){
+        let aux = this._dataWrapper.convertAlbumToDataWrapper(a) as ReduceData;
+        wrapper.items.push(aux);
+      }
+      this.sections.items.push(wrapper);
+      this.syncS.sendSync();
+    });
   };
 }

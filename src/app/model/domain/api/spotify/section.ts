@@ -1,4 +1,5 @@
 import { Image } from "../../image";
+import { ReduceData } from "./reduce-data";
 
 export interface Sections {
     href: string; // Enlace de la consulta que se ha realizado a la API de Spotify
@@ -15,4 +16,5 @@ export interface Section {
     icons: Image; // Array de iconos que representan la sección
     id: string; // Identificador de la sección
     name: string; // Nombre de la sección
+    items: ReduceData[] // Array de elementos de la seccion (playlists)
 }
