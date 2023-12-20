@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, WritableSignal, signal } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, map } from 'rxjs';
 import { PlayList } from '../../../model/domain/play-list';
 import { AuthService } from './auth.service';
+import { Section } from '../../../model/domain/api/spotify/section';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,6 @@ export class PlayListService {
     const headers = new HttpHeaders()
         .set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
     return this._http.get(url, {headers}).subscribe((data: PlayList | any) => {
-      console.log("PLAYLIST Service",data)
       return data;
     })
   }
@@ -68,6 +68,19 @@ export class PlayListService {
         resolve(PlayLists);
       })
     });
+  }
+
+  getPlayListsBySection(section:Section,limit:number=15): Observable<PlayList[]> {
+    const url = `https://api.spotify.com/v1/browse/categories/${section.id}/playlists?limit=${limit}`;
+    const headers = new HttpHeaders()
+        .set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
+    return this._http.get<PlayList[]>(url, {headers}).pipe(
+      map((data: any) => {
+        return [
+          ...data.playlists.items
+        ]
+      })
+    );
   }
 
 }

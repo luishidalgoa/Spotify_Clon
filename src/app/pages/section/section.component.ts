@@ -7,6 +7,7 @@ import { skeletonPlatListBigCardComponent } from '../../components/items/skeleto
 import { Router } from '@angular/router';
 import { state } from '@angular/animations';
 import { SectionService } from '../../services/common/section.service';
+import { Section } from '../../model/domain/api/spotify/section';
 
 @Component({
   selector: 'app-section',
@@ -17,7 +18,7 @@ import { SectionService } from '../../services/common/section.service';
 })
 export class SectionComponent {
   @Input({required: true}) 
-  items!: {title: string, data?: ReduceData[]};
+  section!: Section;
 
   wrapper!: ReduceData[];
   private syncS = inject(SyncViewService);
@@ -27,7 +28,6 @@ export class SectionComponent {
   }
   
   ngOnInit(): void {
-    ;
   }
 
   ngAfterViewInit(): void {
@@ -46,7 +46,7 @@ export class SectionComponent {
     const cols = Math.floor(this.container.nativeElement.offsetWidth / 190);
     this.wrapper = [];
 
-    this.items.data?.forEach((item: ReduceData, index: number) => {
+    this.section.items?.forEach((item: ReduceData, index: number) => {
       if(index < cols){
         this.wrapper.push(item);
       }
@@ -55,7 +55,7 @@ export class SectionComponent {
 
   private _section:SectionService = inject(SectionService);
   navigate(){
-    this._section.setSectionItems = this.items
-    this.router.navigate([`section`,this.items.title.replace(' ','%').trim()]);
+    this._section.setSectionItems = this.section
+    this.router.navigate([`section`,this.section.id]);
   }
 }

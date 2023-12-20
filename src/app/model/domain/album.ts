@@ -11,4 +11,5 @@ export interface Album {
     release_date:           string;
     type:                   string;
     artists:                Owner[];
+    uri:                   string;
 }
