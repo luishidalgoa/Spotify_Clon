@@ -9,14 +9,7 @@ import { AuthService } from './auth.service';
 })
 export class PlayListService {
 
-  public playLists$!: WritableSignal<PlayList[]>;
-
   constructor(private _http: HttpClient,private _auth: AuthService) {
-    this.playLists$ = signal([]);
-    this.getUserPlayLists().subscribe((data: any) => 
-      this.playLists$.set(data.items)
-    );
-    this.getUserPlayLists();
 
    }
 
@@ -41,6 +34,40 @@ export class PlayListService {
     const headers = new HttpHeaders()
         .set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
     return this._http.get<PlayList[]>(url, {headers});
+  }
+  /**
+   * This method create a new playlist for the current user
+   * @param name new name of the playlist
+   * @param description of the playlist
+   * @param isPublic this param expecifies if the playlist is public or not
+   * @returns the new playlist created
+   * 
+   * @example 
+   * {
+      "name": "New Playlist",
+      "description": "New playlist description",
+      "public": false
+    }
+   */
+  createPlayList(name: string, description: string, isPublic: boolean): Observable<PlayList> {
+    const url = `https://api.spotify.com/v1/users/${this._auth.currentUser$().id}/playlists`;
+    const headers = new HttpHeaders()
+        .set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
+    return this._http.post<PlayList>(url, {name, description, public: isPublic}, {headers});
+  }
+
+  getOnlyUserPlayLists(limit?:string): Promise<PlayList[]> {
+    return new Promise((resolve, reject) => {
+      const PlayLists: PlayList[] = []
+      this.getUserPlayLists().subscribe((data: any) => {
+        data.items.forEach((item: PlayList) => {
+          if(item.owner.id === this._auth.currentUser$().id){
+            PlayLists.push(item)
+          }
+        });
+        resolve(PlayLists);
+      })
+    });
   }
 
 }

@@ -22,19 +22,6 @@ export class HubComponent {
     });
   }
 
-  @HostListener('document:click', ['$event'])
-  handleDocumentClick(event: Event): void {
-    // Verifica si el clic provino del menú contextual
-    const menuElement = document.getElementById('contextMenu');
-    if (menuElement && menuElement.contains(event.target as Node)) {
-    } else {
-      this._contextMenu.close();
-    }
-  }
-
-
-
-
   ngOnInit(): void {
   }
 

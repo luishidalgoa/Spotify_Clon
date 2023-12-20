@@ -11,25 +11,25 @@
   <article class="bg-[#121212] rounded-lg grid min-h-full" role="wrapper">
     <ul class="py-2 flex flex-col gap-5 ">
       <header>
-        <div (contextmenu)="newContextMenu($event)" data-encore-id="add" class="flex sm:justify-between px-4 py-2 justify-center">
+        <div appContextualmenu [contextMenuParams]="{items:this._contextMenu.generateAddPlayListItems()}" class="flex sm:justify-between px-4 py-2 justify-center">
           <button [ariaLabel]="dictionary?.contain?.context_library" data-encore-id="buttonTertiary"
             class="flex items-center">
             <a class="flex gap-5">
               <icon-library /> <span class="hidden sm:block">{{dictionary?.contain?.library}}</span></a>
           </button>
-          <button [ariaLabel]="dictionary?.contain?.context_add" class="hidden sm:block bg-transparent transition-colors hover:bg-white/5 rounded-full h-8 w-8 p-2 hover:fill-white fill-zinc-400" data-encore-id="buttonTertiary">
+          <button appContextualmenu [contextMenuParams]="{items:this._contextMenu.generateAddPlayListItems(),control:'left'}" [ariaLabel]="dictionary?.contain?.context_add" class="hidden sm:block bg-transparent transition-colors hover:bg-white/5 rounded-full h-8 w-8 p-2 hover:fill-white fill-zinc-400" data-encore-id="buttonTertiary">
             <icon-add class=" h-5 w-5" />
           </button>
         </div>
       </header>
     </ul>
     <section class="shadow-lg">
-      <div (contextmenu)="newContextMenu($event)" data-encore-id="add" class="gap-2 px-3 my-3 hidden sm:flex">
+      <div appContextualmenu [contextMenuParams]="{items:this._contextMenu.generateAddPlayListItems()}" class="gap-2 px-3 my-3 hidden sm:flex">
         <button class="order" [id]="'playlist'" #playlist (click)="this.organize('playlist')"><span>{{dictionary?.contain?.filter?.list}}</span></button>
         <button class="order" [id]="'artist'" #artist (click)="this.organize('artist')"><span>{{dictionary?.contain?.filter?.artist}}</span></button>
         <button class="order" [id]="'album'" #album (click)="this.organize('album')"><span>{{dictionary?.contain?.filter?.albums}}</span></button>
       </div>
-      <div (contextmenu)="newContextMenu($event)" data-encore-id="add" class="hidden sm:flex items-center justify-between pl-3 mr-6">
+      <div appContextualmenu [contextMenuParams]="{items:this._contextMenu.generateAddPlayListItems()}" class="hidden sm:flex items-center justify-between pl-3 mr-6">
         <span (click)="InputSearch.focus(); tabIndex=0" class="flex items-center border-0 rounded-md"
           role="search">
           <input #inputElement (input)="this.search(inputElement)" (keydown.enter)="this.search(inputElement)"

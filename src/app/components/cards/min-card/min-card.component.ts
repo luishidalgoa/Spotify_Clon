@@ -9,11 +9,12 @@ import { PlayerService } from '../../../services/apis/Spotify/player.service';
 import { User } from '../../../model/domain/user';
 import { ReduceData } from '../../../model/domain/api/spotify/reduce-data';
 import { GetDisplayNamePipe } from '../../../pipes/get-display-name.pipe';
+import { ContextualmenuDirective } from '../../../directives/contextualmenu.directive';
 
 @Component({
   selector: 'app-min-card',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage, GetDisplayNamePipe],
+  imports: [CommonModule, NgOptimizedImage, GetDisplayNamePipe,ContextualmenuDirective],
   templateUrl: './min-card.component.html',
   styleUrl: './min-card.component.scss',
 })
@@ -24,7 +25,7 @@ export class PlayListMinCardComponent implements OnInit {
   dictionary: any;
 
   constructor(private _contextMenu: ContextMenuService,private _player: PlayerService) {
-    this.languageS.diccionary
+    this.languageS.getDiccionary
       .pipe(
         map((data: any) => {;
           const { lang, components, ...rest } = data; //devolvemos diccionary.words
@@ -39,10 +40,6 @@ export class PlayListMinCardComponent implements OnInit {
   }
   ngOnInit(): void {
 
-  }
-
-  newContextMenu(event: MouseEvent) {
-    this._contextMenu.openDialog(event);
   }
 
 }

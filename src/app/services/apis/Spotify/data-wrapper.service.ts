@@ -1,57 +1,43 @@
-import { Injectable, WritableSignal, effect, inject, signal } from '@angular/core';
+import { Injectable, WritableSignal, signal } from '@angular/core';
 import { PlayListService } from './play-list.service';
 import { ArtistService } from './artist.service';
-import { PlayList } from '../../../model/domain/play-list';
 import { Artist } from '../../../model/domain/artist';
 import { User } from '../../../model/domain/user';
 import { ReduceData } from '../../../model/domain/api/spotify/reduce-data';
-import { Album } from '../../../model/domain/album';
 import { AlbumService } from './album.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataWrapperService {
-  private _playList: PlayListService = inject(PlayListService);
-  private _artist: ArtistService = inject(ArtistService);
-  private _album: AlbumService = inject(AlbumService);
-  
+
   public _dataWrapper$: WritableSignal<ReduceData[]> = signal([] as ReduceData[]);
-  //Almacenará las playLists que siga el usuario temporalmente
-  playLists: PlayList[] = [];
-  //Almacenará los artistas que siga el usuario temporalmente
-  artists: Artist[] = [];
 
-  albums: Album[] = [];
-
-  constructor() {
+  constructor(private _playList: PlayListService,private _artist: ArtistService,private _album: AlbumService) {
+    
     new Promise<ReduceData[]>(async (resolve) => {
-      let wrapper: ReduceData[] = [];
-
       await this.getPlayLists().then((data: ReduceData[]) => {
-        wrapper.push(...data);
+        this._dataWrapper$.update((values) => [...values,...data]);
       });
       await this.getArtists().then((data: ReduceData[]) => {
-        wrapper.push(...data);
+        this._dataWrapper$.update((values) => [...values,...data]);
       });
       await this.getAlbums().then((data: ReduceData[]) => {
-        wrapper.push(...data);
+        this._dataWrapper$.update((values) => [...values,...data]);
       })
-
-      resolve(wrapper);
+      resolve(this._dataWrapper$());
     }).then((data: ReduceData[]) => {
-      this._dataWrapper$.set(this.orderByDate(data));
-    });  
+      this._dataWrapper$.set(this.suffle(data));
+    });
   }
 
   async getPlayLists(): Promise<ReduceData[]> {
     let wrapper: ReduceData[] = [];
     return new Promise((resolve, reject) => {	
       this._playList.getUserPlayLists().subscribe((data: any) => {
-        this.playLists.push(...data.items);
-        this.playLists.forEach((playList: PlayList) => { //Extraemos los datos del array de playLists y los metemos en el array wrapper
-          wrapper.push(this.convertPlayListToDataWrapper(playList));
-        });
+        for(let item of data.items){
+          wrapper.push(this.convertPlayListToDataWrapper(item));
+        }
       }).add(()=>{
         resolve(wrapper);
       })
@@ -62,10 +48,9 @@ export class DataWrapperService {
     let wrapper: ReduceData[] = [];
     return new Promise((resolve, reject) => {
       this._artist.getFollowedArtist().subscribe((data: any) => {
-        this.artists.push(...data.artists.items);
-        this.artists.forEach((artist: Artist) => { //Extraemos los datos del array de artistas y los metemos en el array wrapper
-          wrapper.push(this.convertArtistToDataWrapper(artist));
-        });
+        for(let item of data.artists.items){
+          wrapper.push(this.convertArtistToDataWrapper(item));
+        }
       }).add(()=>{
         resolve(wrapper);
       });
@@ -76,10 +61,9 @@ export class DataWrapperService {
     let wrapper: ReduceData[] = [];
     return new Promise((resolve, reject) => {
       this._album.getFollowedAlbums().subscribe((data: any) => {
-        this.albums.push(...data.items);
-        this.albums.forEach((album: Album) => { //Extraemos los datos del array de artistas y los metemos en el array wrapper
-          wrapper.push(this.convertAlbumToDataWrapper(album));
-        });
+        for(let item of data.items){
+          wrapper.push(this.convertAlbumToDataWrapper(item));
+        }
       }).add(()=>{
         resolve(wrapper);
       });
@@ -129,10 +113,6 @@ export class DataWrapperService {
     }
   }
 
-  getRandomNumber(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
   orderByDate(array:ReduceData[]): ReduceData[] {
     return array.sort((a: ReduceData, b: ReduceData) => {
       if (a?.added_at !== undefined && b?.added_at !== undefined){
@@ -142,5 +122,9 @@ export class DataWrapperService {
       }
       return 1;
     });
+  }
+
+  suffle(array:ReduceData[]): ReduceData[] {
+    return array.sort(() => Math.random() - 0.5);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Signal, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MediumCardComponent } from '../../components/cards/medium-card/medium-card.component';
 import { PlayList } from '../../model/domain/play-list';
@@ -21,15 +21,16 @@ import { SyncViewService } from '../../services/common/sync-view.service';
   styleUrl: './preview.component.scss'
 })
 export class PreviewComponent {
-  welcome!: PlayList[];
   dictionary!: any;
   private syncS = inject(SyncViewService);
   sections!: {title: string, data?: [ReduceData] | ReduceData[]}[]
 
   _dataWrapper: DataWrapperService = inject(DataWrapperService);
 
+  welcome$: Signal<ReduceData[]> = signal([] as ReduceData[])
+
   constructor(private _playLists:PlayListService,private _language: LanguageService,public _auth: AuthService,private _artist: ArtistService) { 
-    this._language.diccionary
+    this._language.getDiccionary
     .pipe(
       map((data: any) => {
         const { lang, components, login, ...rest } = data; //devolvemos diccionary.components.Slide_Menu
@@ -39,13 +40,11 @@ export class PreviewComponent {
       this.dictionary = data;
       return data;
     });
+    this.welcome$ = computed(()=> this._dataWrapper._dataWrapper$().slice(0,6));
     this.generateSections();
   }
 
   ngOnInit(): void {
-    this._playLists.getUserPlayLists('6').subscribe((data: any) => {
-      this.welcome = data.items;
-    })
   }
 
   ngAfterViewInit(): void {
