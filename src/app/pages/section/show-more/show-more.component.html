@@ -1,8 +1,8 @@
 <header class="flex relative justify-between items-center">
-    <h2 class="text-white overflow-hidden overflow-ellipsis select-none">{{this.items?.title}}</h2>
+    <h2 class="text-white overflow-hidden overflow-ellipsis select-none">{{this.items?.name}}</h2>
 </header>
 <div role="wrapper" #container class="pt-3 gap-5 justify-between grid grid-rows-1">
-    @for (item of this.items?.data; track $index) {
+    @for (item of this.items?.items; track $index) {
         @defer (on viewport) {
             <app-big-card [object]="item"></app-big-card>
         }@placeholder {

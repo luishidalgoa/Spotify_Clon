@@ -54,7 +54,8 @@
         "newReleases": "Nuevos lanzamientos",
         "popularArtists": "Artistas populares",
         "popularLists": "Listas populares",
-        "recommendArtists":"Artistas recomendados"
+        "recommendArtists":"Artistas recomendados",
+        "newAlbums": "Nuevos albumes"
       },
       "genres": {
         "Pódcasts": "Podcasts",

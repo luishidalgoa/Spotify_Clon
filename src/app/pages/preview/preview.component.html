@@ -9,7 +9,13 @@
             }
         </div>
     </section>
-    @for (item of this.sections; track item.data) {
-        <app-section class="whitespace-nowrap overflow-hidden" [items]="item"></app-section>
+    @if (sections) {
+        @for (item of this.sections.items; track item.id) {
+            @defer (on viewport) {
+                <app-section class="whitespace-nowrap overflow-hidden" [section]="item"></app-section>
+            }@placeholder {
+                <p></p>
+            }
+        }
     }
 </article>
