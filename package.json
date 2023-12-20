@@ -5,10 +5,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build",  
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "electron": "ng build --output-path dist --base-href . && electron .",
+    "electron": "ng build --configuration=production --output-path dist --base-href . && electron .",
     "dist": "electron-builder"
   },
   "private": true,

@@ -14,10 +14,12 @@ function createWindow () {
     }
   });
   win.setMenuBarVisibility(false); 
+  console.log(__dirname);
+  
 
   win.setIcon(path.join(__dirname, '../dist/browser/assets/icons/icon.png')); // Icono de la aplicación
 
-  win.maximize(); // Maximiza la ventana
+  //win.maximize(); // Maximiza la ventana
 
   win.loadURL(
     url.format({
@@ -27,7 +29,8 @@ function createWindow () {
     })
   );
 
-
+  //win.webContents.openDevTools(); // Abre las herramientas de desarrollo
+  
   win.on('closed', function() {
     win = null;
   });
