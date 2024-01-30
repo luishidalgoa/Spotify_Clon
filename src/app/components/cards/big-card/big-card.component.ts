@@ -5,11 +5,14 @@ import { Player } from '../../../model/domain/player';
 import { PlayerService } from '../../../services/apis/Spotify/player.service';
 import { LanguageService } from '../../../services/language.service';
 import { map } from 'rxjs';
+import { ContextualmenuDirective } from '../../../directives/contextualmenu.directive';
+import { ContextualMenuItem } from '../../../model/domain/contextual-menu-item';
+import { ContextMenuService } from '../../../services/context-menu.service';
 
 @Component({
   selector: 'app-big-card',
   standalone: true,
-  imports: [CommonModule,NgOptimizedImage],
+  imports: [CommonModule,NgOptimizedImage, ContextualmenuDirective],
   templateUrl: './big-card.component.html',
   styleUrl: './big-card.component.scss'
 })
@@ -24,7 +27,7 @@ export class BigCardComponent {
 
   playing: boolean = false;
 
-  constructor(private _player:PlayerService,private languageS: LanguageService){
+  constructor(private _player:PlayerService,private languageS: LanguageService,private _contextMenu: ContextMenuService){
     this.languageS.getDiccionary
       .pipe(
         map((data: any) => {;
@@ -78,5 +81,22 @@ export class BigCardComponent {
     }else{
       this.play()
     }
+  }
+
+  context(): ContextualMenuItem[]{
+    return [
+      {
+        svg: [
+          {
+            icon: `<svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="Svg-sc-ytk21e-0 dCszzJ"><path d="M16 15H2v-1.5h14V15zm0-4.5H2V9h14v1.5zm-8.034-6A5.484 5.484 0 0 1 7.187 6H13.5a2.5 2.5 0 0 0 0-5H7.966c.159.474.255.978.278 1.5H13.5a1 1 0 1 1 0 2H7.966zM2 2V0h1.5v2h2v1.5h-2v2H2v-2H0V2h2z"></path></svg>`,
+          },
+        ],
+        title: this.dictionary.contextMenu.playList.addTail,
+        callback:async  () => {
+          this._contextMenu.close()
+        },
+      },
+      
+    ];
   }
 }
