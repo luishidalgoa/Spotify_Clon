@@ -96,10 +96,16 @@ export class ContextMenuService {
           },
         ],
         title: this.dictionary.add.createFolder,
-        callback: () => {
-          console.log('creando carpeta...');
+        callback:async  () => {
+          const number = (await this._playlistService.getOnlyUserPlayLists()).length
+          this._playlistService.createPlayList(`My list n.º${number}`, '', false).subscribe((data: PlayList) => {
+            this._dataWrapper._dataWrapper$.update(value => [this._dataWrapper.convertPlayListToDataWrapper(data),...value]);
+          });
+
+          this.close()
         },
       },
     ];
   }
+
 }
